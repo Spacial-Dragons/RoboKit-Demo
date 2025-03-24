@@ -1,0 +1,17 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "resources" : [
+    {
+      "filename" : "Tracking-Image-1.arreferenceimage"
+    },
+    {
+      "filename" : "Tracking-Image-2.arreferenceimage"
+    },
+    {
+      "filename" : "Tracking-Image-3.arreferenceimage"
+    }
+  ]
+}
