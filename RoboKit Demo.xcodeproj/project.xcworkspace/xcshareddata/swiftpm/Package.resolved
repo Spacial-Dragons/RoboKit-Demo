@@ -1,0 +1,15 @@
+{
+  "originHash" : "273e56d14f035a5e8b8ec7cf4454374bd86a2bf3ef8095af139ca7bed972cef1",
+  "pins" : [
+    {
+      "identity" : "robokit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Spacial-Dragons/RoboKit",
+      "state" : {
+        "revision" : "9be248ac89448974932e54240653cd9183212754",
+        "version" : "0.1.0"
+      }
+    }
+  ],
+  "version" : 3
+}
