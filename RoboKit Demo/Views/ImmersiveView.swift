@@ -17,23 +17,7 @@ struct ImmersiveView: View {
     @State private var trackedSpheres: [Entity] = []
     
     // Initialize the image tracker with AR resource group and images with specified offsets.
-    @State private var imageTracker: RoboKit.ImageTracker = .init(
-        arResourceGroupName: "AR Resources",
-        images: [
-            .init(
-                imageName: "Tracking-Image-1",
-                rootOffset: .init(x: -0.11, y: 0, z: 0.169)
-            ),
-            .init(
-                imageName: "Tracking-Image-2",
-                rootOffset: .init(x: -0.11, y: 0, z: -0.169)
-            ),
-            .init(
-                imageName: "Tracking-Image-3",
-                rootOffset: .init(x: 0.11, y: 0, z: -0.169)
-            )
-        ]
-    )
+    @State private var imageTracker: RoboKit.ImageTracker?
     
     var body: some View {
         // Initialize RealityView and add the parent entity to the scene.
@@ -41,17 +25,36 @@ struct ImmersiveView: View {
             content.add(parentEntity)
         }
         .onAppear {
-            // On view appearance, update the root entity and the tracking entities using the tracker transforms.
-            updateRootEntity(with: imageTracker.rootTransform)
-            updateTrackingEntities(with: imageTracker.trackedImagesTransform)
+            // Initialize Image Tracker module and start tracking images
+            initializeImageTracker()
         }
-        .onChange(of: imageTracker.rootTransform) {
+        .onChange(of: imageTracker?.rootTransform) {
             // When the root transform changes, update the corresponding entity.
-            updateRootEntity(with: imageTracker.rootTransform)
+            updateRootEntity(with: imageTracker?.rootTransform)
         }
-        .onChange(of: imageTracker.trackedImagesTransform) {
+        .onChange(of: imageTracker?.trackedImagesTransform) {
             // When the tracked images transform changes, update the sphere entities accordingly.
-            updateTrackingEntities(with: imageTracker.trackedImagesTransform)
+            updateTrackingEntities(with: imageTracker?.trackedImagesTransform ?? [])
+        }
+    }
+    
+    // Initialize Image Tracker after view appears
+    private func initializeImageTracker() {
+        do {
+            imageTracker = try RoboKit.ImageTracker(
+                arResourceGroupName: "AR Resources",
+                images: [
+                    .init(imageName: "Tracking-Image-1", rootOffset: .init(x: -0.11, y: 0, z: 0.169)),
+                    .init(imageName: "Tracking-Image-2", rootOffset: .init(x: -0.11, y: 0, z: -0.169)),
+                    .init(imageName: "Tracking-Image-3", rootOffset: .init(x: 0.11, y: 0, z: -0.169))
+                ]
+            )
+            
+            // On view appearance, update the root entity and the tracking entities using the tracker transforms.
+            updateRootEntity(with: imageTracker?.rootTransform)
+            updateTrackingEntities(with: imageTracker?.trackedImagesTransform ?? [])
+        } catch {
+            print("Failed to initialize image tracker:", error)
         }
     }
     
