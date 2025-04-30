@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Spacial-Dragons/RoboKit",
       "state" : {
-        "branch" : "feat/error-handling",
-        "revision" : "28ff130c53ad310b9ecf45463ccefb90f5799f74"
+        "branch" : "main",
+        "revision" : "cce5f43f3ef65ffa3633d53c57c0f127063f8d30"
       }
     },
     {
