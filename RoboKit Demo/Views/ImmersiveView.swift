@@ -19,14 +19,20 @@ struct ImmersiveView: View {
     // Initialize the image tracker with AR resource group and images with specified offsets.
     @State private var imageTracker: RoboKit.ImageTracker?
     
+    // Initialize the InputSphereManager class.
+    // Input Sphere is a RealityKit entity representing the target position and rotation for robot's end effector.
+    @State private var inputSphereManager = RoboKit.InputSphereManager()
+    
     var body: some View {
         // Initialize RealityView and add the parent entity to the scene.
         RealityView { content in
             content.add(parentEntity)
         }
         .onAppear {
-            // Initialize Image Tracker module and start tracking images
+            // Initialize Image Tracker module and start tracking images.
             initializeImageTracker()
+            // Add Input Sphere entity to the parent entity above the root point.
+            inputSphereManager.addInputSphere(rootPoint: rootPoint, parentEntity: parentEntity)
         }
         .onChange(of: imageTracker?.rootTransform) {
             // When the root transform changes, update the corresponding entity.
@@ -38,7 +44,7 @@ struct ImmersiveView: View {
         }
     }
     
-    // Initialize Image Tracker after view appears
+    // Initialize Image Tracker after view appears.
     private func initializeImageTracker() {
         do {
             imageTracker = try RoboKit.ImageTracker(
@@ -66,7 +72,7 @@ struct ImmersiveView: View {
         
         // Create the root point entity if it doesn't exist.
         if rootPoint == nil {
-            rootPoint = SphereEntity(color: .red)
+            rootPoint = sphereEntity(color: .red)
             parentEntity.addChild(rootPoint!)
         }
         
@@ -85,7 +91,7 @@ struct ImmersiveView: View {
         if imageTransforms.count > trackedSpheres.count {
             // Add new sphere entities as needed.
             for _ in 0..<(imageTransforms.count - trackedSpheres.count) {
-                let sphere = SphereEntity(color: .blue)
+                let sphere = sphereEntity(color: .blue)
                 trackedSpheres.append(sphere)
                 parentEntity.addChild(sphere)
             }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1AF1641A2DC2224B00876B7E /* RoboKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1AF164192DC2224B00876B7E /* RoboKit */; };
+		CCAA30812DC51AC6002FB96E /* RoboKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCAA30802DC51AC6002FB96E /* RoboKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AF1641A2DC2224B00876B7E /* RoboKit in Frameworks */,
+				CCAA30812DC51AC6002FB96E /* RoboKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 			);
 			name = "RoboKit Demo";
 			packageProductDependencies = (
-				1AF164192DC2224B00876B7E /* RoboKit */,
+				CCAA30802DC51AC6002FB96E /* RoboKit */,
 			);
 			productName = "Testing RoboKit";
 			productReference = 1A9E4D092D8B007C00D8D5A8 /* RoboKit Demo.app */;
@@ -114,7 +114,7 @@
 			mainGroup = 1A9E4D002D8B007C00D8D5A8;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				1AF164182DC2224B00876B7E /* XCRemoteSwiftPackageReference "RoboKit" */,
+				CCAA307F2DC51AC6002FB96E /* XCLocalSwiftPackageReference "../RoboKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1A9E4D0A2D8B007C00D8D5A8 /* Products */;
@@ -339,21 +339,16 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		1AF164182DC2224B00876B7E /* XCRemoteSwiftPackageReference "RoboKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Spacial-Dragons/RoboKit";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		CCAA307F2DC51AC6002FB96E /* XCLocalSwiftPackageReference "../RoboKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../RoboKit;
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1AF164192DC2224B00876B7E /* RoboKit */ = {
+		CCAA30802DC51AC6002FB96E /* RoboKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1AF164182DC2224B00876B7E /* XCRemoteSwiftPackageReference "RoboKit" */;
 			productName = RoboKit;
 		};
 /* End XCSwiftPackageProductDependency section */
