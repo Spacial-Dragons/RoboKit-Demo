@@ -7,7 +7,7 @@ import RoboKit
 // It sets up a parent entity and dynamically adds sphere entities representing tracked images in an immersive view.
 struct ImmersiveView: View {
     
-    // Parent entity that holds all child entities (tracked images and root point).
+    // Parent entity that holds all child entities (tracked images, root point, Input Sphere).
     @State private var parentEntity = Entity()
     
     // Placeholder for the computed root point entity.
@@ -28,11 +28,12 @@ struct ImmersiveView: View {
         RealityView { content in
             content.add(parentEntity)
         }
+        .inputSphereDragGesture(parentEntity: parentEntity, inputSphereManager: inputSphereManager)
         .onAppear {
             // Initialize Image Tracker module and start tracking images.
             initializeImageTracker()
             // Add Input Sphere entity to the parent entity above the root point.
-            inputSphereManager.addInputSphere(rootPoint: rootPoint, parentEntity: parentEntity)
+            inputSphereManager.addInputSphere(parentEntity: parentEntity, rootPoint: rootPoint)
         }
         .onChange(of: imageTracker?.rootTransform) {
             // When the root transform changes, update the corresponding entity.
