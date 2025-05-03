@@ -23,18 +23,43 @@ struct ImmersiveView: View {
     // Input Sphere is a RealityKit entity representing the target position and rotation for robot's end effector.
     @State private var inputSphereManager = RoboKit.InputSphereManager()
     
+    private let inputSphereAttachmentID: String = "InputSphereAttachment"
+    
     var body: some View {
         // Initialize RealityView and add the parent entity to the scene.
-        RealityView { content in
+        RealityView { content, attachments in
             content.add(parentEntity)
+            
+            // Add Input Sphere attachment.
+            if let inputSphereAttachment = attachments.entity(for: inputSphereAttachmentID) {
+//                inputSphereManager.updateInputSpherePosition()
+                content.add(inputSphereAttachment)
+            }
         }
-        .inputSphereDragGesture(parentEntity: parentEntity, inputSphereManager: inputSphereManager)
+        update: { content, attachments in
+            // Update Input Sphere attachment's position.
+            if let inputSphereAttachment = attachments.entity(for: inputSphereAttachmentID) {
+                inputSphereAttachment.position = inputSphereManager.inputSpherePosition + SIMD3<Float>(0.3, 0.2, 0)
+            }
+        }
+        attachments: {
+            Attachment(id: inputSphereAttachmentID) {
+                InputSphereAttachmentView()
+                    .frame(width: 650, height: 600)
+                    .glassBackgroundEffect()
+                    .environment(inputSphereManager)
+            }
+        }
         .onAppear {
             // Initialize Image Tracker module and start tracking images.
             initializeImageTracker()
             // Add Input Sphere entity to the parent entity above the root point.
             inputSphereManager.addInputSphere(parentEntity: parentEntity, rootPoint: rootPoint)
         }
+        
+        // Add Input Sphere Drag Gesture recognition and handling.
+        .inputSphereDragGesture(parentEntity: parentEntity, inputSphereManager: inputSphereManager)
+        
         .onChange(of: imageTracker?.rootTransform) {
             // When the root transform changes, update the corresponding entity.
             updateRootEntity(with: imageTracker?.rootTransform)
