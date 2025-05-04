@@ -39,15 +39,17 @@ struct ImmersiveView: View {
         update: { content, attachments in
             // Update Input Sphere attachment's position.
             if let inputSphereAttachment = attachments.entity(for: inputSphereAttachmentID) {
-                inputSphereAttachment.position = inputSphereManager.inputSpherePosition + SIMD3<Float>(0.3, 0.2, 0)
+                inputSphereAttachment.position = inputSphereManager.inputSpherePosition + SIMD3<Float>(0.3, 0.18, 0)
             }
         }
         attachments: {
-            Attachment(id: inputSphereAttachmentID) {
-                InputSphereAttachmentView()
-                    .frame(width: 650, height: 600)
-                    .glassBackgroundEffect()
-                    .environment(inputSphereManager)
+            if let rootPoint {
+                Attachment(id: inputSphereAttachmentID) {
+                    InputSphereAttachmentView(rootPoint: rootPoint)
+                        .frame(width: 650, height: 350)
+                        .glassBackgroundEffect()
+                        .environment(inputSphereManager)
+                }
             }
         }
         .onAppear {

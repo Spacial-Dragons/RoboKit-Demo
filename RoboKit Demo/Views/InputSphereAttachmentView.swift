@@ -11,11 +11,9 @@ import RealityKit
 
 struct InputSphereAttachmentView: View {
     @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
+    let rootPoint: Entity
     
     var body: some View {
-        
-        //ScrollView {
-        
         VStack(alignment: .leading, spacing: 40) {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Position")
@@ -31,12 +29,13 @@ struct InputSphereAttachmentView: View {
                 RoboKit.InputSphereRotationSlider(eulerAngle: .yaw)
             }
             
-//            SocketView()
+            HStack{
+                Spacer()
+                RoboKit.PrintInputSphereDataButton(relativeToRootPoint: rootPoint)
+                Spacer()
+            }
         }
         .padding(40)
-        
-        //}
-        
         .fontDesign(.rounded)
     }
 }
