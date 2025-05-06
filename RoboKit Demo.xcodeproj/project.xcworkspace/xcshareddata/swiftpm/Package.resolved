@@ -6,8 +6,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Spacial-Dragons/RoboKit",
       "state" : {
-        "revision" : "9be248ac89448974932e54240653cd9183212754",
-        "version" : "0.1.0"
+        "branch" : "main",
+        "revision" : "cce5f43f3ef65ffa3633d53c57c0f127063f8d30"
+      }
+    },
+    {
+      "identity" : "swiftlintplugins",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SimplyDanny/SwiftLintPlugins",
+      "state" : {
+        "revision" : "8545ddf4de043e6f2051c5cf204f39ef778ebf6b",
+        "version" : "0.59.1"
       }
     }
   ],
