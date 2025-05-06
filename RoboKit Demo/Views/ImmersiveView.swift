@@ -39,7 +39,7 @@ struct ImmersiveView: View {
         update: { content, attachments in
             // Update Input Sphere attachment's position.
             if let inputSphereAttachment = attachments.entity(for: inputSphereAttachmentID) {
-                inputSphereAttachment.position = inputSphereManager.inputSpherePosition + SIMD3<Float>(0.3, 0.18, 0)
+                inputSphereAttachment.position = inputSphereManager.inputSpherePositionRelativeToParent + SIMD3<Float>(0.3, 0.18, 0)
             }
         }
         attachments: {
@@ -55,19 +55,19 @@ struct ImmersiveView: View {
         .onAppear {
             // Initialize Image Tracker module and start tracking images.
             initializeImageTracker()
-            // Add Input Sphere entity to the parent entity above the root point.
-            inputSphereManager.addInputSphere(parentEntity: parentEntity, rootPoint: rootPoint)
         }
         
         // Add Input Sphere Drag Gesture recognition and handling.
-        .inputSphereDragGesture(parentEntity: parentEntity, inputSphereManager: inputSphereManager)
+        .inputSphereDragGesture(parentEntity: parentEntity, rootPoint: rootPoint, inputSphereManager: inputSphereManager)
         
-        .onChange(of: inputSphereManager.inputSphereEulerAngles){
+        .onChange(of: inputSphereManager.inputSphereEulerAngles) {
             inputSphereManager.updateInputSphereRotation()
         }
         .onChange(of: imageTracker?.rootTransform) {
             // When the root transform changes, update the corresponding entity.
             updateRootEntity(with: imageTracker?.rootTransform)
+            // Add Input Sphere entity to the parent entity above the root point.
+            inputSphereManager.addInputSphere(parentEntity: parentEntity, rootPoint: rootPoint)
         }
         .onChange(of: imageTracker?.trackedImagesTransform) {
             // When the tracked images transform changes, update the sphere entities accordingly.

@@ -19,7 +19,7 @@ struct InputSphereAttachmentView: View {
                 Text("Position")
                     .font(.title)
                 Divider()
-                RoboKit.InputSpherePositionView()
+                RoboKit.InputSpherePositionView(relativeToRootPoint: rootPoint)
             }
             
             VStack(alignment: .leading, spacing: 10){
