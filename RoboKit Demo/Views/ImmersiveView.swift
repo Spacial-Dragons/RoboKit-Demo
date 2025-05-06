@@ -21,9 +21,9 @@ struct ImmersiveView: View {
     
     // Initialize the InputSphereManager class.
     // Input Sphere is a RealityKit entity representing the target position and rotation for robot's end effector.
-    @State private var inputSphereManager = RoboKit.InputSphereManager()
+    @State internal var inputSphereManager = RoboKit.InputSphereManager()
     
-    private let inputSphereAttachmentID: String = "InputSphereAttachment"
+    internal let inputSphereAttachmentID: String = "InputSphereAttachment"
     
     var body: some View {
         // Initialize RealityView and add the parent entity to the scene.
@@ -32,15 +32,11 @@ struct ImmersiveView: View {
             
             // Add Input Sphere attachment.
             if let inputSphereAttachment = attachments.entity(for: inputSphereAttachmentID) {
-//                inputSphereManager.updateInputSpherePosition()
                 content.add(inputSphereAttachment)
             }
         }
         update: { content, attachments in
-            // Update Input Sphere attachment's position.
-            if let inputSphereAttachment = attachments.entity(for: inputSphereAttachmentID) {
-                inputSphereAttachment.position = inputSphereManager.inputSpherePositionRelativeToParent + SIMD3<Float>(0.3, 0.18, 0)
-            }
+            updateInputSphereAttachmentPosition(attachments: attachments)
         }
         attachments: {
             if let rootPoint {
