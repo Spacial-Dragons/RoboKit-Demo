@@ -10,7 +10,8 @@ import RealityKit
 import RoboKit
 
 extension ImmersiveView {
-    // Initialize Image Tracker after view appears.
+    /// Sets up the image tracker with predefined AR reference images and root offsets.
+    /// Updates the root entity and tracked image entities upon successful initialization.
     internal func initializeImageTracker() {
         do {
             imageTracker = try RoboKit.ImageTracker(

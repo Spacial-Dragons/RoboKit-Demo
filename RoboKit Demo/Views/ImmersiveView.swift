@@ -23,6 +23,7 @@ struct ImmersiveView: View {
     // Input Sphere is a RealityKit entity representing the target position and rotation for robot's end effector.
     @State internal var inputSphereManager = RoboKit.InputSphereManager()
     
+    // ID of Input Sphere's Attachment.
     internal let inputSphereAttachmentID: String = "InputSphereAttachment"
     
     var body: some View {
