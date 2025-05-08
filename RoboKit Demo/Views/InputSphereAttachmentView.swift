@@ -22,16 +22,16 @@ struct InputSphereAttachmentView: View {
                 RoboKit.InputSpherePositionView(relativeToRootPoint: rootPoint)
             }
             
-            VStack(alignment: .leading, spacing: 10){
+            VStack(alignment: .leading, spacing: 10) {
                 Text("Rotation")
                     .font(.title)
                 Divider()
                 RoboKit.InputSphereRotationSlider(eulerAngle: .yaw)
             }
             
-            HStack{
+            HStack {
                 Spacer()
-                RoboKit.PrintInputSphereDataButton(relativeToRootPoint: rootPoint)
+                PrintInputSphereDataButton(relativeToRootPoint: rootPoint)
                 Spacer()
             }
         }
