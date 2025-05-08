@@ -2,7 +2,7 @@ import SwiftUI
 import RealityKit
 
 // Function to generate RealityKit sphere Entity with certain parameters
-func SphereEntity(color: Color = .red, ofSize size: Float = 0.01) -> Entity {
+func sphereEntity(color: Color = .red, ofSize size: Float = 0.01) -> Entity {
     let entity = Entity()
     let simpleMaterial = SimpleMaterial(
         color: UIColor(color), isMetallic: true
