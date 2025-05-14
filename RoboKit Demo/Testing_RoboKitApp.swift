@@ -14,7 +14,7 @@ struct Testing_RoboKitApp: App {
         .immersionStyle(selection: .constant(.mixed), in: .mixed)
         
         WindowGroup(id: "WindowGroup") {
-            Text("Scan tracking images to test RoboKit")
+            SocketView()
         }
     }
 }
