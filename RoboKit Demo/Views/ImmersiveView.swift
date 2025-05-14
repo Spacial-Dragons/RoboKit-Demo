@@ -48,6 +48,7 @@ struct ImmersiveView: View {
                         .environment(inputSphereManager)
                 }
             }
+            
         }
         .onAppear {
             // Initialize Image Tracker module and start tracking images.
