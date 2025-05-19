@@ -24,6 +24,10 @@ struct SocketView: View {
                 Text("Send data")
             }
             
+            RoboKit.DataModeToggle()
+                .environment(client)
+                .frame(width: 300)
+            
         }.onAppear{
             initializeServer()
         }
