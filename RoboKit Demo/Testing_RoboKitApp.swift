@@ -5,16 +5,10 @@ struct RoboKitDemo: App {
     @Environment(\.openWindow) private var openWindow
 
     var body: some Scene {
+        // Immersive space for rendering 3D content (example: Tracked Entities, Input Sphere)
         ImmersiveSpace {
             ImmersiveView()
-                .onAppear {
-                    openWindow(id: "WindowGroup")
-                }
         }
         .immersionStyle(selection: .constant(.mixed), in: .mixed)
-
-        WindowGroup(id: "WindowGroup") {
-            SocketView()
-        }
     }
 }
