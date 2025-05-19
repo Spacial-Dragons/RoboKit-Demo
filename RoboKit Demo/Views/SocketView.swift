@@ -14,16 +14,15 @@ struct SocketView: View {
     var client: TCPClient = TCPClient(host: "localhost", port: 12345)
     @State private var positionAndRotation: [Float] = [0,0,0,0,0,0,0,0,0]
     @State private var clawShouldOpen: Bool = false
-    @State private var objectWidth: Float = 0.0
+    @State private var objectWidth: Float = 400
+    @State private var objectWidthUnit: RoboKit.ObjectWidthUnit = .meters
     
     var body: some View {
         VStack(alignment: .leading, spacing: 40){
             Text("Scan tracking images to test RoboKit")
-            Button {
-                sendData(shouldOpen: clawShouldOpen)
-            } label: {
-                Text("Send data")
-            }
+            
+            RoboKit.ObjectWidthUnitPicker(objectWidthUnit: $objectWidthUnit)
+                .frame(width: 400)
             
             RoboKit.ClawControlToggle(clawShouldOpen: $clawShouldOpen)
                 .frame(width: 300)
@@ -32,6 +31,12 @@ struct SocketView: View {
                 .environment(client)
                 .frame(width: 300)
             
+            Button {
+                sendData(shouldOpen: clawShouldOpen)
+            } label: {
+                Text("Send data")
+            }
+            
         }.onAppear{
             initializeServer()
         }
@@ -39,11 +44,24 @@ struct SocketView: View {
         
     }
     
+    private func convertObjectWidth() -> Float {
+        switch objectWidthUnit {
+        case .millimeters:
+            return objectWidth / 1000
+        case .centimeters:
+            return objectWidth / 100
+        case .meters:
+            return objectWidth
+        }
+    }
+    
     private func sendData(shouldOpen: Bool) {
+        let convertedObjectWidth: Float = convertObjectWidth()
+        
         client.startConnection(value: CodingManager.encodeToJSON(
             data: CPRMessageModel(clawControl: shouldOpen,
                                   positionAndRotation: [0,0,0,0,0,0,0],
-                                  objectWidth: objectWidth)))
+                                  objectWidth: convertedObjectWidth)))
     }
     
     private func initializeServer(){
