@@ -14,17 +14,21 @@ struct SocketView: View {
     var client: TCPClient = TCPClient(host: "localhost", port: 12345)
     @State private var positionAndRotation: [Float] = [0,0,0,0,0,0,0,0,0]
     @State private var clawShouldOpen: Bool = false
+    @State private var objectWidth: Float = 0.0
     
     var body: some View {
         VStack(alignment: .leading, spacing: 40){
             Text("Scan tracking images to test RoboKit")
             Button {
-                sendData(shouldOpen: true)
+                sendData(shouldOpen: clawShouldOpen)
             } label: {
                 Text("Send data")
             }
             
-            RoboKit.DataModeToggle()
+            RoboKit.ClawControlToggle(clawShouldOpen: $clawShouldOpen)
+                .frame(width: 300)
+            
+            RoboKit.DataModePicker()
                 .environment(client)
                 .frame(width: 300)
             
@@ -36,7 +40,10 @@ struct SocketView: View {
     }
     
     private func sendData(shouldOpen: Bool) {
-        client.startConnection(value: CodingManager.encodeToJSON(data: CPRMessageModel(clawControl: shouldOpen, positionAndRotation: [0,0,0,0,0,0,0])))
+        client.startConnection(value: CodingManager.encodeToJSON(
+            data: CPRMessageModel(clawControl: shouldOpen,
+                                  positionAndRotation: [0,0,0,0,0,0,0],
+                                  objectWidth: objectWidth)))
     }
     
     private func initializeServer(){
