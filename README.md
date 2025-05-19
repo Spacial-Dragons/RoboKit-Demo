@@ -22,6 +22,7 @@ For full documentation, visit the official [RoboKit GitHub Repository](https://g
 5. Build and run the project in Xcode.
 
 ## Dependencies
+- [RoboKit](https://github.com/Spacial-Dragons/RoboKit) - A framework designed to facilitate the integration between visionOS applications and robotics software.
 - [SwiftLint](https://github.com/SimplyDanny/SwiftLintPlugins) - A tool to enforce Swift style and conventions.
 
 <br>
@@ -29,4 +30,4 @@ For full documentation, visit the official [RoboKit GitHub Repository](https://g
 ## Credits
 Distributed under the MIT license. See **LICENSE** for more information.
 
-Developed with ❤️ by Spatial Dragons
+Developed with ❤️ by Spacial Dragons
