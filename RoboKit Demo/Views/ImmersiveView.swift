@@ -6,37 +6,37 @@ import RoboKit
 // This demo project illustrates how to use RoboKit's image tracker with SwiftUI and RealityKit.
 // It sets up a parent entity and dynamically adds sphere entities representing tracked images in an immersive view.
 struct ImmersiveView: View {
-    
+
     // Parent entity that holds all child entities (tracked images, root point, Input Sphere).
     @State internal var parentEntity = Entity()
-    
+
     // Placeholder for the computed root point entity.
     @State internal var rootPoint: Entity?
-    
+
     // Array to store entities representing tracked images.
     @State internal var trackedSpheres: [Entity] = []
-    
+
     // Initialize the image tracker with AR resource group and images with specified offsets.
     @State internal var imageTracker: RoboKit.ImageTracker?
-    
+
     // Initialize the InputSphereManager class.
     // Input Sphere is a RealityKit entity representing the target position and rotation for robot's end effector.
     @State internal var inputSphereManager = RoboKit.InputSphereManager()
-    
+
     // ID of Input Sphere's Attachment.
     internal let inputSphereAttachmentID: String = "InputSphereAttachment"
-    
+
     var body: some View {
         // Initialize RealityView and add the parent entity to the scene.
         RealityView { content, attachments in
             content.add(parentEntity)
-            
+
             // Add Input Sphere attachment.
             if let inputSphereAttachment = attachments.entity(for: inputSphereAttachmentID) {
                 content.add(inputSphereAttachment)
             }
         }
-        update: { content, attachments in
+        update: { _, attachments in
             updateInputSphereAttachmentPosition(attachments: attachments)
         }
         attachments: {
@@ -48,16 +48,20 @@ struct ImmersiveView: View {
                         .environment(inputSphereManager)
                 }
             }
-            
+
         }
         .onAppear {
             // Initialize Image Tracker module and start tracking images.
             initializeImageTracker()
         }
-        
+
         // Add Input Sphere Drag Gesture recognition and handling.
-        .inputSphereDragGesture(parentEntity: parentEntity, rootPoint: rootPoint, inputSphereManager: inputSphereManager)
-        
+        .inputSphereDragGesture(
+            parentEntity: parentEntity,
+            rootPoint: rootPoint,
+            inputSphereManager: inputSphereManager
+        )
+
         .onChange(of: imageTracker?.rootTransform) {
             // When the root transform changes, update the corresponding entity.
             updateRootEntity(with: imageTracker?.rootTransform)

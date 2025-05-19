@@ -10,7 +10,8 @@ import RealityKit
 
 extension ImmersiveView {
     /// Updates the position of the input sphere attachment entity within the RealityView.
-    /// - Parameter attachments: The collection of `RealityViewAttachments` from which the input sphere attachment is retrieved.
+    /// - Parameter attachments: The collection of `RealityViewAttachments`
+    /// from which the input sphere attachment is retrieved.
     internal func updateInputSphereAttachmentPosition(attachments: RealityViewAttachments) {
         guard let attachment = attachments.entity(for: inputSphereAttachmentID) else { return }
         guard let inputSpherePosition = inputSphereManager.inputSpherePositionRelativeToParent else { return }
