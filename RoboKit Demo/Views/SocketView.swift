@@ -22,14 +22,27 @@ struct SocketView: View {
             Text("Scan tracking images to test RoboKit")
             
             RoboKit.ObjectWidthUnitPicker(objectWidthUnit: $objectWidthUnit)
-                .frame(width: 400)
+                .frame(width: 300)
+            
+            HStack(spacing: 20) {
+                Text("Width")
+                
+                TextField("Object Width", value: $objectWidth, format: .number)
+                    .keyboardType(.numbersAndPunctuation)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.regularMaterial)
+                            .padding(-5)
+                    )
+                    .frame(width: 200)
+            }
             
             RoboKit.ClawControlToggle(clawShouldOpen: $clawShouldOpen)
-                .frame(width: 300)
+                .frame(width: 250)
             
             RoboKit.DataModePicker()
                 .environment(client)
-                .frame(width: 300)
+                .frame(width: 250)
             
             Button {
                 sendData(shouldOpen: clawShouldOpen)
