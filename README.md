@@ -1,15 +1,13 @@
-# RoboKit Demo App
+<p align="center">
+  <img src="Media/AppIcon.png" alt="Logo" width="130" height="130">
+  <h2 align="center">
+    RoboKit Demo
+  </h2>
+</p>
 
 A showcase app demonstrating the different modules available in **RoboKit** — a framework designed to facilitate the integration between visionOS applications and robotics software.
 
-> For full documentation, visit the official [RoboKit GitHub Repository](https://github.com/Spacial-Dragons/RoboKit).
-
-<p align="center">
-  <img src="Media/AppIcon" alt="Logo" width="80" height="80">
-  <h2 align="center">
-    App Name
-  </h2>
-</p>
+For full documentation, visit the official [RoboKit GitHub Repository](https://github.com/Spacial-Dragons/RoboKit).
 
 
 ## Requirements
