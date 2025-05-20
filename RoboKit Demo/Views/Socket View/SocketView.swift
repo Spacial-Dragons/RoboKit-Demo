@@ -11,6 +11,7 @@ import RoboKit
 
 struct SocketView: View {
     
+    @Environment(FormManager.self) private var formManager: FormManager
     var client: TCPClient = TCPClient(host: "localhost", port: 12345)
     @State private var positionAndRotation: [Float] = [0,0,0,0,0,0,0,0,0]
     @State private var clawShouldOpen: Bool = false
@@ -18,28 +19,34 @@ struct SocketView: View {
     @State private var objectWidthUnit: RoboKit.ObjectWidthUnit = .meters
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20){
-            
-            ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
-            
-            Divider()
-            
-            AccessoriesView(clawShouldOpen: $clawShouldOpen)
-            
-            RoboKit.DataModePicker()
-                .environment(client)
-                .frame(width: 250)
-            
-            Button {
-                sendData(shouldOpen: clawShouldOpen)
-            } label: {
-                Text("Send data")
+        HStack{
+            VStack(alignment: .leading, spacing: 20){
+                
+                ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
+                
+                Divider()
+                
+                AccessoriesView(clawShouldOpen: $clawShouldOpen)
+                
+                RoboKit.DataModePicker()
+                    .environment(client)
+                    .frame(width: 250)
+                
+                Button {
+                    sendData(shouldOpen: clawShouldOpen)
+                } label: {
+                    Text("Send data")
+                }
             }
+            .frame(width: 300)
             
-        }.onAppear{
+            FormPositionView()
+                .environment(formManager)
+                .frame(width: 300)
+        }
+        .onAppear {
             initializeServer()
         }
-        .frame(width: 300)
     }
     
     private func convertObjectWidth() -> Float {

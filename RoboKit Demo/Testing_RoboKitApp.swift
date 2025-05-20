@@ -1,7 +1,9 @@
 import SwiftUI
+import RoboKit
 
 @main
 struct Testing_RoboKitApp: App {
+    private var formManager: FormManager = FormManager()
     @Environment(\.openWindow) private var openWindow
     
     var body: some Scene {
@@ -15,6 +17,7 @@ struct Testing_RoboKitApp: App {
         
         WindowGroup(id: "WindowGroup") {
             SocketView()
+                .environment(formManager)
         }
     }
 }
