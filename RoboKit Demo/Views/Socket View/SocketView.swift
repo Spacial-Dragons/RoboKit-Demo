@@ -19,7 +19,7 @@ struct SocketView: View {
     @State private var objectWidthUnit: RoboKit.ObjectWidthUnit = .meters
     
     var body: some View {
-        HStack{
+        HStack {
             VStack(alignment: .leading, spacing: 20){
                 
                 ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
@@ -28,10 +28,6 @@ struct SocketView: View {
                 
                 AccessoriesView(clawShouldOpen: $clawShouldOpen)
                 
-                RoboKit.DataModePicker()
-                    .environment(client)
-                    .frame(width: 250)
-                
                 Button {
                     sendData(shouldOpen: clawShouldOpen)
                 } label: {
@@ -39,10 +35,12 @@ struct SocketView: View {
                 }
             }
             .frame(width: 300)
-            
+
             FormPositionView()
+                .environment(client)
                 .environment(formManager)
                 .frame(width: 300)
+            
         }
         .onAppear {
             initializeServer()
