@@ -18,13 +18,13 @@ struct SocketView: View {
     @State private var objectWidthUnit: RoboKit.ObjectWidthUnit = .meters
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 40){
-            Text("Scan tracking images to test RoboKit")
+        VStack(alignment: .leading, spacing: 20){
             
             ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
             
-            RoboKit.ClawControlToggle(clawShouldOpen: $clawShouldOpen)
-                .frame(width: 250)
+            Divider()
+            
+            AccessoriesView(clawShouldOpen: $clawShouldOpen)
             
             RoboKit.DataModePicker()
                 .environment(client)
@@ -39,6 +39,7 @@ struct SocketView: View {
         }.onAppear{
             initializeServer()
         }
+        .frame(width: 300)
     }
     
     private func convertObjectWidth() -> Float {

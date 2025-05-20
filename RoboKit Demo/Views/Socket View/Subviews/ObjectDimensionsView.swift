@@ -36,9 +36,6 @@ struct ObjectDimensionsView: View {
                     RoboKit.ObjectWidthTextField(objectWidth: $objectWidth)
                 }
             }
-            
         }
-        .frame(width: 300)
-//        .background()
     }
 }
