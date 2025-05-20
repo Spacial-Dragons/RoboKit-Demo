@@ -21,13 +21,7 @@ struct SocketView: View {
         VStack(alignment: .leading, spacing: 40){
             Text("Scan tracking images to test RoboKit")
             
-            RoboKit.ObjectWidthUnitPicker(objectWidthUnit: $objectWidthUnit)
-                .frame(width: 300)
-            
-            HStack(spacing: 20) {
-                Text("Width")
-                RoboKit.ObjectWidthTextField(objectWidth: $objectWidth)
-            }
+            ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
             
             RoboKit.ClawControlToggle(clawShouldOpen: $clawShouldOpen)
                 .frame(width: 250)
@@ -45,8 +39,6 @@ struct SocketView: View {
         }.onAppear{
             initializeServer()
         }
-        
-        
     }
     
     private func convertObjectWidth() -> Float {
