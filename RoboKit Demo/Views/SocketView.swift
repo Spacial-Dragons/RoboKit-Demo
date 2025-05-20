@@ -26,15 +26,7 @@ struct SocketView: View {
             
             HStack(spacing: 20) {
                 Text("Width")
-                
-                TextField("Object Width", value: $objectWidth, format: .number)
-                    .keyboardType(.numbersAndPunctuation)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(.regularMaterial)
-                            .padding(-5)
-                    )
-                    .frame(width: 200)
+                RoboKit.ObjectWidthTextField(objectWidth: $objectWidth)
             }
             
             RoboKit.ClawControlToggle(clawShouldOpen: $clawShouldOpen)
