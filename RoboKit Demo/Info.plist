@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSWorldSensingUsageDescription</key>
-	<string>The app requires this so it can track images.</string>
+	<string>The app requires this to track images.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationPreferredDefaultSceneSessionRole</key>
