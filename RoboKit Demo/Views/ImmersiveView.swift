@@ -7,6 +7,8 @@ import RoboKit
 // It sets up a parent entity and dynamically adds sphere entities representing tracked images in an immersive view.
 struct ImmersiveView: View {
     
+    @Environment(InputSphereManager.self) internal var inputSphereManager: InputSphereManager
+    
     // Parent entity that holds all child entities (tracked images, root point, Input Sphere).
     @State internal var parentEntity = Entity()
     
@@ -18,10 +20,6 @@ struct ImmersiveView: View {
     
     // Initialize the image tracker with AR resource group and images with specified offsets.
     @State internal var imageTracker: RoboKit.ImageTracker?
-    
-    // Initialize the InputSphereManager class.
-    // Input Sphere is a RealityKit entity representing the target position and rotation for robot's end effector.
-    @State internal var inputSphereManager = RoboKit.InputSphereManager()
     
     // ID of Input Sphere's Attachment.
     internal let inputSphereAttachmentID: String = "InputSphereAttachment"

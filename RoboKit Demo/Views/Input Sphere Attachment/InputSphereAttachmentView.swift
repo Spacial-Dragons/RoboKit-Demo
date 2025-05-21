@@ -19,7 +19,11 @@ struct InputSphereAttachmentView: View {
                 Text("Position")
                     .font(.title)
                 Divider()
-                RoboKit.InputSpherePositionView(relativeToRootPoint: rootPoint)
+                HStack {
+                    ForEach(Axis.allCases, id: \.self) { axis in
+                        RoboKit.InputSpherePositionText(axis: axis)
+                    }
+                }
             }
             
             VStack(alignment: .leading, spacing: 10) {

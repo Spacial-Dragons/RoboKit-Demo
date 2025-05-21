@@ -3,6 +3,7 @@ import RoboKit
 
 @main
 struct Testing_RoboKitApp: App {
+    private var inputSphereManager = InputSphereManager()
     private var formManager: FormManager = FormManager()
     @Environment(\.openWindow) private var openWindow
     
@@ -12,11 +13,13 @@ struct Testing_RoboKitApp: App {
                 .onAppear{
                     openWindow(id: "WindowGroup")
                 }
+                .environment(inputSphereManager)
         }
         .immersionStyle(selection: .constant(.mixed), in: .mixed)
         
         WindowGroup(id: "WindowGroup") {
             SocketView()
+                .environment(inputSphereManager)
                 .environment(formManager)
         }
     }
