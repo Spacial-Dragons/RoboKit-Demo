@@ -42,7 +42,7 @@ struct SocketView: View {
                 .environment(client)
                 .environment(inputSphereManager)
                 .environment(formManager)
-                .frame(width: 400)
+                .frame(width: 390)
         }
         .onAppear {
             initializeServer()
