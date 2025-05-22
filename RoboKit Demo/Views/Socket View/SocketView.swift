@@ -37,12 +37,12 @@ struct SocketView: View {
                 }
             }
             .frame(width: 300)
-
-            PositionView()
+            
+            PoseView()
                 .environment(client)
                 .environment(inputSphereManager)
                 .environment(formManager)
-                .frame(width: 300)
+                .frame(width: 400)
         }
         .onAppear {
             initializeServer()
