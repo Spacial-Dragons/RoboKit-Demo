@@ -30,7 +30,7 @@ struct InputSphereAttachmentView: View {
                 Text("Rotation")
                     .font(.title)
                 Divider()
-                RoboKit.InputSphereRotationSlider(eulerAngle: .yaw)
+                RoboKit.InputSphereRotationSlider(rootPoint: rootPoint, eulerAngle: .yaw)
             }
             
             HStack {

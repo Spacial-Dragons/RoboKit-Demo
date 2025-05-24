@@ -26,11 +26,11 @@ public struct PrintInputSphereDataButton: View {
     }
     
     private func printInputSphereData() {
-        guard let position = inputSphereManager.getInputSpherePosition(relativeToRootPoint: rootPoint)
+        guard let position = inputSphereManager.getInputSpherePosition()
         else { print("Failed to get Input Sphere position"); return }
         print("Input Sphere position: \(position)")
         
-        guard let rotation = inputSphereManager.getInputSphereRotation(relativeToRootPoint: rootPoint)
+        guard let rotation = inputSphereManager.getInputSphereRotation()
         else { print("Failed to get Input Sphere rotation"); return }
         print("Input Sphere rotation: \(rotation)")
     }
