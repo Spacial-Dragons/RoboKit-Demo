@@ -18,11 +18,10 @@ public struct RotationView: View {
         VStack(alignment: .leading, spacing: -10) {
             switch client.selectedDataMode {
             case .live:
-                VStack(alignment: .leading) {
-//                    ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
-//                        RoboKit.InputSphereRotationSlider(eulerAngle: eulerAngle)
-//                    }
-//                    .frame(width: 390)
+                HStack(spacing: 37) {
+                    ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
+                        RoboKit.InputSphereRotationText(eulerAngle: eulerAngle)
+                    }
                 }
                 .padding(.top)
             case .set:
