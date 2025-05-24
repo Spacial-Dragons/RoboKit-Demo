@@ -29,11 +29,13 @@ struct SocketView: View {
                 
                 AccessoriesView(clawShouldOpen: $clawShouldOpen)
                 
-                Button {
-                    sendData(shouldOpen: clawShouldOpen)
-                } label: {
-                    Text("Send data")
-                }
+                SendDataButtonView()
+                    .environment(client)
+//                Button {
+//                    sendData(shouldOpen: clawShouldOpen)
+//                } label: {
+//                    Text("Send data")
+//                }
             }
             .frame(width: 300)
             
