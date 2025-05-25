@@ -69,14 +69,7 @@ struct SocketView: View {
             attachmentAnchor: .scene(.topLeading),
             contentAlignment: .topLeading
         ) {
-            Button(
-                socketCollapsed ? "Expand" : "Collapse",
-                systemImage: socketCollapsed ? "arrow.down.backward.and.arrow.up.forward.circle.fill" : "arrow.down.forward.and.arrow.up.backward.circle.fill")
-            {
-                socketCollapsed.toggle()
-            }
-            .labelStyle(.iconOnly)
-            .glassBackgroundEffect()
+            ExpandCollapseButton(socketCollapsed: $socketCollapsed)
         }
     }
     
