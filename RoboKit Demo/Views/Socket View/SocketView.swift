@@ -29,8 +29,9 @@ struct SocketView: View {
                 
                 AccessoriesView(clawShouldOpen: $clawShouldOpen)
                 
-                SendDataButtonView()
+                SendDataButton()
                     .environment(client)
+                
 //                Button {
 //                    sendData(shouldOpen: clawShouldOpen)
 //                } label: {
