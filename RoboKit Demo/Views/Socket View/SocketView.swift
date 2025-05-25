@@ -20,31 +20,27 @@ struct SocketView: View {
     @State private var objectWidthUnit: RoboKit.ObjectWidthUnit = .meters
     
     var body: some View {
-        HStack {
+        ScrollView {
             VStack(alignment: .leading, spacing: 20){
                 
                 ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
+                    .padding(.leading, 30)
+                
+                Divider()
+                
+                PoseView()
+                    .environment(client)
+                    .environment(inputSphereManager)
+                    .environment(formManager)
+                    .padding(.leading, 30)
                 
                 Divider()
                 
                 AccessoriesView(clawShouldOpen: $clawShouldOpen)
+                    .padding(.leading, 30)
                 
-                SendDataButton()
-                    .environment(client)
-                
-//                Button {
-//                    sendData(shouldOpen: clawShouldOpen)
-//                } label: {
-//                    Text("Send data")
-//                }
             }
-            .frame(width: 300)
-            
-            PoseView()
-                .environment(client)
-                .environment(inputSphereManager)
-                .environment(formManager)
-                .frame(width: 390)
+            .padding(.top, 50)
         }
         .onAppear {
             initializeServer()

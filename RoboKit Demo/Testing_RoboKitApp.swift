@@ -18,9 +18,14 @@ struct Testing_RoboKitApp: App {
         .immersionStyle(selection: .constant(.mixed), in: .mixed)
         
         WindowGroup(id: "WindowGroup") {
-            SocketView()
-                .environment(inputSphereManager)
-                .environment(formManager)
+            VStack(alignment: .center) {
+                SocketView()
+                    .environment(inputSphereManager)
+                    .environment(formManager)
+            }
+//            .frame(width: 390, height: 800)
         }
+        .defaultSize(width: 390, height: 760)
+        .windowResizability(.contentMinSize)
     }
 }
