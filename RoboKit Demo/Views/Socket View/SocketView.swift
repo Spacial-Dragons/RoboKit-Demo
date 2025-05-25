@@ -38,12 +38,14 @@ struct SocketView: View {
                 
                 AccessoriesView(clawShouldOpen: $clawShouldOpen)
                     .padding(.leading, 30)
-                
-                SendDataButton()
-                    .environment(client)
-                
             }
             .padding(.top, 50)
+            
+            VStack(alignment: .center) {
+                SendDataButton()
+                    .environment(client)
+            }
+            
         }
         .onAppear {
             initializeServer()

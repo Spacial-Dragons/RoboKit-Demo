@@ -23,7 +23,6 @@ struct Testing_RoboKitApp: App {
                     .environment(inputSphereManager)
                     .environment(formManager)
             }
-//            .frame(width: 390, height: 800)
         }
         .defaultSize(width: 390, height: 800)
         .windowResizability(.contentMinSize)
