@@ -15,6 +15,12 @@ struct SocketView: View {
     @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
     var client: TCPClient = TCPClient(host: "localhost", port: 12345)
     
+    @Binding private var socketCollapsed: Bool
+
+    init(socketCollapsed: Binding<Bool>) {
+        self._socketCollapsed = socketCollapsed
+    }
+    
     @State private var clawShouldOpen: Bool = false
     @State private var objectWidth: Float = 400
     @State private var objectWidthUnit: RoboKit.ObjectWidthUnit = .meters
@@ -57,6 +63,20 @@ struct SocketView: View {
         ) {
             MenuView()
                 .environment(client)
+        }
+        .ornament(
+            visibility: .visible,
+            attachmentAnchor: .scene(.topLeading),
+            contentAlignment: .topLeading
+        ) {
+            Button(
+                socketCollapsed ? "Expand" : "Collapse",
+                systemImage: socketCollapsed ? "arrow.down.backward.and.arrow.up.forward.circle.fill" : "arrow.down.forward.and.arrow.up.backward.circle.fill")
+            {
+                socketCollapsed.toggle()
+            }
+            .labelStyle(.iconOnly)
+            .glassBackgroundEffect()
         }
     }
     

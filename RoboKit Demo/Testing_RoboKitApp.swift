@@ -5,6 +5,7 @@ import RoboKit
 struct Testing_RoboKitApp: App {
     private var inputSphereManager = InputSphereManager()
     private var formManager: FormManager = FormManager()
+    @State var socketCollapsed: Bool = false
     @Environment(\.openWindow) private var openWindow
     
     var body: some Scene {
@@ -19,7 +20,7 @@ struct Testing_RoboKitApp: App {
         
         WindowGroup(id: "WindowGroup") {
             VStack(alignment: .center) {
-                SocketView()
+                SocketView(socketCollapsed: $socketCollapsed)
                     .environment(inputSphereManager)
                     .environment(formManager)
             }
