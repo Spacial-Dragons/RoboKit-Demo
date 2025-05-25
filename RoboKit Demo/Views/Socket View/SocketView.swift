@@ -45,6 +45,22 @@ struct SocketView: View {
         .onAppear {
             initializeServer()
         }
+        .ornament(
+            visibility: .visible,
+            attachmentAnchor: .scene(.bottom),
+            contentAlignment: .bottom
+        ) {
+            MenuView()
+        }
+//        .ornament(
+//            visibility: .visible,
+//            attachmentAnchor: .scene(.top),
+//            contentAlignment: .top
+//        ) {
+//            SendDataButton()
+//                .environment(client)
+//                .padding(.bottom, 100)
+//        }
     }
     
     private func convertedObjectWidth() -> Float {
