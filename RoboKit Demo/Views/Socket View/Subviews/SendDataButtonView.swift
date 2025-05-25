@@ -17,11 +17,30 @@ public struct SendDataButtonView: View {
     public var body: some View {
         @Bindable var client = client
         
-        SendDataButton(isSendingData: $isSendingData)
+        if isSendingData {
+            HStack {
+                HStack {
+                    Image(systemName: "sensor.tag.radiowaves.forward")
+                    Text("Sending Data")
+                        .fontWeight(.semibold)
+                }
+                
+                SendLiveDataButton(isSendingData: $isSendingData)
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 25)
+                    .foregroundStyle(.green)
+                    .frame(width: 340)
+            )
+        } else {
+            SendLiveDataButton(isSendingData: $isSendingData)
+        }
+        
+        
     }
 }
 
-public struct SendDataButton: View {
+public struct SendLiveDataButton: View {
     @Binding private var isSendingData: Bool
     
     public init(isSendingData: Binding<Bool>) {
