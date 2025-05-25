@@ -11,23 +11,27 @@ import RoboKit
 struct MenuView: View {
     var body: some View {
         HStack {
-            Button("Dimensions", systemImage: "cube.fill") {
-                // new action
-            }
-        
-            Button("Pose", systemImage: "mappin.and.ellipse.circle.fill") {
-                // save action
-            }
             
-            Button("Accessories", systemImage: "circle.dotted.circle") {
-                // save action
+            HStack {
+                Button("Dimensions", systemImage: "cube.fill") {
+                    // new action
+                }
+            
+                Button("Pose", systemImage: "mappin.and.ellipse.circle.fill") {
+                    // save action
+                }
+                
+                Button("Accessories", systemImage: "circle.dotted.circle") {
+                    // save action
+                }
             }
+            .padding(.horizontal)
             
             Divider()
             
-            VStack() {
+            VStack(alignment: .leading) {
                 ForEach(Axis.allCases, id: \.self) { axis in
-                    RoboKit.InputSpherePositionText(axis: axis)
+                    RoboKit.InputSpherePositionText(axis: axis, valueWidth: 40)
                 }
             }
             .font(.system(size: 12))
@@ -40,6 +44,8 @@ struct MenuView: View {
                     .frame(width: 8)
                 Text("Live")
             }
+            
+            .frame(width: 100)
         }
         .labelStyle(.iconOnly)
         .padding(.vertical)

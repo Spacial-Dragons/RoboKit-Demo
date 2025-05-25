@@ -18,7 +18,7 @@ public struct PositionView: View {
         VStack(alignment: .leading, spacing: -10) {
             switch client.selectedDataMode {
             case .live:
-                HStack(spacing: 40) {
+                HStack(spacing: 27) {
                     ForEach(Axis.allCases, id: \.self) { axis in
                         RoboKit.InputSpherePositionText(axis: axis)
                     }
