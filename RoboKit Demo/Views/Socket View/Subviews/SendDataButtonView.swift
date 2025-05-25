@@ -24,19 +24,21 @@ public struct SendDataButtonView: View {
                     Text("Sending Data")
                         .fontWeight(.semibold)
                 }
-                
+                .frame(width: 150)
+                .padding(.leading)
+                Spacer()
                 SendLiveDataButton(isSendingData: $isSendingData)
+                    .frame(width: 160)
+                    .padding(.leading)
             }
             .background(
                 RoundedRectangle(cornerRadius: 25)
                     .foregroundStyle(.green)
-                    .frame(width: 340)
+                    .frame(width: 350)
             )
         } else {
             SendLiveDataButton(isSendingData: $isSendingData)
         }
-        
-        
     }
 }
 
