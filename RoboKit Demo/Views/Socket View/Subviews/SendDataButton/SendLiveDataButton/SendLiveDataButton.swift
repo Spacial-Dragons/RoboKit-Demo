@@ -31,7 +31,7 @@ public struct SendLiveDataButton: View {
             }
             .background(
                 RoundedRectangle(cornerRadius: 25)
-                    .foregroundStyle(.green)
+                    .foregroundStyle(.green.opacity(0.8))
                     .frame(width: 300)
             )
         } else {

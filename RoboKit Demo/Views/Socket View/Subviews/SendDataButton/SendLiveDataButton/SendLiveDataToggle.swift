@@ -32,7 +32,7 @@ public struct SendLiveDataToggle: View {
             .padding(10)
             .frame(width: isSendingData ? 120 : 160)
         }
-        .background(isSendingData ? Color.gray : Color.green)
+        .background(isSendingData ? Color.gray : Color.green.opacity(0.8))
         .cornerRadius(25)
         .buttonStyle(PlainButtonStyle())
     }

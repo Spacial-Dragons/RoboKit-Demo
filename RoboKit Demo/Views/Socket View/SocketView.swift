@@ -45,7 +45,7 @@ struct SocketView: View {
                 SendDataButton()
                     .environment(client)
             }
-            
+            .padding(.bottom, client.selectedDataMode == .live ? 0 : 93)
         }
         .onAppear {
             initializeServer()
@@ -56,6 +56,7 @@ struct SocketView: View {
             contentAlignment: .bottom
         ) {
             MenuView()
+                .environment(client)
         }
     }
     

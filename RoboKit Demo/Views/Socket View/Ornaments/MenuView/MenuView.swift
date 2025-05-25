@@ -9,9 +9,10 @@ import SwiftUI
 import RoboKit
 
 struct MenuView: View {
+    @Environment(TCPClient.self) private var client: TCPClient
+    
     var body: some View {
         HStack {
-            
             HStack {
                 Button("Dimensions", systemImage: "cube.fill") {
                     // new action
@@ -38,12 +39,7 @@ struct MenuView: View {
             
             Divider()
             
-            HStack {
-                Circle()
-                    .fill(Color.green)
-                    .frame(width: 8)
-                Text("Live")
-            }
+            DataModeIndicator(dataMode: client.selectedDataMode)
             
             .frame(width: 100)
         }
