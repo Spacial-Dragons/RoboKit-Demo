@@ -18,7 +18,7 @@ public struct SendSetDataButton: View {
                 Text("Send Data")
                     .fontWeight(.semibold)
             }
-            .padding()
+            .padding(10)
             .frame(width: 160)
         }
         .background(Color.green)

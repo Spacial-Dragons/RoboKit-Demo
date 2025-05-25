@@ -25,7 +25,7 @@ struct Testing_RoboKitApp: App {
             }
 //            .frame(width: 390, height: 800)
         }
-        .defaultSize(width: 390, height: 760)
+        .defaultSize(width: 390, height: 800)
         .windowResizability(.contentMinSize)
     }
 }

@@ -27,11 +27,7 @@ public struct PoseView: View {
                 .frame(width: 200)
             
             VStack(alignment: .leading, spacing: 20){
-                
                 PositionView()
-                
-                Divider()
-                
                 RotationView()
             }
         }

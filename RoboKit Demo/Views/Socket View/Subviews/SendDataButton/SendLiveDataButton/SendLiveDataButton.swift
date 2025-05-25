@@ -18,20 +18,21 @@ public struct SendLiveDataButton: View {
             HStack {
                 HStack {
                     Image(systemName: "sensor.tag.radiowaves.forward")
+                        .font(.subheadline)
                     Text("Sending Data")
                         .fontWeight(.semibold)
                 }
                 .frame(width: 150)
-                .padding(.leading)
-                Spacer()
+                .padding(.leading, 50)
+                
                 SendLiveDataToggle(isSendingData: $isSendingData)
-                    .frame(width: 160)
-                    .padding(.leading)
+                    .frame(width: 150)
+                    .padding(.trailing, 28)
             }
             .background(
                 RoundedRectangle(cornerRadius: 25)
                     .foregroundStyle(.green)
-                    .frame(width: 350)
+                    .frame(width: 300)
             )
         } else {
             SendLiveDataToggle(isSendingData: $isSendingData)

@@ -21,7 +21,7 @@ struct SocketView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20){
+            VStack(alignment: .leading, spacing: 15){
                 
                 ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
                     .padding(.leading, 30)
@@ -39,6 +39,9 @@ struct SocketView: View {
                 AccessoriesView(clawShouldOpen: $clawShouldOpen)
                     .padding(.leading, 30)
                 
+                SendDataButton()
+                    .environment(client)
+                
             }
             .padding(.top, 50)
         }
@@ -52,15 +55,6 @@ struct SocketView: View {
         ) {
             MenuView()
         }
-//        .ornament(
-//            visibility: .visible,
-//            attachmentAnchor: .scene(.top),
-//            contentAlignment: .top
-//        ) {
-//            SendDataButton()
-//                .environment(client)
-//                .padding(.bottom, 100)
-//        }
     }
     
     private func convertedObjectWidth() -> Float {

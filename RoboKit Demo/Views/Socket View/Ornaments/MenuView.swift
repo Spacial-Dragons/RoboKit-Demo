@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RoboKit
 
 struct MenuView: View {
     var body: some View {
@@ -20,6 +21,24 @@ struct MenuView: View {
             
             Button("Accessories", systemImage: "circle.dotted.circle") {
                 // save action
+            }
+            
+            Divider()
+            
+            VStack() {
+                ForEach(Axis.allCases, id: \.self) { axis in
+                    RoboKit.InputSpherePositionText(axis: axis)
+                }
+            }
+            .font(.system(size: 12))
+            
+            Divider()
+            
+            HStack {
+                Circle()
+                    .fill(Color.green)
+                    .frame(width: 8)
+                Text("Live")
             }
         }
         .labelStyle(.iconOnly)

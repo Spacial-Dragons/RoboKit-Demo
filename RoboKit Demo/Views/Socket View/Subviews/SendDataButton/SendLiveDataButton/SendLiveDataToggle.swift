@@ -24,12 +24,13 @@ public struct SendLiveDataToggle: View {
                     .fontWeight(.semibold)
                 } else {
                     Image(systemName: "sensor.tag.radiowaves.forward")
+                        .font(.subheadline)
                     Text("Send Data")
                         .fontWeight(.semibold)
                 }
             }
-            .padding()
-            .frame(width: 160)
+            .padding(10)
+            .frame(width: isSendingData ? 120 : 160)
         }
         .background(isSendingData ? Color.gray : Color.green)
         .cornerRadius(25)
