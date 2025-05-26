@@ -41,12 +41,11 @@ struct ImmersiveView: View {
             if let rootPoint {
                 Attachment(id: inputSphereAttachmentID) {
                     InputSphereAttachmentView(rootPoint: rootPoint)
-                        .frame(width: 650, height: 350)
+                        .frame(width: 500, height: 200)
                         .glassBackgroundEffect()
                         .environment(inputSphereManager)
                 }
             }
-            
         }
         .onAppear {
             // Initialize Image Tracker module and start tracking images.

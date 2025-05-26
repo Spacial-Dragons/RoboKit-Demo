@@ -14,32 +14,11 @@ struct InputSphereAttachmentView: View {
     let rootPoint: Entity
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 40) {
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Position")
-                    .font(.title)
-                Divider()
-                HStack {
-                    ForEach(Axis.allCases, id: \.self) { axis in
-                        RoboKit.InputSpherePositionText(axis: axis)
-                    }
-                }
-            }
-            
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Rotation")
-                    .font(.title)
-                Divider()
-                RoboKit.InputSphereRotationSlider(rootPoint: rootPoint, eulerAngle: .yaw)
-            }
-            
-            HStack {
-                Spacer()
-                PrintInputSphereDataButton(relativeToRootPoint: rootPoint)
-                Spacer()
+        VStack() {
+            ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
+                RoboKit.InputSphereRotationSlider(rootPoint: rootPoint, eulerAngle: eulerAngle)
             }
         }
-        .padding(40)
-        .fontDesign(.rounded)
+        .frame(width: 450)
     }
 }

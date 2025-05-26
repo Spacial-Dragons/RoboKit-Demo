@@ -14,6 +14,6 @@ extension ImmersiveView {
     internal func updateInputSphereAttachmentPosition(attachments: RealityViewAttachments) {
         guard let attachment = attachments.entity(for: inputSphereAttachmentID) else { return }
         guard let inputSpherePosition = inputSphereManager.inputSpherePositionRelativeToParent else { return }
-        attachment.position = inputSpherePosition + SIMD3<Float>(0.3, 0.18, 0)
+        attachment.position = inputSpherePosition + SIMD3<Float>(0.25, 0.14, 0)
     }
 }
