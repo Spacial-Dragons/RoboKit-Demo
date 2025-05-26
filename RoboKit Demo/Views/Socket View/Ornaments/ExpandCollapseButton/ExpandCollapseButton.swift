@@ -15,7 +15,10 @@ struct ExpandCollapseButton: View {
             socketCollapsed ? "Expand" : "Collapse",
             systemImage: socketCollapsed ? "arrow.down.backward.and.arrow.up.forward.circle.fill" : "arrow.down.forward.and.arrow.up.backward.circle.fill"
         ) {
-            socketCollapsed.toggle()
+            withAnimation(.linear(duration: 0.1)) {
+                socketCollapsed.toggle()
+            }
+            
         }
         .labelStyle(.iconOnly)
         .glassBackgroundEffect()

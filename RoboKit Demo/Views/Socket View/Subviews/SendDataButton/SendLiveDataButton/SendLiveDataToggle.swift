@@ -16,7 +16,7 @@ public struct SendLiveDataToggle: View {
     
     public var body: some View {
         Button(action: {
-            isSendingData.toggle()
+                isSendingData.toggle()
         }) {
             HStack {
                 if isSendingData {
