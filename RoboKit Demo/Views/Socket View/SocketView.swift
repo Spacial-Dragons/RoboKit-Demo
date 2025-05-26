@@ -13,7 +13,7 @@ struct SocketView: View {
     
     @Environment(FormManager.self) private var formManager: FormManager
     @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
-    var client: TCPClient = TCPClient(host: "localhost", port: 12345)
+    @Environment(TCPClient.self) private var client: TCPClient
     
     @Binding private var socketCollapsed: Bool
 
@@ -57,7 +57,7 @@ struct SocketView: View {
             initializeServer()
         }
         .ornament(
-            visibility: .visible,
+            visibility: socketCollapsed ? .hidden : .visible,
             attachmentAnchor: .scene(.bottom),
             contentAlignment: .bottom
         ) {
@@ -71,6 +71,7 @@ struct SocketView: View {
         ) {
             ExpandCollapseButton(socketCollapsed: $socketCollapsed)
         }
+        .frame(height: socketCollapsed ? 50 : 800)
     }
     
     private func convertedObjectWidth() -> Float {
@@ -116,6 +117,3 @@ struct SocketView: View {
         }
     }
 }
-
-
-

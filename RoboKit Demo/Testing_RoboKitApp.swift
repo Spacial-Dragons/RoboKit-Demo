@@ -5,6 +5,7 @@ import RoboKit
 struct Testing_RoboKitApp: App {
     private var inputSphereManager = InputSphereManager()
     private var formManager: FormManager = FormManager()
+    var client: TCPClient = TCPClient(host: "localhost", port: 12345)
     @State var socketCollapsed: Bool = false
     @Environment(\.openWindow) private var openWindow
     
@@ -23,9 +24,10 @@ struct Testing_RoboKitApp: App {
                 SocketView(socketCollapsed: $socketCollapsed)
                     .environment(inputSphereManager)
                     .environment(formManager)
+                    .environment(client)
             }
         }
-        .defaultSize(width: 390, height: 800)
-        .windowResizability(.contentMinSize)
+        .defaultSize(width: 390, height: socketCollapsed ? 200 : 800)
+        .windowResizability(.contentSize)
     }
 }
