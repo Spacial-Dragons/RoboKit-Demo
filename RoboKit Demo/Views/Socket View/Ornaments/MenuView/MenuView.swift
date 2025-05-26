@@ -13,26 +13,21 @@ struct MenuView: View {
     
     var body: some View {
         HStack {
-            HStack {
-                Button("Dimensions", systemImage: "cube.fill") {
-                    // new action
-                }
-            
-                Button("Pose", systemImage: "mappin.and.ellipse.circle.fill") {
-                    // save action
-                }
-                
-                Button("Accessories", systemImage: "circle.dotted.circle") {
-                    // save action
-                }
-            }
+            TabsView()
             .padding(.horizontal)
             
             Divider()
             
             VStack(alignment: .leading) {
-                ForEach(Axis.allCases, id: \.self) { axis in
-                    RoboKit.InputSpherePositionText(axis: axis, valueWidth: 40)
+                switch client.selectedDataMode {
+                case .live:
+                    ForEach(Axis.allCases, id: \.self) { axis in
+                        RoboKit.InputSpherePositionText(axis: axis, valueWidth: 40)
+                    }
+                case .set:
+                    ForEach(Axis.allCases, id: \.self) { axis in
+                        RoboKit.FormPositionText(axis: axis, valueWidth: 40)
+                    }
                 }
             }
             .font(.system(size: 12))
