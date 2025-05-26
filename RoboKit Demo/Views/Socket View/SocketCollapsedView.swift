@@ -16,7 +16,7 @@ extension SocketView {
         
         var body: some View {
             HStack {
-                TabsView()
+                TabsView(showLabels: true)
                     .labelStyle(.iconOnly)
                 
                 Divider()
