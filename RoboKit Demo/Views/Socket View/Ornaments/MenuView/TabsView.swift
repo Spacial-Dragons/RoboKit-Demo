@@ -9,43 +9,39 @@ import SwiftUI
 import RoboKit
 
 struct TabsView: View {
+    @Binding var selectedTabs: Set<TabItem>
     private var showLabels: Bool
-    
-    init(showLabels: Bool = false) {
+
+    init(selectedTabs: Binding<Set<TabItem>>, showLabels: Bool = false) {
+        self._selectedTabs = selectedTabs
         self.showLabels = showLabels
     }
-    
+
     var body: some View {
         HStack {
-            VStack {
-                Button("Dimensions", systemImage: "cube.fill") {
-                    // new action
-                }
-                if showLabels {
-                    Text("Dimensions")
-                        .font(.system(size: 12))
-                }
-            }
-            
-            VStack {
-                Button("Pose", systemImage: "mappin.and.ellipse.circle.fill") {
-                    // save action
-                }
-                if showLabels {
-                    Text("Pose")
-                        .font(.system(size: 12))
-                }
-            }
-        
-            VStack {
-                Button("Accessories", systemImage: "circle.dotted.circle") {
-                    // save action
-                }
-                if showLabels {
-                    Text("Accessories")
-                        .font(.system(size: 12))
+            ForEach(TabItem.allCases) { tab in
+                VStack {
+                    Button(tab.rawValue, systemImage: tab.icon) {
+                        toggle(tab)
+                    }
+                    .foregroundColor(selectedTabs.contains(tab) ? .white : .gray)
+                    
+                    if showLabels {
+                        Text(tab.rawValue)
+                            .font(.system(size: 12))
+                    }
                 }
             }
         }
     }
+
+    private func toggle(_ tab: TabItem) {
+        if selectedTabs.contains(tab) {
+            selectedTabs.remove(tab)
+        } else {
+            selectedTabs.insert(tab)
+        }
+        tab.action()
+    }
 }
+

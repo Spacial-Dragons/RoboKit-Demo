@@ -18,52 +18,73 @@ extension SocketView {
         @State private var objectWidth: Float = 400
         @State private var objectWidthUnit: RoboKit.ObjectWidthUnit = .meters
         
+        @Binding var selectedTabs: Set<TabItem>
+        var onHeightChange: (CGFloat) -> Void
+        
+        init(selectedTabs: Binding<Set<TabItem>>, onHeightChange: @escaping (CGFloat) -> Void) {
+            self._selectedTabs = selectedTabs
+            self.onHeightChange = onHeightChange
+        }
+
         var body: some View {
             ScrollView {
-                VStack(alignment: .leading, spacing: 15){
+                VStack(alignment: .leading, spacing: 15) {
+                    if selectedTabs.contains(.dimensions) {
+                        ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
+                            .padding(.leading, 30)
+                        Divider()
+                    }
                     
-                    ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
-                        .padding(.leading, 30)
+                    if selectedTabs.contains(.pose) {
+                        PoseView()
+                            .environment(client)
+                            .environment(inputSphereManager)
+                            .environment(formManager)
+                            .padding(.leading, 30)
+                        Divider()
+                    }
                     
-                    Divider()
-                    
-                    PoseView()
-                        .environment(client)
-                        .environment(inputSphereManager)
-                        .environment(formManager)
-                        .padding(.leading, 30)
-                    
-                    Divider()
-                    
-                    AccessoriesView(clawShouldOpen: $clawShouldOpen)
-                        .padding(.leading, 30)
+                    if selectedTabs.contains(.accessories) {
+                        AccessoriesView(clawShouldOpen: $clawShouldOpen)
+                            .padding(.leading, 30)
+                        Divider()
+                    }
                 }
                 .padding(.top, 50)
+                .background(
+                    GeometryReader { geometry in
+                        Color.clear
+                            .onAppear {
+                                onHeightChange(geometry.size.height + 150)
+                            }
+                            .onChange(of: geometry.size.height) {
+                                onHeightChange(geometry.size.height + 150)
+                            }
+                    }
+                )
                 
-                VStack(alignment: .center) {
+                VStack {
                     SendDataButton()
                         .environment(client)
                 }
+                .padding(.top, 10)
                 .padding(.bottom, client.selectedDataMode == .live ? 0 : 93)
             }
         }
+
         private func convertedObjectWidth() -> Float {
             switch objectWidthUnit {
-            case .millimeters:
-                return objectWidth / 1000
-            case .centimeters:
-                return objectWidth / 100
-            case .meters:
-                return objectWidth
+            case .millimeters: return objectWidth / 1000
+            case .centimeters: return objectWidth / 100
+            case .meters: return objectWidth
             }
         }
-        
+
         private func sendData(shouldOpen: Bool) {
-            let objectWidth: Float = convertedObjectWidth()
+            let objectWidth = convertedObjectWidth()
             let position: [Float]
             let rotation: [Float]
-            let positionAndRotation: [Float]
-            
+
             switch client.selectedDataMode {
             case .live:
                 position = inputSphereManager.getInputSpherePosition()?.array ?? [0.0, 0.0, 0.3]
@@ -72,9 +93,9 @@ extension SocketView {
                 position = formManager.getFormPosition().array
                 rotation = formManager.getFormRotation().array
             }
-            
-            positionAndRotation = position + rotation
-            
+
+            let positionAndRotation = position + rotation
+
             client.startConnection(value: CodingManager.encodeToJSON(
                 data: CPRMessageModel(clawControl: shouldOpen,
                                       positionAndRotation: positionAndRotation,

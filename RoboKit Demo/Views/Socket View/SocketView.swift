@@ -10,10 +10,12 @@ import RealityKit
 import RoboKit
 
 struct SocketView: View {
-    
     @Environment(FormManager.self) private var formManager: FormManager
     @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
     @Environment(TCPClient.self) private var client: TCPClient
+    
+    @State private var selectedTabs: Set<TabItem> = Set(TabItem.allCases)
+    @State private var expandedHeight: CGFloat = 800
     
     @Binding private var socketCollapsed: Bool
 
@@ -24,9 +26,11 @@ struct SocketView: View {
     var body: some View {
         Group {
             if socketCollapsed {
-                SocketCollapsedView()
+                SocketCollapsedView(selectedTabs: $selectedTabs)
             } else {
-                SocketExpandedView()
+                SocketExpandedView(selectedTabs: $selectedTabs, onHeightChange: { height in
+                    expandedHeight = height
+                })
             }
         }
         .onAppear {
@@ -37,7 +41,7 @@ struct SocketView: View {
             attachmentAnchor: .scene(.bottom),
             contentAlignment: .bottom
         ) {
-            MenuView()
+            MenuView(selectedTabs: $selectedTabs)
                 .environment(client)
         }
         .ornament(
@@ -47,9 +51,10 @@ struct SocketView: View {
         ) {
             ExpandCollapseButton(socketCollapsed: $socketCollapsed)
         }
-        .frame(width: 390, height: socketCollapsed ? 50 : 800)
+        .frame(width: 390,
+               height: socketCollapsed ? 50 : expandedHeight)
     }
-    
+
     private func initializeServer() {
         do {
             let server = try TCPServer(port: 12345)

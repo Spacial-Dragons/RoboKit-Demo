@@ -6,7 +6,7 @@ struct Testing_RoboKitApp: App {
     private var inputSphereManager = InputSphereManager()
     private var formManager: FormManager = FormManager()
     var client: TCPClient = TCPClient(host: "localhost", port: 12345)
-    @State var socketCollapsed: Bool = false
+    @State var socketCollapsed: Bool = true
     @Environment(\.openWindow) private var openWindow
     
     var body: some Scene {
@@ -27,7 +27,7 @@ struct Testing_RoboKitApp: App {
                     .environment(client)
             }
         }
-        .defaultSize(width: 390, height: socketCollapsed ? 200 : 800)
+        .defaultSize(width: 390, height: socketCollapsed ? 50 : 800)
         .windowResizability(.contentSize)
     }
 }

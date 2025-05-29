@@ -14,9 +14,15 @@ extension SocketView {
         @Environment(FormManager.self) private var formManager: FormManager
         @Environment(TCPClient.self) private var client: TCPClient
         
+        @Binding var selectedTabs: Set<TabItem>
+        
+        init(selectedTabs: Binding<Set<TabItem>>) {
+            self._selectedTabs = selectedTabs
+        }
+        
         var body: some View {
             HStack {
-                TabsView(showLabels: true)
+                TabsView(selectedTabs: $selectedTabs, showLabels: true)
                     .labelStyle(.iconOnly)
                 
                 Divider()

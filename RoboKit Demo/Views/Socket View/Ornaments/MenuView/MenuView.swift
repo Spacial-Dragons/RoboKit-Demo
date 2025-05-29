@@ -11,9 +11,15 @@ import RoboKit
 struct MenuView: View {
     @Environment(TCPClient.self) private var client: TCPClient
     
+    @Binding var selectedTabs: Set<TabItem>
+    
+    init(selectedTabs: Binding<Set<TabItem>>) {
+        self._selectedTabs = selectedTabs
+    }
+    
     var body: some View {
         HStack {
-            TabsView()
+            TabsView(selectedTabs: $selectedTabs)
             .padding(.horizontal)
             
             Divider()
