@@ -28,11 +28,11 @@ struct MenuView: View {
                 switch client.selectedDataMode {
                 case .live:
                     ForEach(Axis.allCases, id: \.self) { axis in
-                        RoboKit.InputSpherePositionText(axis: axis, valueWidth: 40)
+                        RoboKit.InputSpherePositionText(axis: axis)
                     }
                 case .set:
                     ForEach(Axis.allCases, id: \.self) { axis in
-                        RoboKit.FormPositionText(axis: axis, valueWidth: 40)
+                        RoboKit.FormPositionText(axis: axis)
                     }
                 }
             }
