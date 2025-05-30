@@ -8,6 +8,8 @@
 import SwiftUI
 import RoboKit
 
+#warning("")
+
 struct TabsView: View {
     @Binding var selectedTabs: Set<TabItem>
     private var showLabels: Bool
@@ -18,18 +20,23 @@ struct TabsView: View {
     }
 
     var body: some View {
-        HStack {
+        HStack(spacing: 20) {
             ForEach(TabItem.allCases) { tab in
                 VStack {
-                    Button(tab.rawValue, systemImage: tab.icon) {
-                        toggle(tab)
+                    Group{
+                        Button(tab.rawValue, systemImage: tab.icon) {
+                            toggle(tab)
+                        }
+                        .font(.largeTitle)
+                        .buttonStyle(.plain)
+
+                        if showLabels {
+                            Text(tab.rawValue)
+                                .font(.system(size: 12))
+                        }
                     }
-                    .foregroundColor(selectedTabs.contains(tab) ? .white : .gray)
-                    
-                    if showLabels {
-                        Text(tab.rawValue)
-                            .font(.system(size: 12))
-                    }
+                    .foregroundColor(selectedTabs.contains(tab) ? .white : .secondary)
+                    .animation(.spring, value: selectedTabs.contains(tab))
                 }
             }
         }
@@ -44,4 +51,3 @@ struct TabsView: View {
         tab.action()
     }
 }
-

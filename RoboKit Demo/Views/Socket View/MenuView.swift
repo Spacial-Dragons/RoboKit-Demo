@@ -9,25 +9,23 @@ import SwiftUI
 import RoboKit
 
 extension SocketView {
-    struct SocketCollapsedView: View {
-        @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
-        @Environment(FormManager.self) private var formManager: FormManager
+    struct MenuView: View {
         @Environment(TCPClient.self) private var client: TCPClient
-        
+
         @Binding var selectedTabs: Set<TabItem>
-        
+
         init(selectedTabs: Binding<Set<TabItem>>) {
             self._selectedTabs = selectedTabs
         }
-        
+
         var body: some View {
-            HStack {
+            HStack(spacing: 20) {
                 TabsView(selectedTabs: $selectedTabs, showLabels: true)
                     .labelStyle(.iconOnly)
-                
+
                 Divider()
-                
-                VStack(alignment: .leading) {
+
+                HStack {
                     switch client.selectedDataMode {
                     case .live:
                         ForEach(Axis.allCases, id: \.self) { axis in
@@ -39,9 +37,9 @@ extension SocketView {
                         }
                     }
                 }
-                
+
                 Divider()
-                
+
                 DataModeIndicator(dataMode: client.selectedDataMode)
             }
         }

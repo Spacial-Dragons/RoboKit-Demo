@@ -8,13 +8,13 @@
 import SwiftUI
 import RoboKit
 
+#warning("")
+
 public struct PositionView: View {
     @Environment(TCPClient.self) private var client: TCPClient
-    @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
-    @Environment(FormManager.self) private var formManager: FormManager
-    
+
     public var body: some View {
-        
+
         VStack(alignment: .leading, spacing: -10) {
             switch client.selectedDataMode {
             case .live:

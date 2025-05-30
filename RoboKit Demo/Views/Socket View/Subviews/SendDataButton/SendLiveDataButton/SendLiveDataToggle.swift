@@ -7,15 +7,17 @@
 
 import SwiftUI
 
+#warning("")
+
 public struct SendLiveDataToggle: View {
     @Binding private var isSendingData: Bool
     private let onSendLiveData: () -> Void
-    
+
     public init(isSendingData: Binding<Bool>, onSendLiveData: @escaping () -> Void) {
         self._isSendingData = isSendingData
         self.onSendLiveData = onSendLiveData
     }
-    
+
     public var body: some View {
         Button(action: {
                 isSendingData.toggle()

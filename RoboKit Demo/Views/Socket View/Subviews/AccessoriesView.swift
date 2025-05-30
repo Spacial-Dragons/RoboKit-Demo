@@ -10,11 +10,11 @@ import RoboKit
 
 struct AccessoriesView: View {
     @Binding private var clawShouldOpen: Bool
-    
+
     init(clawShouldOpen: Binding<Bool>) {
         self._clawShouldOpen = clawShouldOpen
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
@@ -22,7 +22,7 @@ struct AccessoriesView: View {
                     .font(.title3)
                 Text("Set for the action.")
             }
-            
+
             HStack {
                 Text("Gripper")
                 RoboKit.ClawControlToggle(clawShouldOpen: $clawShouldOpen)

@@ -9,24 +9,23 @@ import SwiftUI
 import RealityKit
 import RoboKit
 
+#warning("")
+
 struct SocketView: View {
-    @Environment(FormManager.self) private var formManager: FormManager
-    @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
-    @Environment(TCPClient.self) private var client: TCPClient
-    
+
     @State private var selectedTabs: Set<TabItem> = Set(TabItem.allCases)
     @State private var expandedHeight: CGFloat = 800
-    
+
     @Binding private var socketCollapsed: Bool
 
     init(socketCollapsed: Binding<Bool>) {
         self._socketCollapsed = socketCollapsed
     }
-    
+
     var body: some View {
         Group {
             if socketCollapsed {
-                SocketCollapsedView(selectedTabs: $selectedTabs)
+                MenuView(selectedTabs: $selectedTabs)
             } else {
                 SocketExpandedView(selectedTabs: $selectedTabs, onHeightChange: { height in
                     expandedHeight = height
@@ -42,7 +41,9 @@ struct SocketView: View {
             contentAlignment: .bottom
         ) {
             MenuView(selectedTabs: $selectedTabs)
-                .environment(client)
+                .padding()
+                .padding(.horizontal)
+                .glassBackgroundEffect()
         }
         .ornament(
             visibility: .visible,
@@ -51,8 +52,8 @@ struct SocketView: View {
         ) {
             ExpandCollapseButton(socketCollapsed: $socketCollapsed)
         }
-        .frame(width: 390,
-               height: socketCollapsed ? 50 : expandedHeight)
+        .frame(width: 600, height: socketCollapsed ? 100 : 800)
+        .padding()
     }
 
     private func initializeServer() {

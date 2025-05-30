@@ -8,19 +8,21 @@
 import SwiftUI
 import RoboKit
 
+#warning("")
+
 extension SocketView {
     struct SocketExpandedView: View {
         @Environment(FormManager.self) private var formManager: FormManager
         @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
         @Environment(TCPClient.self) private var client: TCPClient
-        
+
         @State private var clawShouldOpen: Bool = false
         @State private var objectWidth: Float = 400
         @State private var objectWidthUnit: RoboKit.ObjectWidthUnit = .meters
-        
+
         @Binding var selectedTabs: Set<TabItem>
         var onHeightChange: (CGFloat) -> Void
-        
+
         init(selectedTabs: Binding<Set<TabItem>>, onHeightChange: @escaping (CGFloat) -> Void) {
             self._selectedTabs = selectedTabs
             self.onHeightChange = onHeightChange
@@ -34,16 +36,13 @@ extension SocketView {
                             .padding(.leading, 30)
                         Divider()
                     }
-                    
+
                     if selectedTabs.contains(.pose) {
                         PoseView()
-                            .environment(client)
-                            .environment(inputSphereManager)
-                            .environment(formManager)
                             .padding(.leading, 30)
                         Divider()
                     }
-                    
+
                     if selectedTabs.contains(.accessories) {
                         AccessoriesView(clawShouldOpen: $clawShouldOpen)
                             .padding(.leading, 30)
@@ -62,7 +61,7 @@ extension SocketView {
                             }
                     }
                 )
-                
+
                 SendDataButton(
                     onSendLiveData: {
                         sendData(shouldOpen: clawShouldOpen)
