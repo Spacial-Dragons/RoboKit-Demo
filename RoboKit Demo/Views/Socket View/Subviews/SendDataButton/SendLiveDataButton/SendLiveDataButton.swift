@@ -10,8 +10,13 @@ import RoboKit
 
 public struct SendLiveDataButton: View {
     @State private var isSendingData: Bool = false
+    private let onSendLiveData: () -> Void
     
-    public init() {}
+    public init(
+        onSendLiveData: @escaping () -> Void
+    ) {
+        self.onSendLiveData = onSendLiveData
+    }
     
     public var body: some View {
         if isSendingData {
@@ -25,7 +30,7 @@ public struct SendLiveDataButton: View {
                 .frame(width: 150)
                 .padding(.leading, 50)
                 
-                SendLiveDataToggle(isSendingData: $isSendingData)
+                SendLiveDataToggle(isSendingData: $isSendingData, onSendLiveData: onSendLiveData)
                     .frame(width: 150)
                     .padding(.trailing, 28)
             }
@@ -35,7 +40,7 @@ public struct SendLiveDataButton: View {
                     .frame(width: 300)
             )
         } else {
-            SendLiveDataToggle(isSendingData: $isSendingData)
+            SendLiveDataToggle(isSendingData: $isSendingData, onSendLiveData: onSendLiveData)
         }
     }
 }

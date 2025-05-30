@@ -8,10 +8,17 @@
 import SwiftUI
 
 public struct SendSetDataButton: View {
+    private let onSendSetData: () -> Void
+
+    public init(
+        onSendSetData: @escaping () -> Void
+    ) {
+        self.onSendSetData = onSendSetData
+    }
     
     public var body: some View {
         Button(action: {
-            
+            onSendSetData()
         }) {
             HStack {
                 Image(systemName: "sensor.tag.radiowaves.forward")

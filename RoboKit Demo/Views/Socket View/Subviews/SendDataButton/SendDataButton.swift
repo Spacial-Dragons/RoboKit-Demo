@@ -11,17 +11,26 @@ import RoboKit
 public struct SendDataButton: View {
     @Environment(TCPClient.self) private var client: TCPClient
     @State private var isSendingData: Bool = false
-    
-    public init() {}
-    
+
+    private let onSendLiveData: () -> Void
+    private let onSendSetData: () -> Void
+
+    public init(
+        onSendLiveData: @escaping () -> Void,
+        onSendSetData: @escaping () -> Void
+    ) {
+        self.onSendLiveData = onSendLiveData
+        self.onSendSetData = onSendSetData
+    }
+
     public var body: some View {
         @Bindable var client = client
-        
+
         switch client.selectedDataMode {
         case .live:
-            SendLiveDataButton()
+            SendLiveDataButton(onSendLiveData: onSendLiveData)
         case .set:
-            SendSetDataButton()
+            SendSetDataButton(onSendSetData: onSendSetData)
         }
     }
 }

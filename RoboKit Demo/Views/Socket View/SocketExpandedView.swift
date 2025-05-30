@@ -63,10 +63,14 @@ extension SocketView {
                     }
                 )
                 
-                VStack {
-                    SendDataButton()
-                        .environment(client)
-                }
+                SendDataButton(
+                    onSendLiveData: {
+                        sendData(shouldOpen: clawShouldOpen)
+                    },
+                    onSendSetData: {
+                        sendData(shouldOpen: clawShouldOpen)
+                    }
+                )
                 .padding(.top, 10)
                 .padding(.bottom, client.selectedDataMode == .live ? 0 : 93)
             }
