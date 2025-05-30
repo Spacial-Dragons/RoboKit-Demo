@@ -15,7 +15,6 @@ struct SocketView: View {
 
     @State private var selectedTabs: Set<TabItem> = Set(TabItem.allCases)
     @State private var expandedHeight: CGFloat = 800
-
     @Binding private var socketCollapsed: Bool
 
     init(socketCollapsed: Binding<Bool>) {
@@ -27,9 +26,16 @@ struct SocketView: View {
             if socketCollapsed {
                 MenuView(selectedTabs: $selectedTabs)
             } else {
-                SocketExpandedView(selectedTabs: $selectedTabs, onHeightChange: { height in
-                    expandedHeight = height
-                })
+                SocketExpandedView(selectedTabs: $selectedTabs)
+                    .padding(.bottom, 100)
+                    .background(.red)
+                    .onGeometryChange(for: CGSize.self) { proxy in
+                         proxy.size
+                     } action: { size in
+                         withAnimation {
+                             self.expandedHeight = size.height
+                         }
+                     }
             }
         }
         .onAppear {
@@ -52,7 +58,7 @@ struct SocketView: View {
         ) {
             ExpandCollapseButton(socketCollapsed: $socketCollapsed)
         }
-        .frame(width: 600, height: socketCollapsed ? 100 : 800)
+        .frame(width: 600, height: socketCollapsed ? 100 : expandedHeight)
         .padding()
     }
 
