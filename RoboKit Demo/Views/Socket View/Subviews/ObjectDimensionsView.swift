@@ -19,22 +19,17 @@ struct ObjectDimensionsView: View {
     }
     
     var body: some View {
-        VStack() {
-            VStack(alignment: .leading) {
-                Text("Dimensions")
-                    .font(.title3)
-                Text("Set the dimensions for the object.")
-            }
+        VStack(alignment: .leading) {
+            Text("Dimensions")
+                .font(.title3)
+            
+            Text("Set the dimensions for the object.")
 
-            VStack(alignment: .leading, spacing: -10) {
-                RoboKit.ObjectWidthUnitPicker(objectWidthUnit: $objectWidthUnit)
-                    .padding(.leading, 50)
-                    .frame(width: 200)
-                
-                HStack(spacing: 10) {
-                    Text("Width")
-                    RoboKit.ObjectWidthTextField(objectWidth: $objectWidth)
-                }
+            RoboKit.ObjectWidthUnitPicker(objectWidthUnit: $objectWidthUnit)
+            
+            HStack {
+                Text("Width")
+                RoboKit.ObjectWidthTextField(objectWidth: $objectWidth)
             }
         }
     }

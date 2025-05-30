@@ -24,7 +24,7 @@ public struct PoseView: View {
             RoboKit.DataModePicker()
                 .environment(client)
                 .padding(.leading, -15)
-                .frame(width: 200)
+//                .frame(width: 200)
             
             VStack(alignment: .leading, spacing: 20){
                 PositionView()
