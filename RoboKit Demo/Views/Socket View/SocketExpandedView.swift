@@ -44,18 +44,15 @@ extension SocketView {
                         Divider()
                     }
                 }
-                
-                
-                Button("Send Data"){}
-                
-                //                SendDataButton(
-                //                    onSendLiveData: {
-                //                        sendData(shouldOpen: clawShouldOpen)
-                //                    },
-                //                    onSendSetData: {
-                //                        sendData(shouldOpen: clawShouldOpen)
-                //                    }
-                //                )
+
+                RoboKit.SendDataButton(
+                    onSendLiveData: {
+                        sendData(shouldOpen: clawShouldOpen)
+                    },
+                    onSendSetData: {
+                        sendData(shouldOpen: clawShouldOpen)
+                    }
+                )
             }
             .padding(.bottom, 80)
             .padding(.top, 30)
@@ -77,6 +74,7 @@ extension SocketView {
             
             switch client.selectedDataMode {
             case .live:
+                #warning("Hard coded data")
                 position = inputSphereManager.getInputSpherePosition()?.array ?? [0.0, 0.0, 0.3]
                 rotation = inputSphereManager.getInputSphereRotation()?.array ?? [1, 0, 0, 0, 1, 0, 0, 0, 1]
             case .set:
