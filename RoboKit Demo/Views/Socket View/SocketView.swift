@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import RealityKit
 import RoboKit
 
 #warning("")
@@ -15,6 +14,7 @@ struct SocketView: View {
 
     @State private var selectedTabs: Set<TabItem> = Set(TabItem.allCases)
     @State private var windowSize: CGSize = .zero
+    @State private var menuSize: CGSize = .zero
     @Binding private var socketCollapsed: Bool
 
     init(socketCollapsed: Binding<Bool>) {
@@ -23,24 +23,25 @@ struct SocketView: View {
 
     var body: some View {
         Group {
-            if socketCollapsed {
-                MenuView(selectedTabs: $selectedTabs)
-            } else {
+            if !socketCollapsed {
                 SocketExpandedView(selectedTabs: $selectedTabs)
-                    .onGeometryChange(for: CGSize.self) { proxy in
-                         proxy.size
-                     } action: { size in
-                         withAnimation {
-                             self.windowSize = size
-                         }
-                     }
+                    .glassBackgroundEffect()
             }
         }
+        .onGeometryChange(for: CGSize.self) { proxy in
+             proxy.size
+         } action: { size in
+             withAnimation {
+                 self.windowSize = size
+             }
+         }
+        
         .onAppear {
             initializeServer()
         }
+        
         .ornament(
-            visibility: socketCollapsed ? .hidden : .visible,
+            visibility: .visible,
             attachmentAnchor: .scene(.bottom),
             contentAlignment: .bottom
         ) {
@@ -48,15 +49,28 @@ struct SocketView: View {
                 .padding()
                 .padding(.horizontal)
                 .glassBackgroundEffect()
+                .onGeometryChange(for: CGSize.self) { proxy in
+                     proxy.size
+                 } action: { size in
+                     self.menuSize = size
+                 }
         }
+        
         .ornament(
             visibility: .visible,
-            attachmentAnchor: .scene(.topLeading),
-            contentAlignment: .topLeading
+            attachmentAnchor: .scene(.top),
+            contentAlignment: socketCollapsed ? .top : .bottom
         ) {
-            ExpandCollapseButton(socketCollapsed: $socketCollapsed)
+            ZStack{
+                ExpandCollapseButton(socketCollapsed: $socketCollapsed)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                SendDataButton(onSendLiveData: {}, onSendSetData: {})
+            }
+            .frame(width: windowSize.width == .zero ? menuSize.width : windowSize.width)
         }
-        .frame(width: socketCollapsed ? 600 : windowSize.width, height: socketCollapsed ? 100 : windowSize.height)
+        
+        .frame(width: socketCollapsed ? 100 : windowSize.width, height: socketCollapsed ? 100 : windowSize.height)
         .padding()
     }
 

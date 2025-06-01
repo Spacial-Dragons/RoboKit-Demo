@@ -23,6 +23,7 @@ struct Testing_RoboKitApp: App {
             WindowGroup(id: "WindowGroup") {
                 SocketView(socketCollapsed: $socketCollapsed)
             }
+            .windowStyle(.plain)
             .windowResizability(.contentSize)
         }
         .environment(inputSphereManager)
