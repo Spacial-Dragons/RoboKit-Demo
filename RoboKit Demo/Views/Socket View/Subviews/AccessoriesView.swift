@@ -20,7 +20,9 @@ struct AccessoriesView: View {
             VStack(alignment: .leading) {
                 Text("Accessories")
                     .font(.title3)
+                
                 Text("Set for the action.")
+                    .foregroundStyle(.secondary)
             }
 
             HStack {
@@ -28,6 +30,7 @@ struct AccessoriesView: View {
                 RoboKit.ClawControlToggle(clawShouldOpen: $clawShouldOpen)
                     .frame(width: 200)
             }
+            .padding(.vertical)
         }
     }
 }

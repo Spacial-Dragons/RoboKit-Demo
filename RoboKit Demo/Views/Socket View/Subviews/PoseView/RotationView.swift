@@ -15,21 +15,15 @@ public struct RotationView: View {
 
     public var body: some View {
 
-        VStack(alignment: .leading, spacing: -10) {
+        VStack(alignment: .leading) {
             switch client.selectedDataMode {
             case .live:
-                HStack(spacing: 37) {
-                    ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
-                        RoboKit.InputSphereRotationText(eulerAngle: eulerAngle)
-                    }
+                ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
+                    RoboKit.InputSphereRotationText(eulerAngle: eulerAngle)
                 }
-                .padding(.top)
             case .set:
-                VStack(alignment: .leading, spacing: -10) {
-                    ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
-                        RoboKit.FormRotationTextField(eulerAngle: eulerAngle)
-                    }
-                    .frame(width: 280)
+                ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
+                    RoboKit.FormRotationTextField(eulerAngle: eulerAngle)
                 }
             }
         }

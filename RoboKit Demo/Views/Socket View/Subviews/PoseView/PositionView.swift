@@ -15,21 +15,15 @@ public struct PositionView: View {
 
     public var body: some View {
 
-        VStack(alignment: .leading, spacing: -10) {
+        VStack(alignment: .leading) {
             switch client.selectedDataMode {
             case .live:
-                HStack(spacing: 27) {
-                    ForEach(Axis.allCases, id: \.self) { axis in
-                        RoboKit.InputSpherePositionText(axis: axis)
-                    }
+                ForEach(Axis.allCases, id: \.self) { axis in
+                    RoboKit.InputSpherePositionText(axis: axis)
                 }
-                .padding(.top)
             case .set:
-                VStack(spacing: -10) {
-                    ForEach(Axis.allCases, id: \.self) { axis in
-                        RoboKit.FormPositionTextField(axis: axis)
-                    }
-                    .frame(width: 210)
+                ForEach(Axis.allCases, id: \.self) { axis in
+                    RoboKit.FormPositionTextField(axis: axis)
                 }
             }
         }

@@ -24,8 +24,11 @@ struct ObjectDimensionsView: View {
                 .font(.title3)
 
             Text("Set the dimensions for the object.")
+                .foregroundStyle(.secondary)
 
             RoboKit.ObjectWidthUnitPicker(objectWidthUnit: $objectWidthUnit)
+                .frame(width: 350)
+                .padding(.vertical)
 
             HStack {
                 Text("Width")

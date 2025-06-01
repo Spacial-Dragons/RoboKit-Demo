@@ -14,7 +14,7 @@ import RoboKit
 struct SocketView: View {
 
     @State private var selectedTabs: Set<TabItem> = Set(TabItem.allCases)
-    @State private var expandedHeight: CGFloat = 800
+    @State private var windowSize: CGSize = .zero
     @Binding private var socketCollapsed: Bool
 
     init(socketCollapsed: Binding<Bool>) {
@@ -27,13 +27,11 @@ struct SocketView: View {
                 MenuView(selectedTabs: $selectedTabs)
             } else {
                 SocketExpandedView(selectedTabs: $selectedTabs)
-                    .padding(.bottom, 100)
-                    .background(.red)
                     .onGeometryChange(for: CGSize.self) { proxy in
                          proxy.size
                      } action: { size in
                          withAnimation {
-                             self.expandedHeight = size.height
+                             self.windowSize = size
                          }
                      }
             }
@@ -58,7 +56,7 @@ struct SocketView: View {
         ) {
             ExpandCollapseButton(socketCollapsed: $socketCollapsed)
         }
-        .frame(width: 600, height: socketCollapsed ? 100 : expandedHeight)
+        .frame(width: socketCollapsed ? 600 : windowSize.width, height: socketCollapsed ? 100 : windowSize.height)
         .padding()
     }
 

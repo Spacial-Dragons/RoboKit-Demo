@@ -27,37 +27,39 @@ extension SocketView {
         }
         
         var body: some View {
-            VStack(alignment: .leading, spacing: 15) {
-                if selectedTabs.contains(.dimensions) {
-                    ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
-                        .padding(.leading, 30)
-                    Divider()
+            VStack{
+                VStack(alignment: .leading){
+                    if selectedTabs.contains(.dimensions) {
+                        ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
+                        Divider()
+                    }
+                    
+                    if selectedTabs.contains(.pose) {
+                        PoseView()
+                        Divider()
+                    }
+                    
+                    if selectedTabs.contains(.accessories) {
+                        AccessoriesView(clawShouldOpen: $clawShouldOpen)
+                        Divider()
+                    }
                 }
                 
-                if selectedTabs.contains(.pose) {
-                    PoseView()
-                        .padding(.leading, 30)
-                    Divider()
-                }
                 
-                if selectedTabs.contains(.accessories) {
-                    AccessoriesView(clawShouldOpen: $clawShouldOpen)
-                        .padding(.leading, 30)
-                    Divider()
-                }
+                Button("Send Data"){}
+                
+                //                SendDataButton(
+                //                    onSendLiveData: {
+                //                        sendData(shouldOpen: clawShouldOpen)
+                //                    },
+                //                    onSendSetData: {
+                //                        sendData(shouldOpen: clawShouldOpen)
+                //                    }
+                //                )
             }
-            .padding(.top, 50)
-            
-            SendDataButton(
-                onSendLiveData: {
-                    sendData(shouldOpen: clawShouldOpen)
-                },
-                onSendSetData: {
-                    sendData(shouldOpen: clawShouldOpen)
-                }
-            )
-            .padding(.top, 10)
-            .padding(.bottom, client.selectedDataMode == .live ? 0 : 93)
+            .padding(.bottom, 80)
+            .padding(.top, 30)
+            .padding(.horizontal)
         }
         
         private func convertedObjectWidth() -> Float {
