@@ -2,7 +2,7 @@ import SwiftUI
 import RoboKit
 
 @main
-struct DemoRoboKitApp: App {
+struct RoboKitDemo: App {
     private var inputSphereManager = InputSphereManager()
     private var formManager: FormManager = FormManager()
     private var client: TCPClient = TCPClient(host: "localhost", port: 12345)
@@ -13,6 +13,7 @@ struct DemoRoboKitApp: App {
     var body: some Scene {
 
         Group {
+            // Immersive space for rendering 3D content (example: Tracked Entities, Input Sphere)
             ImmersiveSpace {
                 ImmersiveView()
                     .onAppear {
