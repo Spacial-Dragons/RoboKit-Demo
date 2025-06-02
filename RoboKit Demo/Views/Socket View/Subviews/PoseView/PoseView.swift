@@ -15,7 +15,7 @@ public struct PoseView: View {
             VStack(alignment: .leading) {
                 Text("Pose")
                     .font(.title3)
-                
+
                 Text("Set the position and rotation for the robot.")
                     .foregroundStyle(.secondary)
             }

@@ -20,7 +20,7 @@ struct AccessoriesView: View {
             VStack(alignment: .leading) {
                 Text("Accessories")
                     .font(.title3)
-                
+
                 Text("Set for the action.")
                     .foregroundStyle(.secondary)
             }

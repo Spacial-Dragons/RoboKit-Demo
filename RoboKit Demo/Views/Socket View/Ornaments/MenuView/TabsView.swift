@@ -23,7 +23,7 @@ struct TabsView: View {
         HStack(spacing: 20) {
             ForEach(TabItem.allCases) { tab in
                 VStack {
-                    Group{
+                    Group {
                         Button(tab.rawValue, systemImage: tab.icon) {
                             toggle(tab)
                         }

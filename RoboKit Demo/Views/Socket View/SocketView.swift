@@ -8,7 +8,6 @@
 import SwiftUI
 import RoboKit
 
-#warning("")
 
 struct SocketView: View {
 
@@ -20,7 +19,7 @@ struct SocketView: View {
     init(socketCollapsed: Binding<Bool>) {
         self._socketCollapsed = socketCollapsed
     }
-    
+
     private var computedFrameSize: CGSize {
         if selectedTabs.isEmpty {
             return CGSize(
@@ -48,11 +47,11 @@ struct SocketView: View {
                  self.windowSize = size
              }
          }
-        
+
         .onAppear {
             initializeServer()
         }
-        
+
         .ornament(
             visibility: .visible,
             attachmentAnchor: .scene(.bottom),
@@ -68,19 +67,19 @@ struct SocketView: View {
                      self.menuSize = size
                  }
         }
-        
+
         .ornament(
             visibility: .visible,
             attachmentAnchor: .scene(.center),
             contentAlignment: .bottom
         ) {
-            ZStack(alignment: .top){
+            ZStack(alignment: .top) {
                 ExpandCollapseButton(socketCollapsed: $socketCollapsed)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     .disabled(selectedTabs.isEmpty)
                     .animation(.spring, value: selectedTabs.isEmpty)
-                
-                #warning("")
+
+                #warning("Finish Button")
                 RoboKit.SendDataButton(
                     onSendLiveData: {
 //                        sendData(shouldOpen: clawShouldOpen)
@@ -96,7 +95,7 @@ struct SocketView: View {
                 height: computedFrameSize.height
             )
         }
-        
+
         .frame(width: socketCollapsed ? 100 : windowSize.width, height: socketCollapsed ? 100 : windowSize.height)
         .padding()
         .animation(.spring, value: computedFrameSize)
@@ -110,7 +109,7 @@ struct SocketView: View {
             print("Couldn't initialize server")
         }
     }
-    
+
 //    private func convertedObjectWidth() -> Float {
 //        switch objectWidthUnit {
 //        case .millimeters: return objectWidth / 1000

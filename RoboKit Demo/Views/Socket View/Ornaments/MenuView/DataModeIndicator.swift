@@ -50,12 +50,12 @@ struct DataModeIndicator: View {
                 guard dataMode == .live else { animate = false; return }
                 animate = true
             }
-            
+
             .onChange(of: dataMode) {
                 guard dataMode == .live else { animate = false; return }
                 animate = true
             }
-            
+
             .onDisappear {
                 animate = false
             }
