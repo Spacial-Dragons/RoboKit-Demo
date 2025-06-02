@@ -8,9 +8,6 @@
 import SwiftUI
 import RoboKit
 
-
-#warning("Check this file")
-
 struct ControlPanelView: View {
     
     @Environment(TCPClient.self) private var client: TCPClient
@@ -37,6 +34,8 @@ struct ControlPanelView: View {
     }
     
     var body: some View {
+        
+        // Expanded Control Panel
         Group {
             if !panelCollapsed {
                 ExpandedControlPanelView(selectedTabs: $selectedTabs)
@@ -46,15 +45,14 @@ struct ControlPanelView: View {
         .onGeometryChange(for: CGSize.self) { proxy in
             proxy.size
         } action: { size in
-            withAnimation {
+            withAnimation{
                 self.windowSize = size
             }
         }
+        .frame(width: panelCollapsed ? 100 : windowSize.width, height: panelCollapsed ? 100 : windowSize.height)
+        .padding()
         
-        .onAppear {
-            initializeServer()
-        }
-        
+        // Menu Ornament (Bottom)
         .ornament(
             visibility: .visible,
             attachmentAnchor: .scene(.bottom),
@@ -71,6 +69,7 @@ struct ControlPanelView: View {
                 }
         }
         
+        // Expand Button + Send Data Button Ornament (Top)
         .ornament(
             visibility: .visible,
             attachmentAnchor: .scene(.center),
@@ -79,7 +78,6 @@ struct ControlPanelView: View {
             ZStack(alignment: .top) {
                 ExpandCollapseButton(panelCollapsed: $panelCollapsed)
                     .disabled(selectedTabs.isEmpty)
-                    .animation(.spring, value: selectedTabs.isEmpty)
                     .glassBackgroundEffect()
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 
@@ -87,7 +85,7 @@ struct ControlPanelView: View {
                     onSendLiveData: { sendData() },
                     onSendSetData: { sendData() }
                 )
-                    .frame(maxHeight: .infinity, alignment: .top)
+                .frame(maxHeight: .infinity, alignment: .top)
             }
             .frame(
                 width: computedFrameSize.width,
@@ -95,10 +93,13 @@ struct ControlPanelView: View {
             )
         }
         
-        .frame(width: panelCollapsed ? 100 : windowSize.width, height: panelCollapsed ? 100 : windowSize.height)
-        .padding()
         .animation(.spring, value: computedFrameSize)
         .environment(controlPanelModel)
+        
+        // Initialize Server
+        .onAppear {
+            initializeServer()
+        }
     }
     
     private func initializeServer() {
@@ -110,15 +111,15 @@ struct ControlPanelView: View {
         }
     }
     
-    private func convertedObjectWidth() -> Float {
-        switch controlPanelModel.objectWidthUnit {
-        case .millimeters: return controlPanelModel.objectWidth / 1000
-        case .centimeters: return controlPanelModel.objectWidth / 100
-        case .meters: return controlPanelModel.objectWidth
-        }
-    }
-    
     private func sendData() {
+        func convertedObjectWidth() -> Float {
+            switch controlPanelModel.objectWidthUnit {
+            case .millimeters: return controlPanelModel.objectWidth / 1000
+            case .centimeters: return controlPanelModel.objectWidth / 100
+            case .meters: return controlPanelModel.objectWidth
+            }
+        }
+        
         let objectWidth = convertedObjectWidth()
         let position: [Float]
         let rotation: [Float]
