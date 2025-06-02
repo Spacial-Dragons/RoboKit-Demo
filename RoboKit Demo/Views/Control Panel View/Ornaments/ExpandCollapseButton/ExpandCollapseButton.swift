@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct ExpandCollapseButton: View {
-    @Binding var socketCollapsed: Bool
+    @Binding var panelCollapsed: Bool
 
     var body: some View {
         Button(
-            socketCollapsed ? "Expand" : "Collapse",
-            systemImage: socketCollapsed ? "arrow.down.backward.and.arrow.up.forward" : "arrow.down.forward.and.arrow.up.backward"
+            panelCollapsed ? "Expand Control Panel" : "Collapse Control Panel",
+            systemImage: "arrow.down.\(panelCollapsed ? "backward" : "forward").and.arrow.up.\(panelCollapsed ? "forward" : "backward")"
         ) {
             withAnimation {
-                socketCollapsed.toggle()
+                panelCollapsed.toggle()
             }
         }
         .contentTransition(.symbolEffect(.replace))
         .labelStyle(.iconOnly)
-        .glassBackgroundEffect()
     }
 }

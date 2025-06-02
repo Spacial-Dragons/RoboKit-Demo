@@ -41,7 +41,8 @@ struct ImmersiveView: View {
             if let rootPoint {
                 Attachment(id: inputSphereAttachmentID) {
                     InputSphereAttachmentView(rootPoint: rootPoint)
-                        .frame(width: 500, height: 200)
+                        .padding(.all, 30)
+                        .frame(width: 500)
                         .glassBackgroundEffect()
                 }
             }

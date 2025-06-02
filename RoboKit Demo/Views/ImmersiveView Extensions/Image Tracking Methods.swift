@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-import RealityKit
 import RoboKit
+import RealityFoundation
 
 extension ImmersiveView {
     /// Sets up the image tracker with predefined AR reference images and root offsets.

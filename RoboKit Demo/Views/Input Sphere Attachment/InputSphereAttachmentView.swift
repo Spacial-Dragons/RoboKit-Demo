@@ -7,17 +7,14 @@
 
 import RoboKit
 import SwiftUI
-import RealityKit
+import RealityFoundation
 
 struct InputSphereAttachmentView: View {
     let rootPoint: Entity
 
     var body: some View {
-        VStack {
-            ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
-                RoboKit.InputSphereRotationSlider(rootPoint: rootPoint, eulerAngle: eulerAngle)
-            }
+        ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
+            RoboKit.InputSphereRotationSlider(rootPoint: rootPoint, eulerAngle: eulerAngle)
         }
-        .frame(width: 450)
     }
 }

@@ -9,16 +9,11 @@ import SwiftUI
 import RoboKit
 
 struct ObjectDimensionsView: View {
-    @Binding private var objectWidth: Float
-    @Binding private var objectWidthUnit: RoboKit.ObjectWidthUnit
-
-    init(objectWidth: Binding<Float>,
-         objectWidthUnit: Binding<RoboKit.ObjectWidthUnit>) {
-        self._objectWidth = objectWidth
-        self._objectWidthUnit = objectWidthUnit
-    }
+    @Environment(ControlPanelModel.self) private var controlPanelModel: ControlPanelModel
 
     var body: some View {
+        @Bindable var controlPanelModel = controlPanelModel
+        
         VStack(alignment: .leading) {
             Text("Dimensions")
                 .font(.title3)
@@ -26,13 +21,13 @@ struct ObjectDimensionsView: View {
             Text("Set the dimensions for the object.")
                 .foregroundStyle(.secondary)
 
-            RoboKit.ObjectWidthUnitPicker(objectWidthUnit: $objectWidthUnit)
+            RoboKit.ObjectWidthUnitPicker(objectWidthUnit: $controlPanelModel.objectWidthUnit)
                 .frame(width: 350)
                 .padding(.vertical)
 
             HStack {
                 Text("Width")
-                RoboKit.ObjectWidthTextField(objectWidth: $objectWidth)
+                RoboKit.ObjectWidthTextField(objectWidth: $controlPanelModel.objectWidth)
             }
         }
     }

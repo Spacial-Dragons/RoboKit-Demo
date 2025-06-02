@@ -12,17 +12,14 @@ public struct PoseView: View {
 
     public var body: some View {
         VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
-                Text("Pose")
-                    .font(.title3)
+            Text("Pose")
+                .font(.title3)
 
-                Text("Set the position and rotation for the robot.")
-                    .foregroundStyle(.secondary)
-            }
+            Text("Set the position and rotation for the robot.")
+                .foregroundStyle(.secondary)
 
             RoboKit.DataModePicker()
                 .padding(.vertical)
-                .frame(width: 350)
 
             VStack(alignment: .leading, spacing: 20) {
                 PositionView()
@@ -30,4 +27,5 @@ public struct PoseView: View {
             }
         }
     }
+
 }

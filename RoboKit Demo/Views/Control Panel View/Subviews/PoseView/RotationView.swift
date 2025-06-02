@@ -8,13 +8,10 @@
 import SwiftUI
 import RoboKit
 
-#warning("")
-
 public struct RotationView: View {
     @Environment(TCPClient.self) private var client: TCPClient
 
     public var body: some View {
-
         VStack(alignment: .leading) {
             switch client.selectedDataMode {
             case .live:

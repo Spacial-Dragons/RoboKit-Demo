@@ -22,15 +22,4 @@ enum TabItem: String, CaseIterable, Identifiable {
         case .accessories: return "circle.dotted.circle"
         }
     }
-
-    var action: () -> Void {
-        switch self {
-        case .dimensions:
-            return { print("Dimensions tapped") }
-        case .pose:
-            return { print("Pose tapped") }
-        case .accessories:
-            return { print("Accessories tapped") }
-        }
-    }
 }
