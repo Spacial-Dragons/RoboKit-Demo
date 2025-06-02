@@ -32,7 +32,6 @@ struct TabsView: View {
 
                         if showLabels {
                             Text(tab.rawValue)
-                                .font(.system(size: 12))
                         }
                     }
                     .foregroundColor(selectedTabs.contains(tab) ? .white : .secondary)

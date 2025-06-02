@@ -19,6 +19,7 @@ struct ExpandCollapseButton: View {
                 socketCollapsed.toggle()
             }
         }
+        .contentTransition(.symbolEffect(.replace))
         .labelStyle(.iconOnly)
         .glassBackgroundEffect()
     }

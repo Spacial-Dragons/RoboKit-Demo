@@ -17,8 +17,8 @@ extension SocketView {
         @Environment(TCPClient.self) private var client: TCPClient
         
         @State private var clawShouldOpen: Bool = false
-        @State private var objectWidth: Float = 400
-        @State private var objectWidthUnit: RoboKit.ObjectWidthUnit = .meters
+        @State private var objectWidth: Float = 120
+        @State private var objectWidthUnit: RoboKit.ObjectWidthUnit = .centimeters
         
         @Binding var selectedTabs: Set<TabItem>
         
@@ -27,67 +27,23 @@ extension SocketView {
         }
         
         var body: some View {
-            VStack{
-                VStack(alignment: .leading){
-                    if selectedTabs.contains(.dimensions) {
-                        ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
-                        Divider()
-                    }
-                    
-                    if selectedTabs.contains(.pose) {
-                        PoseView()
-                        Divider()
-                    }
-                    
-                    if selectedTabs.contains(.accessories) {
-                        AccessoriesView(clawShouldOpen: $clawShouldOpen)
-                        Divider()
-                    }
+            VStack(alignment: .leading, spacing: 30){
+                if selectedTabs.contains(.dimensions) {
+                    ObjectDimensionsView(objectWidth: $objectWidth, objectWidthUnit: $objectWidthUnit)
+                    Divider()
                 }
-
-                RoboKit.SendDataButton(
-                    onSendLiveData: {
-                        sendData(shouldOpen: clawShouldOpen)
-                    },
-                    onSendSetData: {
-                        sendData(shouldOpen: clawShouldOpen)
-                    }
-                )
+                
+                if selectedTabs.contains(.pose) {
+                    PoseView()
+                    Divider()
+                }
+                
+                if selectedTabs.contains(.accessories) {
+                    AccessoriesView(clawShouldOpen: $clawShouldOpen)
+                }
             }
-            .padding(.bottom, 80)
-            .padding(.top, 30)
-            .padding(.horizontal)
-        }
-        
-        private func convertedObjectWidth() -> Float {
-            switch objectWidthUnit {
-            case .millimeters: return objectWidth / 1000
-            case .centimeters: return objectWidth / 100
-            case .meters: return objectWidth
-            }
-        }
-        
-        private func sendData(shouldOpen: Bool) {
-            let objectWidth = convertedObjectWidth()
-            let position: [Float]
-            let rotation: [Float]
-            
-            switch client.selectedDataMode {
-            case .live:
-                #warning("Hard coded data")
-                position = inputSphereManager.getInputSpherePosition()?.array ?? [0.0, 0.0, 0.3]
-                rotation = inputSphereManager.getInputSphereRotation()?.array ?? [1, 0, 0, 0, 1, 0, 0, 0, 1]
-            case .set:
-                position = formManager.getFormPosition().array
-                rotation = formManager.getFormRotation().array
-            }
-            
-            let positionAndRotation = position + rotation
-            
-            client.startConnection(value: CodingManager.encodeToJSON(
-                data: CPRMessageModel(clawControl: shouldOpen,
-                                      positionAndRotation: positionAndRotation,
-                                      objectWidth: objectWidth)))
+            .padding(.bottom, 50)
+            .padding(.all, 30)
         }
     }
 }

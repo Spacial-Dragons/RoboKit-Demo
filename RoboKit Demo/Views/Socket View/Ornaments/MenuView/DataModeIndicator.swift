@@ -61,7 +61,6 @@ struct DataModeIndicator: View {
             }
 
             Text(label)
-                .font(.headline)
         }
     }
 }
