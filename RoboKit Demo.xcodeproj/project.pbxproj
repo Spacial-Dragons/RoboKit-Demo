@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-        1AC6A2C02DE8ADA4009A1B16 /* RoboKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1AC6A2BF2DE8ADA4009A1B16 /* RoboKit */; };
-        1AE697CB2DDB32390035FFEC /* SampleCode.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697C92DDB32390035FFEC /* SampleCode.xcconfig */; };
-        1AE697CD2DDB32620035FFEC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697CC2DDB32620035FFEC /* LICENSE */; };
-        1AE697CF2DDB32670035FFEC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697CE2DDB32670035FFEC /* README.md */; };
+		1AC6A2C02DE8ADA4009A1B16 /* RoboKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1AC6A2BF2DE8ADA4009A1B16 /* RoboKit */; };
+		1AE697CB2DDB32390035FFEC /* SampleCode.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697C92DDB32390035FFEC /* SampleCode.xcconfig */; };
+		1AE697CD2DDB32620035FFEC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697CC2DDB32620035FFEC /* LICENSE */; };
+		1AE697CF2DDB32670035FFEC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697CE2DDB32670035FFEC /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,7 +86,7 @@
 			buildRules = (
 			);
 			dependencies = (
-                            1A88A0CB2DEDD22D00F10506 /* PBXTargetDependency */,
+				1A88A0CB2DEDD22D00F10506 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				1A9E4D0B2D8B007C00D8D5A8 /* RoboKit Demo */,
@@ -123,10 +123,10 @@
 			);
 			mainGroup = 1A9E4D002D8B007C00D8D5A8;
 			minimizedProjectReferenceProxies = 1;
-            packageReferences = (
-                1AC6A2BE2DE8ADA4009A1B16 /* XCLocalSwiftPackageReference "../RoboKit" */,
-                1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
-            );
+			packageReferences = (
+				1AC6A2BE2DE8ADA4009A1B16 /* XCLocalSwiftPackageReference "../RoboKit" */,
+				1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1A9E4D0A2D8B007C00D8D5A8 /* Products */;
 			projectDirPath = "";
@@ -161,10 +161,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-        1A88A0CB2DEDD22D00F10506 /* PBXTargetDependency */ = {
-            isa = PBXTargetDependency;
-            productRef = 1A88A0CA2DEDD22D00F10506 /* SwiftLintBuildToolPlugin */;
-        };
+		1A88A0CB2DEDD22D00F10506 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 1A88A0CA2DEDD22D00F10506 /* SwiftLintBuildToolPlugin */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -378,38 +378,26 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-        1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
-            isa = XCRemoteSwiftPackageReference;
-            repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
-            requirement = {
-                kind = upToNextMajorVersion;
-                minimumVersion = 0.59.1;
-            };
-        };
-        BDBA87232DD4A298009614D1 /* XCRemoteSwiftPackageReference "RoboKit" */ = {
-            isa = XCRemoteSwiftPackageReference;
-            repositoryURL = "https://github.com/robohubdev/RoboKit";
-            requirement = {
-                kind = upToNextMajorVersion;
-                minimumVersion = 1.0.0;
-            };
-        };
+		1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.59.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-        1A88A0CA2DEDD22D00F10506 /* SwiftLintBuildToolPlugin */ = {
-            isa = XCSwiftPackageProductDependency;
-            package = 1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
-            productName = "plugin:SwiftLintBuildToolPlugin";
-        };
-        1AC6A2BF2DE8ADA4009A1B16 /* RoboKit */ = {
-            isa = XCSwiftPackageProductDependency;
-            productName = RoboKit;
-        };
-        BDBA87242DD4A298009614D1 /* RoboKit */ = {
-            isa = XCSwiftPackageProductDependency;
-            productName = RoboKit;
-        };
+		1A88A0CA2DEDD22D00F10506 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		1AC6A2BF2DE8ADA4009A1B16 /* RoboKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RoboKit;
+		};
 /* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1A9E4D012D8B007C00D8D5A8 /* Project object */;

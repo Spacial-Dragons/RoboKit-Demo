@@ -19,9 +19,7 @@ struct ImmersiveView: View {
     // Initialize the image tracker with AR resource group and images with specified offsets.
     @State internal var imageTracker: RoboKit.ImageTracker?
 
-    // Initialize the InputSphereManager class.
-    // Input Sphere is a RealityKit entity representing the target position and rotation for robot's end effector.
-    @State internal var inputSphereManager = RoboKit.InputSphereManager()
+    @Environment(InputSphereManager.self) var inputSphereManager: InputSphereManager
 
     // ID of Input Sphere's Attachment.
     internal let inputSphereAttachmentID: String = "InputSphereAttachment"
