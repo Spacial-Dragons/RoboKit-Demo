@@ -17,7 +17,7 @@ struct ImmersiveView: View {
     @State internal var trackedSpheres: [Entity] = []
 
     // Initialize the image tracker with AR resource group and images with specified offsets.
-    @State internal var imageTracker: RoboKit.ImageTracker?
+    @Environment(ImageTracker.self) var imageTracker: ImageTracker
 
     @Environment(InputSphereManager.self) var inputSphereManager: InputSphereManager
 
@@ -47,9 +47,14 @@ struct ImmersiveView: View {
                 }
             }
         }
+
+        /// Updates the root entity and tracked image entities upon successful initialization.
         .onAppear {
-            // Initialize Image Tracker module and start tracking images.
-            initializeImageTracker()
+            updateRootEntity(with: imageTracker.rootTransform)
+            updateTrackingEntities(with: imageTracker.trackedImagesTransform)
+
+            // Add Input Sphere entity to the parent entity above the root point if it doesn't exist yet.
+            inputSphereManager.addInputSphere(parentEntity: parentEntity, rootPoint: rootPoint)
         }
 
         // Add Input Sphere Drag Gesture recognition and handling.
@@ -59,15 +64,16 @@ struct ImmersiveView: View {
             inputSphereManager: inputSphereManager
         )
 
-        .onChange(of: imageTracker?.rootTransform) {
+        .onChange(of: imageTracker.rootTransform) {
             // When the root transform changes, update the corresponding entity.
-            updateRootEntity(with: imageTracker?.rootTransform)
+            updateRootEntity(with: imageTracker.rootTransform)
+
             // Add Input Sphere entity to the parent entity above the root point if it doesn't exist yet.
             inputSphereManager.addInputSphere(parentEntity: parentEntity, rootPoint: rootPoint)
         }
-        .onChange(of: imageTracker?.trackedImagesTransform) {
+        .onChange(of: imageTracker.trackedImagesTransform) {
             // When the tracked images transform changes, update the sphere entities accordingly.
-            updateTrackingEntities(with: imageTracker?.trackedImagesTransform ?? [])
+            updateTrackingEntities(with: imageTracker.trackedImagesTransform)
         }
     }
 }
