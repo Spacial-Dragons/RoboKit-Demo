@@ -12,7 +12,7 @@ extension ControlPanelView {
     struct MenuView: View {
         @Environment(TCPClient.self) private var client: TCPClient
         @Binding var selectedTabs: Set<TabItem>
-        
+
         @ViewBuilder
         func viewForAxis(_ axis: RoboKit.Axis) -> some View {
             switch client.selectedDataMode {

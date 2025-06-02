@@ -13,7 +13,8 @@ struct ExpandCollapseButton: View {
     var body: some View {
         Button(
             panelCollapsed ? "Expand Control Panel" : "Collapse Control Panel",
-            systemImage: "arrow.down.\(panelCollapsed ? "backward" : "forward").and.arrow.up.\(panelCollapsed ? "forward" : "backward")"
+            systemImage: "arrow.down.\(panelCollapsed ? "backward" : "forward")"
+                + ".and.arrow.up.\(panelCollapsed ? "forward" : "backward")"
         ) {
             withAnimation {
                 panelCollapsed.toggle()

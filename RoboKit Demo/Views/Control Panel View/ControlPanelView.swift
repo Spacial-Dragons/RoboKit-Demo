@@ -9,17 +9,17 @@ import SwiftUI
 import RoboKit
 
 struct ControlPanelView: View {
-    
+
     @Environment(TCPClient.self) private var client: TCPClient
     @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
     @Environment(FormManager.self) private var formManager: FormManager
-    
+
     @State private var controlPanelModel = ControlPanelModel()
     @State private var selectedTabs: Set<TabItem> = Set(TabItem.allCases)
     @State private var windowSize: CGSize = .zero
     @State private var menuSize: CGSize = .zero
     @State private var panelCollapsed: Bool = true
-    
+
     private var computedFrameSize: CGSize {
         if selectedTabs.isEmpty {
             return CGSize(
@@ -32,9 +32,9 @@ struct ControlPanelView: View {
             height: windowSize.height == .zero ? menuSize.height / 2 + 10 : windowSize.height / 2 + 50
         )
     }
-    
+
     var body: some View {
-        
+
         // Expanded Control Panel
         Group {
             if !panelCollapsed {
@@ -45,13 +45,13 @@ struct ControlPanelView: View {
         .onGeometryChange(for: CGSize.self) { proxy in
             proxy.size
         } action: { size in
-            withAnimation{
+            withAnimation {
                 self.windowSize = size
             }
         }
         .frame(width: panelCollapsed ? 100 : windowSize.width, height: panelCollapsed ? 100 : windowSize.height)
         .padding()
-        
+
         // Menu Ornament (Bottom)
         .ornament(
             visibility: .visible,
@@ -68,7 +68,7 @@ struct ControlPanelView: View {
                     self.menuSize = size
                 }
         }
-        
+
         // Expand Button + Send Data Button Ornament (Top)
         .ornament(
             visibility: .visible,
@@ -80,7 +80,7 @@ struct ControlPanelView: View {
                     .disabled(selectedTabs.isEmpty)
                     .glassBackgroundEffect()
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                
+
                 RoboKit.SendDataButton(
                     onSendLiveData: { sendData() },
                     onSendSetData: { sendData() }
@@ -92,25 +92,25 @@ struct ControlPanelView: View {
                 height: computedFrameSize.height
             )
         }
-        
+
         .animation(.spring, value: computedFrameSize)
         .environment(controlPanelModel)
-        
+
         // Initialize Server
         .onAppear {
             initializeServer()
         }
     }
-    
+
     private func initializeServer() {
         do {
             let server = try TCPServer(port: 12345)
-            try! server.start(logMessage: "Started server")
+            try server.start(logMessage: "Started server")
         } catch {
-            print("Couldn't initialize server")
+            print("Couldn't initialize server: \(error)")
         }
     }
-    
+
     private func sendData() {
         func convertedObjectWidth() -> Float {
             switch controlPanelModel.objectWidthUnit {
@@ -119,11 +119,11 @@ struct ControlPanelView: View {
             case .meters: return controlPanelModel.objectWidth
             }
         }
-        
+
         let objectWidth = convertedObjectWidth()
         let position: [Float]
         let rotation: [Float]
-        
+
         switch client.selectedDataMode {
         case .live:
             #warning("Hard coded data, implement Live Mode")
@@ -133,9 +133,9 @@ struct ControlPanelView: View {
             position = formManager.getFormPosition().array
             rotation = formManager.getFormRotation().array
         }
-        
+
         let positionAndRotation = position + rotation
-        
+
         client.startConnection(value: CodingManager.encodeToJSON(
             data: CPRMessageModel(clawControl: controlPanelModel.clawShouldOpen,
                                   positionAndRotation: positionAndRotation,

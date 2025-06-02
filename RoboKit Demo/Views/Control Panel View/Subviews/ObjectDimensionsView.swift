@@ -13,7 +13,7 @@ struct ObjectDimensionsView: View {
 
     var body: some View {
         @Bindable var controlPanelModel = controlPanelModel
-        
+
         VStack(alignment: .leading) {
             Text("Dimensions")
                 .font(.title3)

@@ -53,7 +53,11 @@ struct ImmersiveView: View {
         }
 
         // Add Input Sphere Drag Gesture recognition and handling.
-        .inputSphereDragGesture(parentEntity: parentEntity, rootPoint: rootPoint, inputSphereManager: inputSphereManager)
+        .inputSphereDragGesture(
+            parentEntity: parentEntity,
+            rootPoint: rootPoint,
+            inputSphereManager: inputSphereManager
+        )
 
         .onChange(of: imageTracker?.rootTransform) {
             // When the root transform changes, update the corresponding entity.

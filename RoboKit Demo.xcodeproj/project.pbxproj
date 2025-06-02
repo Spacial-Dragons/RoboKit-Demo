@@ -77,6 +77,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				1A88A0CB2DEDD22D00F10506 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				1A9E4D0B2D8B007C00D8D5A8 /* RoboKit Demo */,
@@ -115,6 +116,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				1AC6A2BE2DE8ADA4009A1B16 /* XCLocalSwiftPackageReference "../RoboKit" */,
+				1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1A9E4D0A2D8B007C00D8D5A8 /* Products */;
@@ -145,6 +147,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1A88A0CB2DEDD22D00F10506 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 1A88A0CA2DEDD22D00F10506 /* SwiftLintBuildToolPlugin */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1A9E4D222D8B007D00D8D5A8 /* Debug */ = {
@@ -346,7 +355,23 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.59.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		1A88A0CA2DEDD22D00F10506 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
 		1AC6A2BF2DE8ADA4009A1B16 /* RoboKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RoboKit;

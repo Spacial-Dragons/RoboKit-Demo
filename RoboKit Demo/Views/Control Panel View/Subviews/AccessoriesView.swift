@@ -13,7 +13,7 @@ struct AccessoriesView: View {
 
     var body: some View {
         @Bindable var controlPanelModel = controlPanelModel
-        
+
         VStack(alignment: .leading) {
             Text("Accessories")
                 .font(.title3)

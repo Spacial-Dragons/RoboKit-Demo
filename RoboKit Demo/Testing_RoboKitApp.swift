@@ -2,12 +2,12 @@ import SwiftUI
 import RoboKit
 
 @main
-struct Testing_RoboKitApp: App {
+struct DemoRoboKitApp: App {
     private var inputSphereManager = InputSphereManager()
     private var formManager: FormManager = FormManager()
     private var client: TCPClient = TCPClient(host: "localhost", port: 12345)
     private let windowGroupID: String = "WindowGroup"
-    
+
     @Environment(\.openWindow) private var openWindow
 
     var body: some Scene {

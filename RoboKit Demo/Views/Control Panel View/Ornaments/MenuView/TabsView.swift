@@ -20,7 +20,7 @@ struct TabsView: View {
     var body: some View {
         HStack(spacing: 20) {
             ForEach(TabItem.allCases, id: \.self) { tab in
-                VStack{
+                VStack {
                     Button {
                         self.toggle(tab)
                     } label: {
@@ -28,7 +28,7 @@ struct TabsView: View {
                             .font(.largeTitle)
                     }
                     .buttonStyle(.plain)
-                    
+
                     if showLabels {
                         Text(tab.rawValue)
                     }
@@ -38,7 +38,7 @@ struct TabsView: View {
             }
         }
     }
-    
+
     private func toggle(_ tab: TabItem) {
         if selectedTabs.contains(tab) {
             selectedTabs.remove(tab)
