@@ -53,8 +53,8 @@ struct ControlPanelView: View {
                 }
             }
             .frame(
-                width: selectedTabs.isEmpty ? 100 : windowSize.width,
-                height: selectedTabs.isEmpty ? 100 : windowSize.height
+                width: windowSize.width,
+                height: selectedTabs.isEmpty ? 0 : windowSize.height
             )
             .padding()
 

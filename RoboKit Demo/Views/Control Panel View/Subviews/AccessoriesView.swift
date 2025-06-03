@@ -29,5 +29,6 @@ struct AccessoriesView: View {
             }
             .padding(.vertical)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

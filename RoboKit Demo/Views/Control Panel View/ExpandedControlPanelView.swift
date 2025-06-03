@@ -35,6 +35,7 @@ extension ControlPanelView {
                         .transition(.opacity)
                 }
             }
+            .frame(width: 350)
             .padding(.bottom, 50)
             .padding(.all, 30)
             .animation(.spring, value: selectedTabs)
