@@ -31,6 +31,7 @@ public struct PoseView: View {
                 Divider()
                 RotationView()
             }
+            .frame(height: 263)
         }
     }
 

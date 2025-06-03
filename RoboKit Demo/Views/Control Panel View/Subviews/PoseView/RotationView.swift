@@ -21,13 +21,14 @@ public struct RotationView: View {
             case .live:
                 Group {
                     if let rootTransform = imageTracker.rootTransform {
-                        ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
+                        ForEach(Array(EulerAngle.allCases.enumerated()), id: \.element) { index, eulerAngle in
                             RoboKit.InputSphereRotationSlider(
                                 rootPoint: getRootPointEntity(from: rootTransform),
-                                eulerAngle: eulerAngle,
-                                showMinMax: true
+                                eulerAngle: eulerAngle
                             )
-                            .padding(.vertical, 8)
+                            if index != RoboKit.EulerAngle.allCases.count - 1 {
+                                Spacer()
+                            }
                         }
                     } else {
                         ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
@@ -39,7 +40,6 @@ public struct RotationView: View {
             case .set:
                 ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
                     RoboKit.FormRotationTextField(eulerAngle: eulerAngle)
-                        .padding(.vertical, 3)
                 }
                 .transition(.move(edge: .trailing).combined(with: .opacity))
             }
