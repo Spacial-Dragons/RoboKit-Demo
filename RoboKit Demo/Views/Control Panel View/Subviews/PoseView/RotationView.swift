@@ -19,27 +19,32 @@ public struct RotationView: View {
         VStack(alignment: .leading) {
             switch client.selectedDataMode {
             case .live:
-                if let rootTransform = imageTracker.rootTransform {
-                    ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
-                        RoboKit.InputSphereRotationSlider(
-                            rootPoint: getRootPointEntity(from: rootTransform),
-                            eulerAngle: eulerAngle,
-                            showMinMax: true
-                        )
-                        .padding(.vertical, 8)
-                    }
-                } else {
-                    ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
-                        RoboKit.InputSphereRotationText(eulerAngle: eulerAngle)
+                Group {
+                    if let rootTransform = imageTracker.rootTransform {
+                        ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
+                            RoboKit.InputSphereRotationSlider(
+                                rootPoint: getRootPointEntity(from: rootTransform),
+                                eulerAngle: eulerAngle,
+                                showMinMax: true
+                            )
+                            .padding(.vertical, 8)
+                        }
+                    } else {
+                        ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
+                            RoboKit.InputSphereRotationText(eulerAngle: eulerAngle)
+                        }
                     }
                 }
+                .transition(.move(edge: .leading).combined(with: .opacity))
             case .set:
                 ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
                     RoboKit.FormRotationTextField(eulerAngle: eulerAngle)
                         .padding(.vertical, 3)
                 }
+                .transition(.move(edge: .trailing).combined(with: .opacity))
             }
         }
+        .animation(.spring, value: client.selectedDataMode)
     }
 
     // Create an entity that represents the transformation of the root entity

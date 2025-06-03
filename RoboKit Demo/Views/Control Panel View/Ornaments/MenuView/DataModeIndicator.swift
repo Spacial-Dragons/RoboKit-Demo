@@ -31,6 +31,7 @@ struct DataModeIndicator: View {
 
             Text(label)
         }
+        .animation(.spring, value: dataMode)
 
         // Toggle the animation on the change of the mode
         .onAppear { animate = (dataMode == .live) }
