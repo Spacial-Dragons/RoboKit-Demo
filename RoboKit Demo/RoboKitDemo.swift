@@ -20,9 +20,7 @@ struct RoboKitDemo: App {
             imageTracker = try RoboKit.ImageTracker(
                 arResourceGroupName: "AR Resources",
                 images: [
-                    .init(imageName: "Tracking-Image-1", rootOffset: .init(x: -0.11, y: 0, z: 0.169)),
-                    .init(imageName: "Tracking-Image-2", rootOffset: .init(x: -0.11, y: 0, z: -0.169)),
-                    .init(imageName: "Tracking-Image-3", rootOffset: .init(x: 0.11, y: 0, z: -0.169))
+                    .init(imageName: "TrackingImage", rootOffset: .init(x: 0, y: 0, z: 0))
                 ]
             )
         } catch {
