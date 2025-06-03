@@ -4,6 +4,7 @@ import RoboKit
 @main
 struct RoboKitDemo: App {
 
+    // Store ID of the window group
     private let windowGroupID: String = "WindowGroup"
 
     private var imageTracker: RoboKit.ImageTracker
@@ -14,7 +15,7 @@ struct RoboKitDemo: App {
     @Environment(\.openWindow) private var openWindow
 
     init() {
-        // 1. ImageTracker
+        // Initialize ImageTracker, app crashes if not all images are present in the Assets catalog
         do {
             imageTracker = try RoboKit.ImageTracker(
                 arResourceGroupName: "AR Resources",
@@ -28,18 +29,19 @@ struct RoboKitDemo: App {
             fatalError("Failed to initialize image tracker: \(error)")
         }
 
-        // 2. InputSphereManager
+        // Initialize InputSphereManager
         inputSphereManager = InputSphereManager()
 
-        // 3. FormManager
+        // Initialize FormManager
         formManager = FormManager()
 
-        // 4. TCPClient
-        client = TCPClient(host: "localhost", port: 12345)
+        // Initialize TCPClient
+        client = TCPClient(host: NetworkSettings.host, port: NetworkSettings.port)
     }
 
     var body: some Scene {
         Group {
+            // ImmersiveSpace contains Image Tracker and draws all of the 3D content
             ImmersiveSpace {
                 ImmersiveView()
                     .onAppear {
@@ -48,12 +50,15 @@ struct RoboKitDemo: App {
             }
             .immersionStyle(selection: .constant(.mixed), in: .mixed)
 
+            // WindowGroup contains Control Panel, where you can customize different properties of the data
             WindowGroup(id: windowGroupID) {
                 ControlPanelView()
             }
             .windowStyle(.plain)
             .windowResizability(.contentSize)
         }
+
+        // Pass down environment variables
         .environment(inputSphereManager)
         .environment(formManager)
         .environment(client)

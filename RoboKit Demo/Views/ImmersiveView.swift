@@ -16,9 +16,10 @@ struct ImmersiveView: View {
     // Array to store entities representing tracked images.
     @State internal var trackedSpheres: [Entity] = []
 
-    // Initialize the image tracker with AR resource group and images with specified offsets.
+    // Image tracker with AR resource group and images with specified offsets.
     @Environment(ImageTracker.self) var imageTracker: ImageTracker
 
+    // Input Sphere Manager used to control properties of the Input Sphere
     @Environment(InputSphereManager.self) var inputSphereManager: InputSphereManager
 
     // ID of Input Sphere's Attachment.
@@ -33,11 +34,11 @@ struct ImmersiveView: View {
             if let inputSphereAttachment = attachments.entity(for: inputSphereAttachmentID) {
                 content.add(inputSphereAttachment)
             }
-        }
-        update: { _, attachments in
+        } update: { _, attachments in
+            // Dynamically update attachment position to follow input sphere
             updateInputSphereAttachmentPosition(attachments: attachments)
-        }
-        attachments: {
+        } attachments: {
+            // Add attachment with orientation controls to the Input Sphere
             if let rootPoint {
                 Attachment(id: inputSphereAttachmentID) {
                     InputSphereAttachmentView(rootPoint: rootPoint)
@@ -71,6 +72,7 @@ struct ImmersiveView: View {
             // Add Input Sphere entity to the parent entity above the root point if it doesn't exist yet.
             inputSphereManager.addInputSphere(parentEntity: parentEntity, rootPoint: rootPoint)
         }
+
         .onChange(of: imageTracker.trackedImagesTransform) {
             // When the tracked images transform changes, update the sphere entities accordingly.
             updateTrackingEntities(with: imageTracker.trackedImagesTransform)

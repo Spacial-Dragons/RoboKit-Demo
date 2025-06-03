@@ -8,6 +8,7 @@
 import SwiftUI
 import RoboKit
 
+// Tab Item used to define icon and title for the buttons used in the Control Panel Menu
 enum TabItem: String, CaseIterable, Identifiable {
     case dimensions = "Dimensions"
     case pose = "Pose"

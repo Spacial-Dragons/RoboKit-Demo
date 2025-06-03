@@ -8,6 +8,7 @@
 import SwiftUI
 import RoboKit
 
+// View that allows to control if the Gripper is currently opened or closed
 struct AccessoriesView: View {
     @Environment(ControlPanelModel.self) private var controlPanelModel: ControlPanelModel
 

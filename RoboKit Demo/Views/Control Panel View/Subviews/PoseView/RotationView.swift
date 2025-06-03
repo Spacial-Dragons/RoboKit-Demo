@@ -9,6 +9,8 @@ import SwiftUI
 import RoboKit
 import RealityFoundation
 
+// View that allows us to set the orientation of the Input Sphere using Sliders
+// The view will display the orientation of the sphere, if the root point is not defined yet.
 public struct RotationView: View {
     @Environment(TCPClient.self) private var client: TCPClient
     @Environment(ImageTracker.self) private var imageTracker: ImageTracker
@@ -38,6 +40,7 @@ public struct RotationView: View {
         }
     }
 
+    // Create an entity that represents the transformation of the root entity
     private func getRootPointEntity(from transformMatrix: simd_float4x4) -> Entity {
         let rootPoint = Entity()
         rootPoint.transform = Transform(matrix: transformMatrix)

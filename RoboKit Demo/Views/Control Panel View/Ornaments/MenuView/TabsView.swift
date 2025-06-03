@@ -8,6 +8,7 @@
 import RoboKit
 import SwiftUI
 
+// TabsView contains Buttons that allow us to dynamically toggle sections in the Control Panel
 struct TabsView: View {
     @Binding var selectedTabs: Set<TabItem>
     private let showLabels: Bool
@@ -39,6 +40,7 @@ struct TabsView: View {
         }
     }
 
+    // Function that removes the selected Tab from the Hash Set
     private func toggle(_ tab: TabItem) {
         if selectedTabs.contains(tab) {
             selectedTabs.remove(tab)

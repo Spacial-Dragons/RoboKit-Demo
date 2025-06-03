@@ -8,6 +8,7 @@
 import SwiftUI
 import RoboKit
 
+// View that allows us to set object's width in mm, cm or meters
 struct ObjectDimensionsView: View {
     @Environment(ControlPanelModel.self) private var controlPanelModel: ControlPanelModel
 
@@ -21,10 +22,12 @@ struct ObjectDimensionsView: View {
             Text("Set the dimensions for the object.")
                 .foregroundStyle(.secondary)
 
+            // Select mm, cm or meters
             RoboKit.ObjectWidthUnitPicker(objectWidthUnit: $controlPanelModel.objectWidthUnit)
                 .frame(width: 350)
                 .padding(.vertical)
 
+            // Input the width of the object in the selected measurement unit
             HStack {
                 Text("Width")
                 RoboKit.ObjectWidthTextField(objectWidth: $controlPanelModel.objectWidth)

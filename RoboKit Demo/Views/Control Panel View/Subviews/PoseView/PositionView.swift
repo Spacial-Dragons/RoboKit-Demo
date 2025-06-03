@@ -8,6 +8,8 @@
 import SwiftUI
 import RoboKit
 
+/// Displays position of the input sphere in live mode
+/// and allows to set the position using input fields in the "Set" mode
 public struct PositionView: View {
     @Environment(TCPClient.self) private var client: TCPClient
 

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Button that allows to Expand or Collapse the control panel
 struct ExpandCollapseButton: View {
     @Binding var panelCollapsed: Bool
 

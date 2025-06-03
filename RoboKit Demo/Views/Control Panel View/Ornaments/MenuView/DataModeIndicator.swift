@@ -8,6 +8,8 @@
 import SwiftUI
 import RoboKit
 
+// Indicates the currently selected transmission mode - Live or Set
+// Displays an animation with pulsating circle on the Live mode
 struct DataModeIndicator: View {
     var dataMode: RoboKit.DataMode
     @State private var animate = false
@@ -26,12 +28,14 @@ struct DataModeIndicator: View {
                     PulseCircle(color: color, animate: $animate)
                 }
             }
-            .onAppear { animate = (dataMode == .live) }
-            .onChange(of: dataMode) {
-                animate = (dataMode == .live)
-            }
 
             Text(label)
+        }
+
+        // Toggle the animation on the change of the mode
+        .onAppear { animate = (dataMode == .live) }
+        .onChange(of: dataMode) {
+            animate = (dataMode == .live)
         }
     }
 }

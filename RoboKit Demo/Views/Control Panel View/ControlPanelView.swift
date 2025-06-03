@@ -14,13 +14,23 @@ struct ControlPanelView: View {
     @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
     @Environment(FormManager.self) private var formManager: FormManager
 
+    // Initialize control panel model that stores the mutable properties of the Data that can be sent
     @State private var controlPanelModel = ControlPanelModel()
+
+    // Hash set containing currently selected (active) tabs
     @State private var selectedTabs: Set<TabItem> = Set(TabItem.allCases)
+
+    // Dynamic variable that stores the Geometry Reader of the control panel window size
     @State private var windowSize: CGSize = .zero
+
+    // Dynamic variable that stores the Geometry Reader of the menu attachment size
     @State private var menuSize: CGSize = .zero
+
+    // Property to expand or collapse the control panel
     @State private var panelCollapsed: Bool = true
 
-    private var computedFrameSize: CGSize {
+    // Dynamically calculate the frame size of the Top View attachment (ExpandButton and SendDataButton)
+    private var topAttachmentFrameSize: CGSize {
         if selectedTabs.isEmpty {
             return CGSize(
                 width: menuSize.width,
@@ -88,12 +98,12 @@ struct ControlPanelView: View {
                 .frame(maxHeight: .infinity, alignment: .top)
             }
             .frame(
-                width: computedFrameSize.width,
-                height: computedFrameSize.height
+                width: topAttachmentFrameSize.width,
+                height: topAttachmentFrameSize.height
             )
         }
 
-        .animation(.spring, value: computedFrameSize)
+        .animation(.spring, value: topAttachmentFrameSize)
         .environment(controlPanelModel)
 
         // Initialize Server
@@ -102,16 +112,22 @@ struct ControlPanelView: View {
         }
     }
 
+    // Function that initializes the local server that can be used during the development.
+    // You can turn off the local server in the NetworkSettings.swift
     private func initializeServer() {
+        guard NetworkSettings.shouldRunServer else { return }
+
         do {
-            let server = try TCPServer(port: 12345)
+            let server = try TCPServer(port: NetworkSettings.port.rawValue)
             try server.start(logMessage: "Started server")
         } catch {
             print("Couldn't initialize server: \(error)")
         }
     }
 
+    // Function to send the data to the server
     private func sendData() {
+        // Transform the selected measurement unit to the meters
         func convertedObjectWidth() -> Float {
             switch controlPanelModel.objectWidthUnit {
             case .millimeters: return controlPanelModel.objectWidth / 1000
@@ -124,6 +140,7 @@ struct ControlPanelView: View {
         let position: [Float]
         let rotation: [Float]
 
+        // Start sending data based on the selected transmission mode
         switch client.selectedDataMode {
         case .live:
             #warning("Hard coded data, implement Live Mode")
@@ -134,8 +151,10 @@ struct ControlPanelView: View {
             rotation = formManager.getFormRotation().array
         }
 
+        // Combine position and rotation to a 9-value array
         let positionAndRotation = position + rotation
 
+        // Initialize connection from the client
         client.startConnection(value: CodingManager.encodeToJSON(
             data: CPRMessageModel(clawControl: controlPanelModel.clawShouldOpen,
                                   positionAndRotation: positionAndRotation,
