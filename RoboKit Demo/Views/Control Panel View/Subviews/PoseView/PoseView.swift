@@ -21,10 +21,14 @@ public struct PoseView: View {
 
             RoboKit.DataModePicker()
                 .frame(width: 350)
+                .padding(.top)
+
+            Divider()
                 .padding(.vertical)
 
             VStack(alignment: .leading, spacing: 20) {
                 PositionView()
+                Divider()
                 RotationView()
             }
         }

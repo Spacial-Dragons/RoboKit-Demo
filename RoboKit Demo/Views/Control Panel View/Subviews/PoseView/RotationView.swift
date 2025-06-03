@@ -23,7 +23,8 @@ public struct RotationView: View {
                     ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
                         RoboKit.InputSphereRotationSlider(
                             rootPoint: getRootPointEntity(from: rootTransform),
-                            eulerAngle: eulerAngle
+                            eulerAngle: eulerAngle,
+                            showMinMax: true
                         )
                         .padding(.vertical, 8)
                     }
@@ -35,6 +36,7 @@ public struct RotationView: View {
             case .set:
                 ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
                     RoboKit.FormRotationTextField(eulerAngle: eulerAngle)
+                        .padding(.vertical, 3)
                 }
             }
         }

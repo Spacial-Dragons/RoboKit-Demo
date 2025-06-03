@@ -29,6 +29,7 @@ public struct PositionView: View {
             VStack(alignment: .leading) {
                 ForEach(Axis.allCases, id: \.self) { axis in
                     RoboKit.FormPositionTextField(axis: axis)
+                        .padding(.vertical, 3)
                 }
             }
         }
