@@ -22,31 +22,10 @@ struct ImmersiveView: View {
     // Input Sphere Manager used to control properties of the Input Sphere
     @Environment(InputSphereManager.self) var inputSphereManager: InputSphereManager
 
-    // ID of Input Sphere's Attachment.
-    internal let inputSphereAttachmentID: String = "InputSphereAttachment"
-
     var body: some View {
         // Initialize RealityView and add the parent entity to the scene.
-        RealityView { content, attachments in
+        RealityView { content in
             content.add(parentEntity)
-
-            // Add Input Sphere attachment.
-            if let inputSphereAttachment = attachments.entity(for: inputSphereAttachmentID) {
-                content.add(inputSphereAttachment)
-            }
-        } update: { _, attachments in
-            // Dynamically update attachment position to follow input sphere
-            updateInputSphereAttachmentPosition(attachments: attachments)
-        } attachments: {
-            // Add attachment with orientation controls to the Input Sphere
-            if let rootPoint {
-                Attachment(id: inputSphereAttachmentID) {
-                    InputSphereAttachmentView(rootPoint: rootPoint)
-                        .padding(.all, 30)
-                        .frame(width: 500)
-                        .glassBackgroundEffect()
-                }
-            }
         }
 
         /// Updates the root entity and tracked image entities upon successful initialization.
