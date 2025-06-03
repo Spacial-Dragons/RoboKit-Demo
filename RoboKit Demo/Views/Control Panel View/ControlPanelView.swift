@@ -26,6 +26,12 @@ struct ControlPanelView: View {
     // Dynamic variable that stores the Geometry Reader of the menu attachment size
     @State private var menuSize: CGSize = .zero
 
+    // Timer for the live mode transmission
+    @State private var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+
+    // Bool to define if the data is being transmitted in the live mode
+    @State private var isLiveSendingData: Bool = false
+
     // Dynamically calculate the frame size of the Top View attachment (ExpandButton and SendDataButton)
     private var topAttachmentFrameSize: CGSize {
         if selectedTabs.isEmpty {
@@ -99,8 +105,17 @@ struct ControlPanelView: View {
 
                     if !selectedTabs.isEmpty {
                         RoboKit.SendDataButton(
-                            onSendLiveData: { sendData() },
-                            onSendSetData: { sendData() }
+                            onSendLiveData: {
+                                if isLiveSendingData {
+                                    // Cancel connection
+                                    timer.upstream.connect().cancel()
+                                } else {
+                                    // Start timer
+                                    timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+                                }
+                            },
+                            onSendSetData: { sendData() },
+                            isSendingData: $isLiveSendingData
                         )
                         .frame(maxHeight: .infinity, alignment: .top)
                     }
@@ -117,6 +132,13 @@ struct ControlPanelView: View {
             // Initialize Server
             .onAppear {
                 initializeServer()
+            }
+
+            // Send data during live mode transmission
+            .onReceive(timer) { _ in
+                if isLiveSendingData {
+                    self.sendData()
+                }
             }
     }
 
@@ -151,7 +173,6 @@ struct ControlPanelView: View {
         // Start sending data based on the selected transmission mode
         switch client.selectedDataMode {
         case .live:
-            #warning("Hard coded data, implement Live Mode")
             position = inputSphereManager.getInputSpherePosition()?.array ?? [0.0, 0.0, 0.3]
             rotation = inputSphereManager.getInputSphereRotation()?.array ?? [1, 0, 0, 0, 1, 0, 0, 0, 1]
         case .set:
