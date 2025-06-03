@@ -26,9 +26,6 @@ struct ControlPanelView: View {
     // Dynamic variable that stores the Geometry Reader of the menu attachment size
     @State private var menuSize: CGSize = .zero
 
-    // Property to expand or collapse the control panel
-    @State private var panelCollapsed: Bool = true
-
     // Dynamically calculate the frame size of the Top View attachment (ExpandButton and SendDataButton)
     private var topAttachmentFrameSize: CGSize {
         if selectedTabs.isEmpty {
@@ -38,7 +35,7 @@ struct ControlPanelView: View {
             )
         }
         return CGSize(
-            width: windowSize.width == .zero ? menuSize.width : windowSize.width,
+            width: windowSize.width,
             height: windowSize.height == .zero ? menuSize.height / 2 + 10 : windowSize.height / 2 + 50
         )
     }
@@ -46,70 +43,81 @@ struct ControlPanelView: View {
     var body: some View {
 
         // Expanded Control Panel
-        Group {
-            if !panelCollapsed {
-                ExpandedControlPanelView(selectedTabs: $selectedTabs)
-                    .glassBackgroundEffect(displayMode: selectedTabs.isEmpty ? .never : .always)
-            }
-        }
-        .onGeometryChange(for: CGSize.self) { proxy in
-            proxy.size
-        } action: { size in
-            withAnimation {
-                self.windowSize = size
-            }
-        }
-        .frame(width: panelCollapsed ? 100 : windowSize.width, height: panelCollapsed ? 100 : windowSize.height)
-        .padding()
-
-        // Menu Ornament (Bottom)
-        .ornament(
-            visibility: .visible,
-            attachmentAnchor: .scene(.bottom),
-            contentAlignment: .bottom
-        ) {
-            MenuView(selectedTabs: $selectedTabs)
-                .padding()
-                .padding(.horizontal)
-                .glassBackgroundEffect()
-                .onGeometryChange(for: CGSize.self) { proxy in
-                    proxy.size
-                } action: { size in
-                    self.menuSize = size
+        ExpandedControlPanelView(selectedTabs: $selectedTabs)
+            .glassBackgroundEffect(displayMode: selectedTabs.isEmpty ? .never : .always)
+            .onGeometryChange(for: CGSize.self) { proxy in
+                proxy.size
+            } action: { size in
+                withAnimation {
+                    self.windowSize = size
                 }
-        }
+            }
+            .frame(
+                width: selectedTabs.isEmpty ? 100 : menuSize.width,
+                height: selectedTabs.isEmpty ? 100 : windowSize.height
+            )
+            .padding()
 
-        // Expand Button + Send Data Button Ornament (Top)
-        .ornament(
-            visibility: .visible,
-            attachmentAnchor: .scene(.center),
-            contentAlignment: .bottom
-        ) {
-            ZStack(alignment: .top) {
-                ExpandCollapseButton(panelCollapsed: $panelCollapsed)
-                    .disabled(selectedTabs.isEmpty)
+            // Menu Ornament (Bottom)
+            .ornament(
+                visibility: .visible,
+                attachmentAnchor: .scene(.bottom),
+                contentAlignment: .bottom
+            ) {
+                MenuView(selectedTabs: $selectedTabs)
+                    .padding()
+                    .padding(.horizontal)
+                    .glassBackgroundEffect()
+                    .onGeometryChange(for: CGSize.self) { proxy in
+                        proxy.size
+                    } action: { size in
+                        self.menuSize = size
+                    }
+            }
+
+            // Expand Button + Send Data Button Ornament (Top)
+            .ornament(
+                visibility: .visible,
+                attachmentAnchor: .scene(.center),
+                contentAlignment: .bottom
+            ) {
+                ZStack(alignment: .top) {
+                    ExpandCollapseButton(
+                        isCollapsed: selectedTabs.count < TabItem.allCases.count,
+                        toggleAction: {
+                            if selectedTabs.count < TabItem.allCases.count {
+                                // Expand all
+                                selectedTabs.formUnion(TabItem.allCases)
+                            } else {
+                                // Collapse all
+                                selectedTabs.removeAll()
+                            }
+                        }
+                    )
                     .glassBackgroundEffect()
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 
-                RoboKit.SendDataButton(
-                    onSendLiveData: { sendData() },
-                    onSendSetData: { sendData() }
+                    if !selectedTabs.isEmpty {
+                        RoboKit.SendDataButton(
+                            onSendLiveData: { sendData() },
+                            onSendSetData: { sendData() }
+                        )
+                        .frame(maxHeight: .infinity, alignment: .top)
+                    }
+                }
+                .frame(
+                    width: topAttachmentFrameSize.width,
+                    height: topAttachmentFrameSize.height
                 )
-                .frame(maxHeight: .infinity, alignment: .top)
             }
-            .frame(
-                width: topAttachmentFrameSize.width,
-                height: topAttachmentFrameSize.height
-            )
-        }
 
-        .animation(.spring, value: topAttachmentFrameSize)
-        .environment(controlPanelModel)
+            .animation(.spring, value: topAttachmentFrameSize)
+            .environment(controlPanelModel)
 
-        // Initialize Server
-        .onAppear {
-            initializeServer()
-        }
+            // Initialize Server
+            .onAppear {
+                initializeServer()
+            }
     }
 
     // Function that initializes the local server that can be used during the development.

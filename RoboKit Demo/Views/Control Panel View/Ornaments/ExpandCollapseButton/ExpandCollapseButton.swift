@@ -7,18 +7,19 @@
 
 import SwiftUI
 
-// Button that allows to Expand or Collapse the control panel
+// A view that allows to expand all of the control panel sections all at once
 struct ExpandCollapseButton: View {
-    @Binding var panelCollapsed: Bool
+    let isCollapsed: Bool
+    let toggleAction: () -> Void
 
     var body: some View {
         Button(
-            panelCollapsed ? "Expand Control Panel" : "Collapse Control Panel",
-            systemImage: "arrow.down.\(panelCollapsed ? "backward" : "forward")"
-                + ".and.arrow.up.\(panelCollapsed ? "forward" : "backward")"
+            isCollapsed ? "Expand Control Panel" : "Collapse Control Panel",
+            systemImage: "arrow.down.\(isCollapsed ? "backward" : "forward")"
+                + ".and.arrow.up.\(isCollapsed ? "forward" : "backward")"
         ) {
             withAnimation {
-                panelCollapsed.toggle()
+                toggleAction()
             }
         }
         .contentTransition(.symbolEffect(.replace))
