@@ -19,10 +19,6 @@ public struct RotationView: View {
         VStack(alignment: .leading) {
             switch client.selectedDataMode {
             case .live:
-                ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
-                    RoboKit.InputSphereRotationText(eulerAngle: eulerAngle)
-                }
-            case .set:
                 if let rootTransform = imageTracker.rootTransform {
                     ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
                         RoboKit.InputSphereRotationSlider(
@@ -33,8 +29,12 @@ public struct RotationView: View {
                     }
                 } else {
                     ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
-                        RoboKit.FormRotationTextField(eulerAngle: eulerAngle)
+                        RoboKit.InputSphereRotationText(eulerAngle: eulerAngle)
                     }
+                }
+            case .set:
+                ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
+                    RoboKit.FormRotationTextField(eulerAngle: eulerAngle)
                 }
             }
         }
