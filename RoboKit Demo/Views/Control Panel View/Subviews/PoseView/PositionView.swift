@@ -14,13 +14,19 @@ public struct PositionView: View {
     @Environment(TCPClient.self) private var client: TCPClient
 
     public var body: some View {
-        VStack(alignment: .leading) {
-            switch client.selectedDataMode {
-            case .live:
-                ForEach(Axis.allCases, id: \.self) { axis in
+        switch client.selectedDataMode {
+        case .live:
+            HStack {
+                ForEach(Array(Axis.allCases.enumerated()), id: \.element) { index, axis in
                     RoboKit.InputSpherePositionText(axis: axis)
+                    if index != RoboKit.Axis.allCases.count - 1 {
+                        Spacer()
+                    }
                 }
-            case .set:
+            }
+
+        case .set:
+            VStack(alignment: .leading) {
                 ForEach(Axis.allCases, id: \.self) { axis in
                     RoboKit.FormPositionTextField(axis: axis)
                 }
