@@ -30,6 +30,7 @@ struct DataModeIndicator: View {
             }
 
             Text(label)
+                .accessibilityLabel(Text("Data transmission mode: \(label)"))
         }
         .animation(.spring, value: dataMode)
 

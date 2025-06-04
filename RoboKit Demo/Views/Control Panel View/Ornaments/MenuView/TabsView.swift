@@ -21,21 +21,12 @@ struct TabsView: View {
     var body: some View {
         HStack(spacing: 20) {
             ForEach(TabItem.allCases, id: \.self) { tab in
-                VStack {
-                    Button {
-                        self.toggle(tab)
-                    } label: {
-                        Image(systemName: tab.icon)
-                            .font(.largeTitle)
-                    }
-                    .buttonStyle(.plain)
-
-                    if showLabels {
-                        Text(tab.rawValue)
-                    }
-                }
-                .foregroundColor(selectedTabs.contains(tab) ? .white : .secondary)
-                .animation(.spring, value: selectedTabs.contains(tab))
+                TabButton(
+                    tab: tab,
+                    isSelected: selectedTabs.contains(tab),
+                    showLabel: showLabels,
+                    toggleAction: { toggle(tab) }
+                )
             }
         }
     }
@@ -47,5 +38,29 @@ struct TabsView: View {
         } else {
             selectedTabs.insert(tab)
         }
+    }
+}
+
+struct TabButton: View {
+    let tab: TabItem
+    let isSelected: Bool
+    let showLabel: Bool
+    let toggleAction: () -> Void
+
+    var body: some View {
+        VStack {
+            Button(action: toggleAction) {
+                Label(tab.rawValue, systemImage: tab.icon)
+                    .font(.largeTitle)
+            }
+            .buttonStyle(.plain)
+
+            if showLabel {
+                Text(tab.rawValue)
+                    .accessibilityHidden(true)
+            }
+        }
+        .foregroundColor(isSelected ? .white : .secondary)
+        .animation(.spring, value: isSelected)
     }
 }
