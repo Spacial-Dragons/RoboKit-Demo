@@ -21,8 +21,9 @@ struct SocketButtonView: View {
         self.rootPoint = rootPoint
     }
 
-    // TCP client used to send data
-    var client: TCPClient = TCPClient(host: "localhost", port: 12345)
+    // TCP client and server used to send data and receive data
+    @State private var client: TCPClient?
+    @State private var server: TCPServer?
 
     // Stores position and rotation values
     @State private var positionAndRotation: [Float] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -33,22 +34,28 @@ struct SocketButtonView: View {
     var body: some View {
         // UI button that triggers sending data when tapped
         Button {
-            sendData(shouldOpen: true)
+            Task {
+                await sendData(shouldOpen: true)
+            }
         } label: {
             Text("Send data")
         }.fontDesign(.rounded)
 
         // Initialize the TCP server
-        .onAppear {
-            initializeServer()
+        .task {
+            await initializeClientAndServer()
         }
     }
 
     // Sends encoded position, rotation, and claw state data to the TCP client
-    private func sendData(shouldOpen: Bool) {
+    private func sendData(shouldOpen: Bool) async {
+        guard let client = client else {
+            print("Client not found")
+            return
+        }
         let messageData = CPRMessageModel(clawControl: shouldOpen, positionAndRotation: positionAndRotation)
         let encodedData = CodingManager.encodeToJSON(data: messageData)
-        client.startConnection(value: encodedData)
+        await client.startConnection(value: encodedData)
 
         printInputSphereData()
     }
@@ -69,16 +76,15 @@ struct SocketButtonView: View {
     }
 
     // Initializes a TCP server and attempts to start it
-    private func initializeServer() {
+    private func initializeClientAndServer() async {
         do {
-            let server = try TCPServer(port: 12345)
-            do {
-                try server.start(logMessage: "Started server")
-            } catch {
-                print("Failed to start server: \(error)")
-            }
+            let server = try await TCPServer(port: 12345)
+            try await server.start(logMessage: "Server started")
+            self.server = server
         } catch {
             print("Couldn't initialize server: \(error)")
         }
+        let client = await TCPClient(host: "localhost", port: 12345)
+        self.client = client
     }
 }
