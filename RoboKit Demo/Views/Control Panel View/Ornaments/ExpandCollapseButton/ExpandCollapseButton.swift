@@ -9,6 +9,7 @@ import SwiftUI
 
 // A view that allows to expand all of the control panel sections all at once
 struct ExpandCollapseButton: View {
+    @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
     let isCollapsed: Bool
     let toggleAction: () -> Void
 
@@ -18,11 +19,11 @@ struct ExpandCollapseButton: View {
             systemImage: "arrow.down.\(isCollapsed ? "backward" : "forward")"
                 + ".and.arrow.up.\(isCollapsed ? "forward" : "backward")"
         ) {
-            withAnimation {
+            withAnimation(isReduceMotionEnabled ? nil : .spring()) {
                 toggleAction()
             }
         }
-        .contentTransition(.symbolEffect(.replace))
+        .contentTransition(isReduceMotionEnabled ? .identity : .symbolEffect(.replace))
         .labelStyle(.iconOnly)
     }
 }

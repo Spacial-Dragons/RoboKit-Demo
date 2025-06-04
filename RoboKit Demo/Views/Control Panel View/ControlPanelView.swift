@@ -13,6 +13,7 @@ struct ControlPanelView: View {
     @Environment(TCPClient.self) private var client: TCPClient
     @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
     @Environment(FormManager.self) private var formManager: FormManager
+    @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
 
     // Initialize control panel model that stores the mutable properties of the Data that can be sent
     @State private var controlPanelModel = ControlPanelModel()
@@ -54,7 +55,7 @@ struct ControlPanelView: View {
             .onGeometryChange(for: CGSize.self) { proxy in
                 proxy.size
             } action: { size in
-                withAnimation {
+                withAnimation(isReduceMotionEnabled ? nil : .spring()) {
                     self.windowSize = size
                 }
             }
@@ -126,7 +127,7 @@ struct ControlPanelView: View {
                 )
             }
 
-            .animation(.spring, value: topAttachmentFrameSize)
+            .animation(isReduceMotionEnabled ? nil : .spring(), value: topAttachmentFrameSize)
             .environment(controlPanelModel)
 
             // Initialize Server

@@ -12,6 +12,7 @@ import RealityFoundation
 // View that allows us to set the orientation of the Input Sphere using Sliders
 // The view will display the orientation of the sphere, if the root point is not defined yet.
 public struct RotationView: View {
+    @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
     @Environment(TCPClient.self) private var client: TCPClient
     @Environment(ImageTracker.self) private var imageTracker: ImageTracker
 
@@ -44,7 +45,7 @@ public struct RotationView: View {
                 .transition(.move(edge: .trailing).combined(with: .opacity))
             }
         }
-        .animation(.spring, value: client.selectedDataMode)
+        .animation(isReduceMotionEnabled ? nil : .spring(), value: client.selectedDataMode)
     }
 
     // Create an entity that represents the transformation of the root entity

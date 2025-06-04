@@ -11,6 +11,7 @@ import RoboKit
 /// Displays position of the input sphere in live mode
 /// and allows to set the position using input fields in the "Set" mode
 public struct PositionView: View {
+    @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
     @Environment(TCPClient.self) private var client: TCPClient
 
     public var body: some View {
@@ -34,7 +35,7 @@ public struct PositionView: View {
                 .transition(.move(edge: .trailing).combined(with: .opacity))
             }
         }
-        .animation(.spring, value: client.selectedDataMode)
+        .animation(isReduceMotionEnabled ? nil : .spring(), value: client.selectedDataMode)
 
     }
 }

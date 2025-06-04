@@ -10,6 +10,7 @@ import SwiftUI
 
 // TabsView contains Buttons that allow us to dynamically toggle sections in the Control Panel
 struct TabsView: View {
+    @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
     @Binding var selectedTabs: Set<TabItem>
     private let showLabels: Bool
 
@@ -42,6 +43,7 @@ struct TabsView: View {
 }
 
 struct TabButton: View {
+    @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
     let tab: TabItem
     let isSelected: Bool
     let showLabel: Bool
@@ -61,6 +63,6 @@ struct TabButton: View {
             }
         }
         .foregroundColor(isSelected ? .white : .secondary)
-        .animation(.spring, value: isSelected)
+        .animation(isReduceMotionEnabled ? nil : .spring(), value: isSelected)
     }
 }

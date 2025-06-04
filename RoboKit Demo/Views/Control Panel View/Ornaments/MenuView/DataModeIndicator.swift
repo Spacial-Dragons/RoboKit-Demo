@@ -11,6 +11,8 @@ import RoboKit
 // Indicates the currently selected transmission mode - Live or Set
 // Displays an animation with pulsating circle on the Live mode
 struct DataModeIndicator: View {
+    @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
+
     var dataMode: RoboKit.DataMode
     @State private var animate = false
 
@@ -24,7 +26,7 @@ struct DataModeIndicator: View {
                     .fill(color)
                     .frame(width: 16, height: 16)
 
-                if dataMode == .live {
+                if dataMode == .live && !isReduceMotionEnabled {
                     PulseCircle(color: color, animate: $animate)
                 }
             }
@@ -32,7 +34,7 @@ struct DataModeIndicator: View {
             Text(label)
                 .accessibilityLabel(Text("Data transmission mode: \(label)"))
         }
-        .animation(.spring, value: dataMode)
+        .animation(isReduceMotionEnabled ? nil : .spring(), value: dataMode)
 
         // Toggle the animation on the change of the mode
         .onAppear { animate = (dataMode == .live) }

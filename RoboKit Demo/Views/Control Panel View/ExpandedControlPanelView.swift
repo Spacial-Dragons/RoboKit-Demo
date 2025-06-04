@@ -11,6 +11,7 @@ import RoboKit
 // A view for Expanded Control Panel, containing different sections for controlling properties of the Data
 extension ControlPanelView {
     struct ExpandedControlPanelView: View {
+        @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
         @Binding var selectedTabs: Set<TabItem>
 
         var body: some View {
@@ -38,7 +39,7 @@ extension ControlPanelView {
             .frame(width: 350)
             .padding(.bottom, 50)
             .padding(.all, 30)
-            .animation(.spring, value: selectedTabs)
+            .animation(isReduceMotionEnabled ? nil : .spring(), value: selectedTabs)
         }
     }
 }
