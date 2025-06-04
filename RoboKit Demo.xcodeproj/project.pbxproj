@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1AC6A2C02DE8ADA4009A1B16 /* RoboKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1AC6A2BF2DE8ADA4009A1B16 /* RoboKit */; };
+		1A51B0B72DF0332E00C901F0 /* RoboKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1A51B0B62DF0332E00C901F0 /* RoboKit */; };
 		1AE697CB2DDB32390035FFEC /* SampleCode.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697C92DDB32390035FFEC /* SampleCode.xcconfig */; };
 		1AE697CD2DDB32620035FFEC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697CC2DDB32620035FFEC /* LICENSE */; };
 		1AE697CF2DDB32670035FFEC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697CE2DDB32670035FFEC /* README.md */; };
@@ -46,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AC6A2C02DE8ADA4009A1B16 /* RoboKit in Frameworks */,
+				1A51B0B72DF0332E00C901F0 /* RoboKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +93,7 @@
 			);
 			name = "RoboKit Demo";
 			packageProductDependencies = (
-				1AC6A2BF2DE8ADA4009A1B16 /* RoboKit */,
+				1A51B0B62DF0332E00C901F0 /* RoboKit */,
 			);
 			productName = "Testing RoboKit";
 			productReference = 1A9E4D092D8B007C00D8D5A8 /* RoboKit Demo.app */;
@@ -124,8 +124,8 @@
 			mainGroup = 1A9E4D002D8B007C00D8D5A8;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				1AC6A2BE2DE8ADA4009A1B16 /* XCLocalSwiftPackageReference "../RoboKit" */,
 				1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				1A51B0B52DF0332E00C901F0 /* XCLocalSwiftPackageReference "../RoboKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1A9E4D0A2D8B007C00D8D5A8 /* Products */;
@@ -371,7 +371,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		1AC6A2BE2DE8ADA4009A1B16 /* XCLocalSwiftPackageReference "../RoboKit" */ = {
+		1A51B0B52DF0332E00C901F0 /* XCLocalSwiftPackageReference "../RoboKit" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../RoboKit;
 		};
@@ -389,14 +389,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1A51B0B62DF0332E00C901F0 /* RoboKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RoboKit;
+		};
 		1A88A0CA2DEDD22D00F10506 /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
-		};
-		1AC6A2BF2DE8ADA4009A1B16 /* RoboKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RoboKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
