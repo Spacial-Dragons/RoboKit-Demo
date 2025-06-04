@@ -12,7 +12,7 @@ struct ExpandCollapseButton: View {
     @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
     let isCollapsed: Bool
     let toggleAction: () -> Void
-    
+
     private var imageName: String {
         isCollapsed
           ? "arrow.down.backward.and.arrow.up.forward"
