@@ -12,12 +12,17 @@ struct ExpandCollapseButton: View {
     @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
     let isCollapsed: Bool
     let toggleAction: () -> Void
+    
+    private var imageName: String {
+        isCollapsed
+          ? "arrow.down.backward.and.arrow.up.forward"
+          : "arrow.down.forward.and.arrow.up.backward"
+    }
 
     var body: some View {
         Button(
             isCollapsed ? "Expand Control Panel" : "Collapse Control Panel",
-            systemImage: "arrow.down.\(isCollapsed ? "backward" : "forward")"
-                + ".and.arrow.up.\(isCollapsed ? "forward" : "backward")"
+            systemImage: imageName
         ) {
             withAnimation(isReduceMotionEnabled ? nil : .spring()) {
                 toggleAction()
