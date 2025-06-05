@@ -384,7 +384,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Spacial-Dragons/RoboKit";
 			requirement = {
-				branch = main;
+				branch = "feature/socket-tests";
 				kind = branch;
 			};
 		};
