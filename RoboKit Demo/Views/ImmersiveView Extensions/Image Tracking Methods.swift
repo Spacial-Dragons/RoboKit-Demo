@@ -6,30 +6,10 @@
 //
 
 import SwiftUI
-import RealityKit
 import RoboKit
+import RealityFoundation
 
 extension ImmersiveView {
-    /// Sets up the image tracker with predefined AR reference images and root offsets.
-    /// Updates the root entity and tracked image entities upon successful initialization.
-    internal func initializeImageTracker() {
-        do {
-            imageTracker = try RoboKit.ImageTracker(
-                arResourceGroupName: "AR Resources",
-                images: [
-                    .init(imageName: "Tracking-Image-1", rootOffset: .init(x: -0.11, y: 0, z: 0.169)),
-                    .init(imageName: "Tracking-Image-2", rootOffset: .init(x: -0.11, y: 0, z: -0.169)),
-                    .init(imageName: "Tracking-Image-3", rootOffset: .init(x: 0.11, y: 0, z: -0.169))
-                ]
-            )
-
-            // On view appearance, update the root entity and the tracking entities using the tracker transforms.
-            updateRootEntity(with: imageTracker?.rootTransform)
-            updateTrackingEntities(with: imageTracker?.trackedImagesTransform ?? [])
-        } catch {
-            print("Failed to initialize image tracker:", error)
-        }
-    }
 
     /// Updates the root entity using the provided transformation matrix.
     /// - Parameter rootTransform: The optional transformation matrix for the root point.

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "2 (1).png",
+      "filename" : "TrackingImage.png",
       "idiom" : "universal"
     }
   ],
@@ -10,7 +10,6 @@
     "version" : 1
   },
   "properties" : {
-    "unit" : "centimeters",
-    "width" : 6.7999999999999998
+    "width" : 10
   }
 }
