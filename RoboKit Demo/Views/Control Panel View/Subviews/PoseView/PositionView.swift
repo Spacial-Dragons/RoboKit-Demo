@@ -12,12 +12,12 @@ import RoboKit
 /// and allows to set the position using input fields in the "Set" mode
 public struct PositionView: View {
     @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
-    @Environment(TCPClient.self) private var client: TCPClient
+    @Environment(ControlPanelModel.self) private var controlPanelModel: ControlPanelModel
 
     public var body: some View {
 
         VStack(alignment: .leading) {
-            switch client.selectedDataMode {
+            switch controlPanelModel.selectedDataMode {
             case .live:
                 ForEach(Array(Axis.allCases.enumerated()), id: \.element) { index, axis in
                     RoboKit.InputSpherePositionText(axis: axis, showFullDescription: true)
@@ -35,7 +35,7 @@ public struct PositionView: View {
                 .transition(.move(edge: .trailing).combined(with: .opacity))
             }
         }
-        .animation(isReduceMotionEnabled ? nil : .spring(), value: client.selectedDataMode)
+        .animation(isReduceMotionEnabled ? nil : .spring(), value: controlPanelModel.selectedDataMode)
 
     }
 }

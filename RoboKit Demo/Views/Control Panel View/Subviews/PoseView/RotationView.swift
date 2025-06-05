@@ -13,12 +13,12 @@ import RealityFoundation
 // The view will display the orientation of the sphere, if the root point is not defined yet.
 public struct RotationView: View {
     @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
-    @Environment(TCPClient.self) private var client: TCPClient
+    @Environment(ControlPanelModel.self) private var controlPanelModel: ControlPanelModel
     @Environment(ImageTracker.self) private var imageTracker: ImageTracker
 
     public var body: some View {
         VStack(alignment: .leading) {
-            switch client.selectedDataMode {
+            switch controlPanelModel.selectedDataMode {
             case .live:
                 Group {
                     if let rootTransform = imageTracker.rootTransform {
@@ -45,7 +45,7 @@ public struct RotationView: View {
                 .transition(.move(edge: .trailing).combined(with: .opacity))
             }
         }
-        .animation(isReduceMotionEnabled ? nil : .spring(), value: client.selectedDataMode)
+        .animation(isReduceMotionEnabled ? nil : .spring(), value: controlPanelModel.selectedDataMode)
     }
 
     // Create an entity that represents the transformation of the root entity

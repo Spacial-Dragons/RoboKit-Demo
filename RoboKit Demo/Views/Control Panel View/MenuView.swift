@@ -11,13 +11,13 @@ import RoboKit
 // A menu view that is displayed as an attachment (ornament) below the Control Panel
 extension ControlPanelView {
     struct MenuView: View {
-        @Environment(TCPClient.self) private var client: TCPClient
+        @Environment(ControlPanelModel.self) private var controlPanelModel: ControlPanelModel
         @Binding var selectedTabs: Set<TabItem>
 
         // Dynamically update the axis View based on the Data Transmission mode
         @ViewBuilder
         func viewForAxis(_ axis: RoboKit.Axis) -> some View {
-            switch client.selectedDataMode {
+            switch controlPanelModel.selectedDataMode {
             case .live:
                 RoboKit.InputSpherePositionText(axis: axis)
             case .set:
@@ -41,7 +41,7 @@ extension ControlPanelView {
                 Divider()
 
                 // Indicates currently selected transmission mode from the Control Panel - Live or Set
-                DataModeIndicator(dataMode: client.selectedDataMode)
+                DataModeIndicator(dataMode: controlPanelModel.selectedDataMode)
             }
         }
     }

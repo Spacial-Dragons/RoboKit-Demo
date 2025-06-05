@@ -10,13 +10,16 @@ import RoboKit
 
 struct ControlPanelView: View {
 
-    @Environment(TCPClient.self) private var client: TCPClient
     @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
     @Environment(FormManager.self) private var formManager: FormManager
     @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
 
     // Initialize control panel model that stores the mutable properties of the Data that can be sent
     @State private var controlPanelModel = ControlPanelModel()
+
+    // TCP client and server used to send data and receive data
+    @State private var client: TCPClient?
+    @State private var server: TCPServer?
 
     // Hash set containing currently selected (active) tabs
     @State private var selectedTabs: Set<TabItem> = Set(TabItem.allCases)
@@ -48,6 +51,7 @@ struct ControlPanelView: View {
     }
 
     var body: some View {
+        @Bindable var controlPanelModel = controlPanelModel
 
         // Expanded Control Panel
         ExpandedControlPanelView(selectedTabs: $selectedTabs)
@@ -115,8 +119,9 @@ struct ControlPanelView: View {
                                     timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
                                 }
                             },
-                            onSendSetData: { sendData() },
-                            isSendingData: $isLiveSendingData
+                            onSendSetData: { Task { await sendData() } },
+                            isSendingData: $isLiveSendingData,
+                            selectedDataMode: $controlPanelModel.selectedDataMode
                         )
                         .frame(maxHeight: .infinity, alignment: .top)
                     }
@@ -131,33 +136,48 @@ struct ControlPanelView: View {
             .environment(controlPanelModel)
 
             // Initialize Server
-            .onAppear {
-                initializeServer()
+            .task {
+                await initializeClient()
+                await initializeServer()
             }
 
             // Send data during live mode transmission
             .onReceive(timer) { _ in
                 if isLiveSendingData {
-                    self.sendData()
+                    Task {
+                        await self.sendData()
+                    }
                 }
             }
     }
 
+    // Function that initializes the local tcp client
+    private func initializeClient() async {
+        let client = await TCPClient(host: NetworkSettings.host, port: NetworkSettings.port)
+        self.client = client
+    }
+
     // Function that initializes the local server that can be used during the development.
     // You can turn off the local server in the NetworkSettings.swift
-    private func initializeServer() {
+    private func initializeServer() async {
         guard NetworkSettings.shouldRunServer else { return }
 
         do {
-            let server = try TCPServer(port: NetworkSettings.port.rawValue)
-            try server.start(logMessage: "Started server")
+            let server = try await TCPServer(port: NetworkSettings.port.rawValue)
+            try await server.start(logMessage: "Started server")
+            self.server = server
         } catch {
             print("Couldn't initialize server: \(error)")
         }
     }
 
     // Function to send the data to the server
-    private func sendData() {
+    private func sendData() async {
+        guard let client = client else {
+            print("Client not found")
+            return
+        }
+
         // Transform the selected measurement unit to the meters
         func convertedObjectWidth() -> Float {
             switch controlPanelModel.objectWidthUnit {
@@ -172,7 +192,7 @@ struct ControlPanelView: View {
         let rotation: [Float]
 
         // Start sending data based on the selected transmission mode
-        switch client.selectedDataMode {
+        switch controlPanelModel.selectedDataMode {
         case .live:
             position = inputSphereManager.getInputSpherePosition()?.array ?? [0.0, 0.0, 0.3]
             rotation = inputSphereManager.getInputSphereRotation()?.array ?? [1, 0, 0, 0, 1, 0, 0, 0, 1]
@@ -185,7 +205,7 @@ struct ControlPanelView: View {
         let positionAndRotation = position + rotation
 
         // Initialize connection from the client
-        client.startConnection(value: CodingManager.encodeToJSON(
+        await client.startConnection(value: CodingManager.encodeToJSON(
             data: CPRMessageModel(clawControl: controlPanelModel.clawShouldOpen,
                                   positionAndRotation: positionAndRotation,
                                   objectWidth: objectWidth)))

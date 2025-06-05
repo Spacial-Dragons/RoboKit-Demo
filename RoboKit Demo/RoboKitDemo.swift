@@ -10,7 +10,6 @@ struct RoboKitDemo: App {
     private var imageTracker: RoboKit.ImageTracker
     private var inputSphereManager: InputSphereManager
     private var formManager: FormManager
-    private var client: TCPClient
 
     @Environment(\.openWindow) private var openWindow
 
@@ -32,9 +31,6 @@ struct RoboKitDemo: App {
 
         // Initialize FormManager
         formManager = FormManager()
-
-        // Initialize TCPClient
-        client = TCPClient(host: NetworkSettings.host, port: NetworkSettings.port)
     }
 
     var body: some Scene {
@@ -59,7 +55,6 @@ struct RoboKitDemo: App {
         // Pass down environment variables
         .environment(inputSphereManager)
         .environment(formManager)
-        .environment(client)
         .environment(imageTracker)
     }
 }
