@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A51B0B72DF0332E00C901F0 /* RoboKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1A51B0B62DF0332E00C901F0 /* RoboKit */; };
+		1AE52DA42DF1C1E500F9EE23 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE52DA32DF1C1E500F9EE23 /* RealityKitContent */; };
 		1AE697CB2DDB32390035FFEC /* SampleCode.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697C92DDB32390035FFEC /* SampleCode.xcconfig */; };
 		1AE697CD2DDB32620035FFEC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697CC2DDB32620035FFEC /* LICENSE */; };
 		1AE697CF2DDB32670035FFEC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697CE2DDB32670035FFEC /* README.md */; };
@@ -28,6 +29,13 @@
 			);
 			target = 1A9E4D082D8B007C00D8D5A8 /* RoboKit Demo */;
 		};
+		1AE52DA12DF1C1DB00F9EE23 /* Exceptions for "Packages" folder in "RoboKit Demo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				RealityKitContent,
+			);
+			target = 1A9E4D082D8B007C00D8D5A8 /* RoboKit Demo */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -39,6 +47,14 @@
 			path = "RoboKit Demo";
 			sourceTree = "<group>";
 		};
+		1AE52DA02DF1C1DB00F9EE23 /* Packages */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1AE52DA12DF1C1DB00F9EE23 /* Exceptions for "Packages" folder in "RoboKit Demo" target */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AE52DA42DF1C1E500F9EE23 /* RealityKitContent in Frameworks */,
 				1A51B0B72DF0332E00C901F0 /* RoboKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,11 +73,13 @@
 		1A9E4D002D8B007C00D8D5A8 = {
 			isa = PBXGroup;
 			children = (
+				1AE52DA02DF1C1DB00F9EE23 /* Packages */,
 				1A9E4D0B2D8B007C00D8D5A8 /* RoboKit Demo */,
 				1A9E4D0A2D8B007C00D8D5A8 /* Products */,
 				1AE697CC2DDB32620035FFEC /* LICENSE */,
 				1AE697CE2DDB32670035FFEC /* README.md */,
 				1AE697C92DDB32390035FFEC /* SampleCode.xcconfig */,
+				1AE52DA22DF1C1E500F9EE23 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +89,13 @@
 				1A9E4D092D8B007C00D8D5A8 /* RoboKit Demo.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1AE52DA22DF1C1E500F9EE23 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -90,10 +116,12 @@
 			);
 			fileSystemSynchronizedGroups = (
 				1A9E4D0B2D8B007C00D8D5A8 /* RoboKit Demo */,
+				1AE52DA02DF1C1DB00F9EE23 /* Packages */,
 			);
 			name = "RoboKit Demo";
 			packageProductDependencies = (
 				1A51B0B62DF0332E00C901F0 /* RoboKit */,
+				1AE52DA32DF1C1E500F9EE23 /* RealityKitContent */,
 			);
 			productName = "Testing RoboKit";
 			productReference = 1A9E4D092D8B007C00D8D5A8 /* RoboKit Demo.app */;
@@ -397,6 +425,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		1AE52DA32DF1C1E500F9EE23 /* RealityKitContent */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityKitContent;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
