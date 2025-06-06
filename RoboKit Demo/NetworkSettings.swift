@@ -11,8 +11,8 @@ import Network
 struct NetworkSettings {
     /// This IP address has to be altered each time the application is run,
     /// since it should be the IP address of the current server
-    static let host: NWEndpoint.Host = "localhost"
-    static let port: NWEndpoint.Port = 12345
+    static let host: NWEndpoint.Host = "192.168.2.21"
+    static let port: NWEndpoint.Port = 12348
     /// Change this variable to 'false' whenever testing with an external server
-    static let shouldRunServer: Bool = true
+    static let shouldRunServer: Bool = false
 }
