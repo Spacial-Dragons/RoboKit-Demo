@@ -13,6 +13,6 @@ import RoboKit
 class ControlPanelModel {
     var selectedDataMode: DataMode = .live
     var clawShouldOpen: Bool = false
-    var objectWidth: Float = 120
-    var objectWidthUnit: RoboKit.ObjectWidthUnit = .centimeters
+    var objectWidth: Float = 80
+    var objectWidthUnit: RoboKit.ObjectWidthUnit = .millimeters
 }
