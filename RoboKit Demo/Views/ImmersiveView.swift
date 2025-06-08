@@ -34,7 +34,9 @@ struct ImmersiveView: View {
             updateTrackingEntities(with: imageTracker.trackedImagesTransform)
 
             // Add Input Sphere entity to the parent entity above the root point if it doesn't exist yet.
-            inputSphereManager.addInputSphere(parentEntity: parentEntity, rootPoint: rootPoint)
+            Task {
+                await self.setupInputSphere()
+            }
         }
 
         // Add Input Sphere Drag Gesture recognition and handling.
@@ -49,12 +51,25 @@ struct ImmersiveView: View {
             updateRootEntity(with: imageTracker.rootTransform)
 
             // Add Input Sphere entity to the parent entity above the root point if it doesn't exist yet.
-            inputSphereManager.addInputSphere(parentEntity: parentEntity, rootPoint: rootPoint)
+            Task {
+                await self.setupInputSphere()
+            }
         }
 
         .onChange(of: imageTracker.trackedImagesTransform) {
             // When the tracked images transform changes, update the sphere entities accordingly.
             updateTrackingEntities(with: imageTracker.trackedImagesTransform)
         }
+    }
+
+    // Add Input Sphere entity to the parent entity above the root point if it doesn't exist yet.
+    func setupInputSphere() async {
+        let brandedCube = await brandedCubeModelEntity()
+
+        inputSphereManager.addInputSphere(
+            parentEntity: parentEntity,
+            rootPoint: rootPoint,
+            modelEntity: brandedCube
+        )
     }
 }
