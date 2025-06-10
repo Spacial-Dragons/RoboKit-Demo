@@ -208,6 +208,6 @@ struct ControlPanelView: View {
         await client.startConnection(value: CodingManager.encodeToJSON(
             data: CPRMessageModel(clawControl: controlPanelModel.clawShouldOpen,
                                   positionAndRotation: positionAndRotation,
-                                  width: objectWidth)))
+                                  objectWidth: objectWidth)))
     }
 }
