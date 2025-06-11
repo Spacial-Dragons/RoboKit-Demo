@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="Media/AppIcon.png" alt="Logo" width="130" height="130">
+  <img src="Media/AppIcon-Light.png#gh-light-mode-only" alt="Logo" width="130" height="130">
+    <img src="Media/AppIcon-Dark.png#gh-dark-mode-only" alt="Logo" width="130" height="130">
   <h2 align="center">
     RoboKit Demo
   </h2>

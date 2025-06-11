@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A51B0B72DF0332E00C901F0 /* RoboKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1A51B0B62DF0332E00C901F0 /* RoboKit */; };
+		1AE52DA42DF1C1E500F9EE23 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE52DA32DF1C1E500F9EE23 /* RealityKitContent */; };
 		1AE697CB2DDB32390035FFEC /* SampleCode.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697C92DDB32390035FFEC /* SampleCode.xcconfig */; };
 		1AE697CD2DDB32620035FFEC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697CC2DDB32620035FFEC /* LICENSE */; };
 		1AE697CF2DDB32670035FFEC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697CE2DDB32670035FFEC /* README.md */; };
-		BDBA87252DD4A298009614D1 /* RoboKit in Frameworks */ = {isa = PBXBuildFile; productRef = BDBA87242DD4A298009614D1 /* RoboKit */; };
-		CCAA30812DC51AC6002FB96E /* RoboKit in Frameworks */ = {isa = PBXBuildFile; productRef = CCAA30802DC51AC6002FB96E /* RoboKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +29,13 @@
 			);
 			target = 1A9E4D082D8B007C00D8D5A8 /* RoboKit Demo */;
 		};
+		1AE52DA12DF1C1DB00F9EE23 /* Exceptions for "Packages" folder in "RoboKit Demo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				RealityKitContent,
+			);
+			target = 1A9E4D082D8B007C00D8D5A8 /* RoboKit Demo */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,6 +47,14 @@
 			path = "RoboKit Demo";
 			sourceTree = "<group>";
 		};
+		1AE52DA02DF1C1DB00F9EE23 /* Packages */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1AE52DA12DF1C1DB00F9EE23 /* Exceptions for "Packages" folder in "RoboKit Demo" target */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,8 +62,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCAA30812DC51AC6002FB96E /* RoboKit in Frameworks */,
-				BDBA87252DD4A298009614D1 /* RoboKit in Frameworks */,
+				1AE52DA42DF1C1E500F9EE23 /* RealityKitContent in Frameworks */,
+				1A51B0B72DF0332E00C901F0 /* RoboKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,11 +73,13 @@
 		1A9E4D002D8B007C00D8D5A8 = {
 			isa = PBXGroup;
 			children = (
+				1AE52DA02DF1C1DB00F9EE23 /* Packages */,
 				1A9E4D0B2D8B007C00D8D5A8 /* RoboKit Demo */,
 				1A9E4D0A2D8B007C00D8D5A8 /* Products */,
 				1AE697CC2DDB32620035FFEC /* LICENSE */,
 				1AE697CE2DDB32670035FFEC /* README.md */,
 				1AE697C92DDB32390035FFEC /* SampleCode.xcconfig */,
+				1AE52DA22DF1C1E500F9EE23 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +89,13 @@
 				1A9E4D092D8B007C00D8D5A8 /* RoboKit Demo.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1AE52DA22DF1C1E500F9EE23 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -88,15 +112,16 @@
 			buildRules = (
 			);
 			dependencies = (
-				1A88C1F02DDB2818003E3E7F /* PBXTargetDependency */,
+				1A88A0CB2DEDD22D00F10506 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				1A9E4D0B2D8B007C00D8D5A8 /* RoboKit Demo */,
+				1AE52DA02DF1C1DB00F9EE23 /* Packages */,
 			);
 			name = "RoboKit Demo";
 			packageProductDependencies = (
-				CCAA30802DC51AC6002FB96E /* RoboKit */,
-				BDBA87242DD4A298009614D1 /* RoboKit */,
+				1A51B0B62DF0332E00C901F0 /* RoboKit */,
+				1AE52DA32DF1C1E500F9EE23 /* RealityKitContent */,
 			);
 			productName = "Testing RoboKit";
 			productReference = 1A9E4D092D8B007C00D8D5A8 /* RoboKit Demo.app */;
@@ -110,7 +135,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					1A9E4D082D8B007C00D8D5A8 = {
 						CreatedOnToolsVersion = 16.2;
@@ -127,8 +152,8 @@
 			mainGroup = 1A9E4D002D8B007C00D8D5A8;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				BDBA87232DD4A298009614D1 /* XCRemoteSwiftPackageReference "RoboKit" */,
-				1A88C1EE2DDB278B003E3E7F /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				1A51B0B52DF0332E00C901F0 /* XCLocalSwiftPackageReference "../RoboKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1A9E4D0A2D8B007C00D8D5A8 /* Products */;
@@ -164,9 +189,9 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1A88C1F02DDB2818003E3E7F /* PBXTargetDependency */ = {
+		1A88A0CB2DEDD22D00F10506 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 1A88C1EF2DDB2818003E3E7F /* SwiftLintBuildToolPlugin */;
+			productRef = 1A88A0CA2DEDD22D00F10506 /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -263,6 +288,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = GXDG2KXXXC;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -327,6 +353,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = GXDG2KXXXC;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -371,8 +398,15 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		1A51B0B52DF0332E00C901F0 /* XCLocalSwiftPackageReference "../RoboKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../RoboKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
-		1A88C1EE2DDB278B003E3E7F /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+		1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
 			requirement = {
@@ -380,30 +414,21 @@
 				minimumVersion = 0.59.1;
 			};
 		};
-		BDBA87232DD4A298009614D1 /* XCRemoteSwiftPackageReference "RoboKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Spacial-Dragons/RoboKit";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1A88C1EF2DDB2818003E3E7F /* SwiftLintBuildToolPlugin */ = {
+		1A51B0B62DF0332E00C901F0 /* RoboKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1A88C1EE2DDB278B003E3E7F /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = RoboKit;
+		};
+		1A88A0CA2DEDD22D00F10506 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
-		BDBA87242DD4A298009614D1 /* RoboKit */ = {
+		1AE52DA32DF1C1E500F9EE23 /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BDBA87232DD4A298009614D1 /* XCRemoteSwiftPackageReference "RoboKit" */;
-			productName = RoboKit;
-		};
-		CCAA30802DC51AC6002FB96E /* RoboKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RoboKit;
+			productName = RealityKitContent;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

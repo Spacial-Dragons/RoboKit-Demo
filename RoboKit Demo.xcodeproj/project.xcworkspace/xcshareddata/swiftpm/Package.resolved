@@ -1,15 +1,6 @@
 {
-  "originHash" : "273e56d14f035a5e8b8ec7cf4454374bd86a2bf3ef8095af139ca7bed972cef1",
+  "originHash" : "3258db6b1eac937af1bd136438db62a5e38878b2db6ec12d7ca86667e026878f",
   "pins" : [
-    {
-      "identity" : "robokit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Spacial-Dragons/RoboKit",
-      "state" : {
-        "branch" : "main",
-        "revision" : "3031ffb2f78381b5d19992d663537fdd0ac711b5"
-      }
-    },
     {
       "identity" : "swiftlintplugins",
       "kind" : "remoteSourceControl",
