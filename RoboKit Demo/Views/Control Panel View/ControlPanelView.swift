@@ -10,7 +10,7 @@ import RoboKit
 
 struct ControlPanelView: View {
 
-    @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
+    @Environment(InputEntityManager.self) private var inputEntityManager: InputEntityManager
     @Environment(FormManager.self) private var formManager: FormManager
     @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
 
@@ -194,8 +194,8 @@ struct ControlPanelView: View {
         // Start sending data based on the selected transmission mode
         switch controlPanelModel.selectedDataMode {
         case .live:
-            position = inputSphereManager.getInputSpherePosition()?.array ?? [0.0, 0.0, 0.3]
-            rotation = inputSphereManager.getInputSphereRotation()?.array ?? [1, 0, 0, 0, 1, 0, 0, 0, 1]
+            position = inputEntityManager.getInputEntityPosition()?.array ?? [0.0, 0.0, 0.3]
+            rotation = inputEntityManager.getInputEntityRotation()?.array ?? [1, 0, 0, 0, 1, 0, 0, 0, 1]
         case .set:
             position = formManager.getFormPosition().array
             rotation = formManager.getFormRotation().array

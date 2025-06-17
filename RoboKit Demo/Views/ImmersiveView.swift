@@ -19,8 +19,8 @@ struct ImmersiveView: View {
     // Image tracker with AR resource group and images with specified offsets.
     @Environment(ImageTracker.self) var imageTracker: ImageTracker
 
-    // Input Sphere Manager used to control properties of the Input Sphere
-    @Environment(InputSphereManager.self) var inputSphereManager: InputSphereManager
+    // Input Entity Manager used to control properties of the Input Cube
+    @Environment(InputEntityManager.self) var inputCubeManager: InputEntityManager
 
     var body: some View {
         // Initialize RealityView and add the parent entity to the scene.
@@ -33,26 +33,26 @@ struct ImmersiveView: View {
             updateRootEntity(with: imageTracker.rootTransform)
             updateTrackingEntities(with: imageTracker.trackedImagesTransform)
 
-            // Add Input Sphere entity to the parent entity above the root point if it doesn't exist yet.
+            // Add Input Cube entity to the parent entity above the root point if it doesn't exist yet.
             Task {
-                await self.setupInputSphere()
+                await self.setupInputCube()
             }
         }
 
-        // Add Input Sphere Drag Gesture recognition and handling.
-        .inputSphereDragGesture(
+        // Add Input Cube Drag Gesture recognition and handling.
+        .inputEntityDragGesture(
             parentEntity: parentEntity,
             rootPoint: rootPoint,
-            inputSphereManager: inputSphereManager
+            inputEntityManager: inputCubeManager
         )
 
         .onChange(of: imageTracker.rootTransform) {
             // When the root transform changes, update the corresponding entity.
             updateRootEntity(with: imageTracker.rootTransform)
 
-            // Add Input Sphere entity to the parent entity above the root point if it doesn't exist yet.
+            // Add Input Cube entity to the parent entity above the root point if it doesn't exist yet.
             Task {
-                await self.setupInputSphere()
+                await self.setupInputCube()
             }
         }
 
@@ -62,11 +62,11 @@ struct ImmersiveView: View {
         }
     }
 
-    // Add Input Sphere entity to the parent entity above the root point if it doesn't exist yet.
-    func setupInputSphere() async {
+    // Add Input Cube entity to the parent entity above the root point if it doesn't exist yet.
+    func setupInputCube() async {
         let brandedCube = await brandedCubeModelEntity()
 
-        inputSphereManager.addInputSphere(
+        inputCubeManager.addInputEntity(
             parentEntity: parentEntity,
             rootPoint: rootPoint,
             modelEntity: brandedCube

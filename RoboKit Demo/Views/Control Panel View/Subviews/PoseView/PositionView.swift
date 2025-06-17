@@ -8,7 +8,7 @@
 import SwiftUI
 import RoboKit
 
-/// Displays position of the input sphere in live mode
+/// Displays position of the input cube in live mode
 /// and allows to set the position using input fields in the "Set" mode
 public struct PositionView: View {
     @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
@@ -20,7 +20,7 @@ public struct PositionView: View {
             switch controlPanelModel.selectedDataMode {
             case .live:
                 ForEach(Array(Axis.allCases.enumerated()), id: \.element) { index, axis in
-                    RoboKit.InputSpherePositionText(axis: axis, showFullDescription: true)
+                    RoboKit.InputEntityPositionText(axis: axis, showFullDescription: true)
                     if index != RoboKit.Axis.allCases.count - 1 {
                         Spacer()
                     }

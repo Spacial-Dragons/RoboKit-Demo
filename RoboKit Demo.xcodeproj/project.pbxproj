@@ -12,6 +12,7 @@
 		1AE697CB2DDB32390035FFEC /* SampleCode.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697C92DDB32390035FFEC /* SampleCode.xcconfig */; };
 		1AE697CD2DDB32620035FFEC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697CC2DDB32620035FFEC /* LICENSE */; };
 		1AE697CF2DDB32670035FFEC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1AE697CE2DDB32670035FFEC /* README.md */; };
+		BD11AC672E01BF8E009D4C5B /* RoboKit in Frameworks */ = {isa = PBXBuildFile; productRef = BD11AC662E01BF8E009D4C5B /* RoboKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD11AC672E01BF8E009D4C5B /* RoboKit in Frameworks */,
 				1AE52DA42DF1C1E500F9EE23 /* RealityKitContent in Frameworks */,
 				1A51B0B72DF0332E00C901F0 /* RoboKit in Frameworks */,
 			);
@@ -122,6 +124,7 @@
 			packageProductDependencies = (
 				1A51B0B62DF0332E00C901F0 /* RoboKit */,
 				1AE52DA32DF1C1E500F9EE23 /* RealityKitContent */,
+				BD11AC662E01BF8E009D4C5B /* RoboKit */,
 			);
 			productName = "Testing RoboKit";
 			productReference = 1A9E4D092D8B007C00D8D5A8 /* RoboKit Demo.app */;
@@ -153,7 +156,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				1A88A0C92DEDD22600F10506 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
-				1A51B0B52DF0332E00C901F0 /* XCLocalSwiftPackageReference "../RoboKit" */,
+				BD11AC652E01BF8E009D4C5B /* XCLocalSwiftPackageReference "../../RoboKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1A9E4D0A2D8B007C00D8D5A8 /* Products */;
@@ -399,9 +402,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		1A51B0B52DF0332E00C901F0 /* XCLocalSwiftPackageReference "../RoboKit" */ = {
+		BD11AC652E01BF8E009D4C5B /* XCLocalSwiftPackageReference "../../RoboKit" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../RoboKit;
+			relativePath = ../../RoboKit;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -429,6 +432,10 @@
 		1AE52DA32DF1C1E500F9EE23 /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;
+		};
+		BD11AC662E01BF8E009D4C5B /* RoboKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RoboKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

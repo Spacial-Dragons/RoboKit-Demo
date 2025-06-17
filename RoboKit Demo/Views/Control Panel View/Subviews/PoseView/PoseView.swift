@@ -8,7 +8,7 @@
 import SwiftUI
 import RoboKit
 
-// A view that displays Position and Orientation of the input sphere and allows to input custom values
+// A view that displays Position and Orientation of the input entity and allows to input custom values
 public struct PoseView: View {
     @Environment(ControlPanelModel.self) private var controlPanelModel: ControlPanelModel
 
