@@ -9,8 +9,8 @@ import SwiftUI
 import RoboKit
 import RealityFoundation
 
-// View that allows us to set the orientation of the Input Sphere using Sliders
-// The view will display the orientation of the sphere, if the root point is not defined yet.
+// View that allows us to set the orientation of the Input Entity using Sliders
+// The view will display the orientation of the entity, if the root point is not defined yet.
 public struct RotationView: View {
     @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
     @Environment(ControlPanelModel.self) private var controlPanelModel: ControlPanelModel
@@ -23,7 +23,7 @@ public struct RotationView: View {
                 Group {
                     if let rootTransform = imageTracker.rootTransform {
                         ForEach(Array(EulerAngle.allCases.enumerated()), id: \.element) { index, eulerAngle in
-                            RoboKit.InputSphereRotationSlider(
+                            RoboKit.InputEntityRotationSlider(
                                 rootPoint: getRootPointEntity(from: rootTransform),
                                 eulerAngle: eulerAngle
                             )
@@ -33,7 +33,7 @@ public struct RotationView: View {
                         }
                     } else {
                         ForEach(EulerAngle.allCases, id: \.self) { eulerAngle in
-                            RoboKit.InputSphereRotationText(eulerAngle: eulerAngle)
+                            RoboKit.InputEntityRotationText(eulerAngle: eulerAngle)
                         }
                     }
                 }

@@ -8,7 +8,7 @@ struct RoboKitDemo: App {
     private let windowGroupID: String = "WindowGroup"
 
     private var imageTracker: RoboKit.ImageTracker
-    private var inputSphereManager: InputSphereManager
+    private var inputCubeManager: InputEntityManager
     private var formManager: FormManager
 
     @Environment(\.openWindow) private var openWindow
@@ -26,8 +26,8 @@ struct RoboKitDemo: App {
             fatalError("Failed to initialize image tracker: \(error)")
         }
 
-        // Initialize InputSphereManager
-        inputSphereManager = InputSphereManager()
+        // Initialize InputEntityManager
+        inputCubeManager = InputEntityManager()
 
         // Initialize FormManager
         formManager = FormManager()
@@ -53,7 +53,7 @@ struct RoboKitDemo: App {
         }
 
         // Pass down environment variables
-        .environment(inputSphereManager)
+        .environment(inputCubeManager)
         .environment(formManager)
         .environment(imageTracker)
     }

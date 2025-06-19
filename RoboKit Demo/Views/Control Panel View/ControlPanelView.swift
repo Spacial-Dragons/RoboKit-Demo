@@ -10,7 +10,7 @@ import RoboKit
 
 struct ControlPanelView: View {
 
-    @Environment(InputSphereManager.self) private var inputSphereManager: InputSphereManager
+    @Environment(InputEntityManager.self) private var inputEntityManager: InputEntityManager
     @Environment(FormManager.self) private var formManager: FormManager
     @Environment(\.accessibilityReduceMotion) var isReduceMotionEnabled
 
@@ -18,8 +18,8 @@ struct ControlPanelView: View {
     @State private var controlPanelModel = ControlPanelModel()
 
     // TCP client and server used to send data and receive data
-    @State private var client: TCPClient?
-    @State private var server: TCPServer?
+    @State private var client: TCPClient<CPRMessageModel>?
+    @State private var server: TCPServer<CPRMessageModel>?
 
     // Hash set containing currently selected (active) tabs
     @State private var selectedTabs: Set<TabItem> = Set(TabItem.allCases)
@@ -153,7 +153,7 @@ struct ControlPanelView: View {
 
     // Function that initializes the local tcp client
     private func initializeClient() async {
-        let client = await TCPClient(host: NetworkSettings.host, port: NetworkSettings.port)
+        let client = await TCPClient<CPRMessageModel>(host: NetworkSettings.host, port: NetworkSettings.port)
         self.client = client
     }
 
@@ -163,7 +163,7 @@ struct ControlPanelView: View {
         guard NetworkSettings.shouldRunServer else { return }
 
         do {
-            let server = try await TCPServer(port: NetworkSettings.port.rawValue)
+            let server = try await TCPServer<CPRMessageModel>(port: NetworkSettings.port.rawValue)
             try await server.start(logMessage: "Started server")
             self.server = server
         } catch {
@@ -194,8 +194,8 @@ struct ControlPanelView: View {
         // Start sending data based on the selected transmission mode
         switch controlPanelModel.selectedDataMode {
         case .live:
-            position = inputSphereManager.getInputSpherePosition()?.array ?? [0.0, 0.0, 0.3]
-            rotation = inputSphereManager.getInputSphereRotation()?.array ?? [1, 0, 0, 0, 1, 0, 0, 0, 1]
+            position = inputEntityManager.getInputEntityPosition()?.array ?? [0.0, 0.0, 0.3]
+            rotation = inputEntityManager.getInputEntityRotation()?.array ?? [1, 0, 0, 0, 1, 0, 0, 0, 1]
         case .set:
             position = formManager.getFormPosition().array
             rotation = formManager.getFormRotation().array
@@ -203,11 +203,12 @@ struct ControlPanelView: View {
 
         // Combine position and rotation to a 9-value array
         let positionAndRotation = position + rotation
+        let adjustedPositionAndRotation = positionAndRotation.map { Double($0) }
 
         // Initialize connection from the client
         await client.startConnection(value: CodingManager.encodeToJSON(
             data: CPRMessageModel(clawControl: controlPanelModel.clawShouldOpen,
-                                  positionAndRotation: positionAndRotation,
+                                  positionAndRotation: adjustedPositionAndRotation,
                                   objectWidth: objectWidth)))
     }
 }

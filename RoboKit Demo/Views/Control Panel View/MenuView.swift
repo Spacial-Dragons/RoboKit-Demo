@@ -19,7 +19,7 @@ extension ControlPanelView {
         func viewForAxis(_ axis: RoboKit.Axis) -> some View {
             switch controlPanelModel.selectedDataMode {
             case .live:
-                RoboKit.InputSpherePositionText(axis: axis)
+                RoboKit.InputEntityPositionText(axis: axis)
             case .set:
                 RoboKit.FormPositionText(axis: axis)
             }

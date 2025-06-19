@@ -23,7 +23,7 @@ extension ControlPanelView {
                     Divider()
                 }
 
-                // Set the position and orientation of the Input Sphere
+                // Set the position and orientation of the Input Cube
                 if selectedTabs.contains(.pose) {
                     PoseView()
                         .transition(.opacity)
