@@ -10,6 +10,12 @@ A showcase app demonstrating the different modules available in **RoboKit** — 
 
 For full documentation, visit the official [RoboKit GitHub Repository](https://github.com/Spacial-Dragons/RoboKit).
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0cdf4f16-3331-4e78-8fdd-97f2c484b277" alt="GIF">
+  <h6 align="center">
+    Footage of the RoboKit demo – controlling the KUKA robot in real time.
+  </h6>
+</p>
 
 ## Requirements
 - visionOS 2.0+
